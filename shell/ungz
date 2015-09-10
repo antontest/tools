@@ -1,0 +1,23 @@
+#! /bin/bash
+#脚本功能：
+	#解压tar.gz压缩包
+#创建时间：
+	#2015-01-31 16:21:02
+
+if test $# -ne 1 ; then 
+    if test $# -eq 0 ; then
+        echo 请输入tar.gz压缩包路径！
+        exit 1
+    elif test $# -gt 1 ; then
+        echo 同时只能解压一个压缩包!
+        exit 2
+    fi
+fi
+
+if test -z $(find . -maxdepth 1 -name $1) ; then
+    echo 指定的压缩包不存在!
+    exit 3
+fi
+
+tar -zvxf $1
+exit 0

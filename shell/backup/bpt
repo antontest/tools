@@ -1,0 +1,6 @@
+#! /bin/bash
+#Name: bpt
+#Function: 
+#Create Time: 2015-06-01 12:27:46
+
+cp -avx ~/.tmux.conf ~/.tmux.bak/.tmux.conf.bak.$(date +%Y.%m.%d.%H.%M.%S)

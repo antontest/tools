@@ -1,0 +1,16 @@
+#! /bin/bash
+#脚本功能：
+	#代码格式化
+#创建时间：
+	#2014-11-06 12:28:14
+
+if test $# -lt 1 ; then
+	echo 请输入需要格式化的文件！
+	exit 0
+fi
+
+#格式化文件
+cmd="astyle --style=ansi --brackets=break --indent-switches --indent=spaces --indent-cases --indent-preprocessor --pad-oper --unpad-paren --keep-one-line-statements --keep-one-line-blocks --convert-tabs --suffix=.orig "
+$cmd $@
+
+exit 0

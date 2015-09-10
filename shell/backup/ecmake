@@ -1,0 +1,92 @@
+#! /bin/bash
+# Name : ecmake
+# Func : exec cmake project like make, make clean 
+# Time : 2015-08-19 15:00:11
+
+if test $# -gt 2 ; then
+    echo -e "\033[1;31mUsage: `basename $0` [c | r | e | d | x | u]\033[0m"
+    echo -e "\033[1;31m       `basename $0` [clean | rebuild | del | exec | uninstall]\033[0m"
+    echo -e "\033[1;31mUsage: `basename $0` [-c | -r | -e | -d | -x | -u]\033[0m"
+    echo -e "\033[1;31m       `basename $0` [--clean | --rebuild | --del | --exec | --uninstall]\033[0m"
+    echo -e "\033[1;31mUsage: `basename $0` [i | -i | intall | --install] intall_path\033[0m"
+    exit 1
+fi
+
+# find cmake files
+cmake_files=`find -name CMakeLists.txt | sed "s/^\.\///g" | grep -v "^\..*"`
+test -z "$cmake_files" && 
+echo -e "\033[1;31mCould not find CMakeLists.txt!\033[0m" && 
+exit 1
+
+# get exec path and bin name
+exec_path=`sed -n 's/^set\ *(executable_output_path\ *\(.*\))$/\1/Ip' $cmake_files | sed 's/\${project_source_dir}/.\//Ig'`
+exec_name=`sed -n "/^add_execut.*/Is/.*(\(.*\)\ .*$/\1/pg" $cmake_files \
+|| sed -n "/^target_link_lib.*/Is/.*(\(.*\)\ .*$/\1/pg" $cmake_files`
+bin_path=`sed -n "/add_subdir.*/Is/.*\ \(.*\))$/\1/pg" $cmake_files`
+test -z "$exec_path" && exec_path=build/$bin_path`test "${bin_path:((${#bin_path}-1)):1}" != "/" && echo "/"`
+exec=$exec_path$exec_name
+
+# cmake compile
+if test $# -eq 0 ; then
+     #if build is not existed, then create it
+     test ! -d build && mkdir build
+
+     #if bin is existed, then exec it
+     #test -x $exec && 
+     #echo -e "\033[1;35m---------------------start---------------------\033[0m" &&
+     #$exec &&
+     #echo -e "\033[1;35m----------------------end----------------------\033[0m" &&
+     #exit 0
+
+     #compile
+     cd build && cmake .. && make && exit 0
+     exit 1
+fi
+
+case "$1" in
+    "-c"|"c"|"clean"|"--clean")
+        test -d build && cd build && make clean
+        exit 0 ;;
+    "-r"|"r"|"rebuild"|"--rebuild")
+        $0 c ; $0
+        exit 0 ;;
+    "-d"|"d"|"del"|"--del")
+        test -d build && rm -rf build && exit 0
+        exit 1 ;;
+    "-i"|"i"|"install"|"--install")
+        test $# -eq 1 && path=$TOOLS_PATH || path=$2
+        test -d build && cd build && cmake .. -DCMAKE_INSTALL_PREFIX=$path && make install && exit 0
+        exit 1 ;;
+    "-u"|"u"|"uninstall"|"uninstall")
+        test -r build/install_manifest.txt && (cat build/install_manifest.txt | xargs rm -v) && exit 0
+        exit 1 ;;
+    "-h"|"h"|"help"|"--help")
+        echo -e "\033[1;31mUsage: `basename $0` [c | r | e | d | x | u]\033[0m"
+        echo -e "\033[1;31m       `basename $0` [clean | rebuild | del | exec | uninstall]\033[0m"
+        echo -e "\033[1;31mUsage: `basename $0` [-c | -r | -e | -d | -x | -u]\033[0m"
+        echo -e "\033[1;31m       `basename $0` [--clean | --rebuild | --del | --exec | --uninstall]\033[0m"
+        echo -e "\033[1;31mUsage: `basename $0` [i | -i | intall | --install] intall_path\033[0m"
+        exit 1 ;;
+    *) ;;
+esac
+
+case "$1" in
+    "-e"|"e"|"exec"|"--exec")
+        test -x $exec && 
+            ( 
+            echo -e "\033[1;35m---------------------start---------------------\033[0m"
+            $exec 2>&1 
+            echo -e "\033[1;35m----------------------end----------------------\033[0m"
+            ) ||
+            (
+            test -e $exec && \
+            echo -e "\033[1;35m$exec_name\033[0m\033[1;31m: has no execute pemission!\033[0m" \
+            || echo -e "\033[1;35m$exec_name\033[0m\033[1;31m: is not existed!\033[0m"
+            )
+        ;;
+    "-x"|"x")
+        test -e $exec && 
+        test ! -x $exec && 
+        chmod +x $exec
+        ;;
+esac

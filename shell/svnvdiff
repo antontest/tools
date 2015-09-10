@@ -1,0 +1,4 @@
+#! /bin/bash
+sed -i -e 's/^# diff-cmd.*$/diff-cmd=tvimdiff/' ~/.subversion/config
+svn diff $@
+sed -i -e 's/^diff-cmd.*$/# diff-cmd=/' ~/.subversion/config

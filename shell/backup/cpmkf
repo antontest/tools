@@ -1,0 +1,47 @@
+#! /bin/bash
+#    Name  : cpmkf
+# Function : 
+#    Time  : 2015-06-01 12:46:03
+
+project_flag=0
+
+function print_usage()
+{
+    echo -e "\e[1;31m#-------------------Shell Usage------------------#"
+    echo "Usage  : $(basename $0) [options] script-name"
+    echo "Options: "
+    echo "     -h,--help        show usage of shell"
+    echo "     -p,--project     add -p/--project for copy project shell template"
+    echo -e "#-------------------Shell Usage-------------------#\e[0m"
+}
+
+function parser_args()
+{
+	TEMP=`getopt -o hp --long help,project \
+     -n 'mksh' -- "$@"`
+
+    if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+    # Note the quotes around `$TEMP': they are essential!
+    # set 会重新排列参数的顺序，也就是改变$1,$2...$n的值，这些值在getopt中重新排列过了
+    eval set -- "$TEMP"
+
+    #经过getopt的处理，下面处理具体选项。
+    while test -n "$1" ; do
+        case "$1" in
+            -h|--help) print_usage $@; shift ;;
+            -p|--project) project_flag=1 ; shift ;;
+            --) shift ; break ;;
+            *) echo "Internal error!" ; exit 1 ;;
+        esac
+    done
+
+    return 0
+}
+
+parser_args $@
+if test $project_flag -eq 0 ; then
+    cp -avx $MAKEFILE_PATH/Makefile Makefile
+else 
+    cp -avx $MAKEFILE_PATH/Makefile-project Makefile
+fi

@@ -1,0 +1,110 @@
+#! /bin/bash
+# Name : printcmake
+# Func : print cmake info in CMakeLists.txt 
+# Time : 2015-08-17 12:43:03
+function print_usage()
+{
+    echo -e "\033[1;31m"
+    echo "Usage: printcmake [hpsilaet]"
+    echo "       printcmake [help,project,subdirectory,include,link-dir,aux,execut,target-link]" 
+    echo "Options:  "
+    echo "    -h | --help       show usage of printcmake"
+    echo "    -p | --project    show project name"
+    echo "    -s | --subdir     show subdirectory of project"
+    echo "    -i | --include    show include path of project"
+    echo "    -l | --linkpath   show lib link directories of project"
+    echo "    -a | --auxsrcpath show .c source directory path of project"
+    echo "    -e | --exec       show project target bin"
+    echo "    -t | --targetlink show dependent lib"
+    echo "    --all             show all info of CMakeLists.txt in current dir"
+    echo -e "\033[0m"
+}
+
+function print_proname()
+{
+    ret=`grep -i "^project\ *(" $@ | sed "s/project\ *(\(.*\))$/\1/Ig"`
+    if test -n "$ret" ; then
+        echo -e "\033[1;35mCMake Project Name: \033[1;36m$ret\033[0m"
+    fi
+}
+
+function print_subdir()
+{
+    ret=`grep -i "^add_subdir.*\ *(" $@ | sed "s/add_subdir.*\ *(\(.*\)\ [a-zA-Z]\{1,\})$/\1/Ig"`
+    if test -n "$ret" ; then
+        echo -e "\033[1;35mCMake SubDirectory Name: \033[1;36m$ret\033[0m"
+    fi
+}
+
+function print_include()
+{
+    ret=`grep -i "^include_dir.*\ *(" $@ | sed "s/include_dir.*\ *(\(.*\))$/\1/Ig"`
+    if test -n "$ret" ; then
+        echo -e "\033[1;35mCMake Include Path: \033[1;36m$ret\033[0m"
+    fi
+}
+
+function print_linkpath()
+{
+    ret=`grep -i "^link_dir.*\ *(" $@ | sed "s/link_dir.*\ *(\(.*\))$/\1/Ig"`
+    if test -n "$ret" ; then
+        echo -e "\033[1;35mCMake Link Lib Path: \033[1;36m$ret\033[0m"
+    fi
+}
+
+function print_src()
+{
+    ret=`grep -i "^aux_source_dir.*\ *(" $@ | sed "s/aux_source_dir.*\ *(\(.*\)\ .*)$/\1/Ig" | sed ":a;N;s/\n/ /g"`
+    if test -n "$ret" ; then
+        echo -e "\033[1;35mCMake Source Path: \033[1;36m$ret\033[0m"
+    fi
+}
+
+function print_exec()
+{
+    ret=`grep -i "^add_execut.*\ *(" $@ | sed "s/add_exec.*\ *(\(.*\)\ .*)$/\1/Ig"`
+    if test -n "$ret" ; then
+        echo -e "\033[1;35mCMake Exec Bin Name: \033[1;36m$ret\033[0m"
+    fi
+}
+
+function print_target_link()
+{
+    ret=`grep -i "^target_link_libr.*\ *(" $@ | sed "s/target_link_libra.*\ *(.*\ \(.*\))$/\1/Ig"`
+    if test -n "$ret" ; then
+        echo -e "\033[1;35mCMake Library Name: \033[1;36m$ret\033[0m"
+    fi
+}
+
+
+if test $# -lt 1 ; then
+    print_usage
+    exit 1
+fi
+
+file=`pwd`/CMakeLists.txt
+if test ! -e $file ; then
+    echo "CMakeLists.txt does not exist!"
+    exit 1
+fi
+
+temp=`getopt -o hpsilaet --long help,project,subdirectory,include,linkpath,auxsrcpath,exec,targetlink,all -n 'printcmake' -- "$@"`
+if test $? -ne 0 ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+eval set -- "$temp"
+while test -n $1
+do
+    case "$1" in
+    -h|--help)          print_usage ; exit 1;;
+    -p|--project)       print_proname $file; shift ;; 
+    -s|--subdir)        print_subdir $file; shift ;; 
+    -i|--include)       print_include $file; shift ;; 
+    -l|--linkpath)      print_linkpath $file; shift ;; 
+    -a|--auxsrcpath)    print_src $file; shift ;; 
+    -e|--exec)          print_exec $file; shift ;; 
+    -t|--targetlink)    print_target_link $file; shift ;; 
+    --all)              $0 -p -s -i -l -a -e -t ; exit 1;;
+    --) shift ; break ;;
+    *) echo "Internal error!" ; exit 1 ;;
+    esac
+done

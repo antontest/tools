@@ -1,0 +1,7 @@
+#! /bin/bash
+#Name: bpv
+#Function: 
+#Create Time: 2015-06-01 12:27:36
+
+tar -cvf usr-share-vim.tar /usr/share/vim/addons/ /usr/share/vim/vim72
+tar -cvf etc-vim.tar /etc/vim

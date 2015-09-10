@@ -1,0 +1,10 @@
+#! /bin/bash
+#Name: format
+#Function: format style of .c or .cpp 
+#Create Time: 2015-05-28 15:43:14
+
+style="astyle --style=linux --brackets=break --indent-switches --indent=spaces --indent-cases --indent-preprocessor --pad-oper --unpad-paren --keep-one-line-statements --keep-one-line-blocks --convert-tabs --suffix=.orig "
+for f in $(find . -name '*.c' -or -name '*.cpp' -or -name '*.h' -type f)
+do
+    $style $f
+done

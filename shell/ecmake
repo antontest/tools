@@ -1,0 +1,125 @@
+#! /bin/bash
+# Name : ecmake
+# Func : exec cmake project like make, make clean 
+# Time : 2015-08-19 15:00:11
+
+#if test $# -gt 2 ; then
+#    echo -e "\033[1;31mUsage: `basename $0` [c | r | e | d | x | u]\033[0m"
+#    echo -e "\033[1;31m       `basename $0` [clean | rebuild | del | exec | uninstall]\033[0m"
+#    echo -e "\033[1;31mUsage: `basename $0` [-c | -r | -e | -d | -x | -u]\033[0m"
+#    echo -e "\033[1;31m       `basename $0` [--clean | --rebuild | --del | --exec | --uninstall]\033[0m"
+#    echo -e "\033[1;31mUsage: `basename $0` [i | -i | intall | --install] intall_path\033[0m"
+#    exit 1
+#fi
+
+# find cmake files
+cmake_files=`find -name CMakeLists.txt | sed "s/^\.\///g" | grep -v "^\..*"`
+test -z "$cmake_files" && 
+echo -e "\033[1;31mCould not find CMakeLists.txt!\033[0m" && 
+exit 1
+
+# get exec path and bin name
+exec_path=`sed -n 's/^set\ *(executable_output_path\ *\(.*\))$/\1/Ip' $cmake_files | sed 's/\${project_source_dir}/.\//Ig'`
+exec_name=`sed -n "/^add_execut.*/Is/.*(\(.*\)\ .*$/\1/pg" $cmake_files \
+|| sed -n "/^target_link_lib.*/Is/.*(\(.*\)\ .*$/\1/pg" $cmake_files`
+bin_path=`sed -n "/add_subdir.*/Is/.*\ \(.*\))$/\1/pg" $cmake_files`
+test -z "$exec_path" && exec_path=build/$bin_path`test "${bin_path:((${#bin_path}-1)):1}" != "/" && echo "/"`
+exec_cnt=`echo $exec_name | awk '{ print NF }'`
+
+# cmake compile
+if test $# -eq 0 ; then
+     #if build is not existed, then create it
+     test ! -d build && mkdir build
+
+     #if bin is existed, then exec it
+     #test -x $exec && 
+     #echo -e "\033[1;35m---------------------start---------------------\033[0m" &&
+     #$exec &&
+     #echo -e "\033[1;35m----------------------end----------------------\033[0m" &&
+     #exit 0
+
+     #compile
+     cd build && cmake .. && make && exit 0
+     exit 1
+fi
+
+cmd=$1
+shift
+#test $# -eq 2 && test $exec_cnt -lt $2 && echo -e "\033[1;31mNo such many exec!\033[0m" && exit 1
+case "$cmd" in
+    "-c"|"c"|"clean"|"--clean")
+        test -d build && cd build && make clean
+        exit 0 ;;
+    "-r"|"r"|"rebuild"|"--rebuild")
+        $0 c ; $0
+        exit 0 ;;
+    "-d"|"d"|"del"|"--del")
+        test -d build && cd build && make clean && cd ..
+        test -d build && rm -rf build && exit 0
+        exit 1 ;;
+    "-i"|"i"|"install"|"--install")
+        test -d build && cd build 
+        test $# -eq 2 && cmake .. -DCMAKE_INSTALL_PREFIX=$2
+        make install
+        files=`cat install_manifest.txt | grep -v ".*\.h\|.*\.a\|.*\.so"`
+        test -n "$files" && cmd_install -i $files
+        exit 0 ;;
+    "-u"|"u"|"uninstall"|"uninstall")
+        files=`cat build/install_manifest.txt | grep -v ".*\.h\|.*\.a\|.*\.so"`
+        test -n "$files" && cmd_install -u $files 
+        test -r build/install_manifest.txt && (cat build/install_manifest.txt | xargs rm -v) && exit 0
+        exit 1 ;;
+    "-h"|"h"|"help"|"--help")
+        echo -e "\033[1;31mUsage: `basename $0` [c | r | e | d | x | u]\033[0m"
+        echo -e "\033[1;31m       `basename $0` [clean | rebuild | del | exec | uninstall]\033[0m"
+        echo -e "\033[1;31mUsage: `basename $0` [-c | -r | -e | -d | -x | -u]\033[0m"
+        echo -e "\033[1;31m       `basename $0` [--clean | --rebuild | --del | --exec | --uninstall]\033[0m"
+        echo -e "\033[1;31mUsage: `basename $0` [i | -i | intall | --install] intall_path\033[0m"
+        exit 1 ;;
+    *) ;;
+esac
+
+case "$cmd" in
+    "-e"|"e"|"exec"|"--exec")
+        test -d $exec_path && 
+            ( 
+            test $exec_cnt -eq 1 && 
+            (
+                echo -e "\033[1;35m---------------------start---------------------\033[0m"
+                $exec_path$exec_name $@
+                echo -e "\033[1;35m----------------------end----------------------\033[0m"
+            ) && exit 0
+
+            test $# -eq 2 && 
+            (
+                cnt=0
+                for name in $exec_name
+                do
+                    test $cnt -eq $2 && break
+                    let cnt=cnt+1
+                done
+
+                echo -e "\033[1;35m---------------------$name start---------------------\033[0m"
+                $exec_path$name 2>&1
+                echo -e "\033[1;35m---------------------$name end----------------------\033[0m"
+            ) && exit 0
+
+            for name in $exec_name
+            do
+                echo -e "\033[1;35m---------------------$name start---------------------\033[0m"
+                $exec_path$name 2>&1
+                echo -e "\033[1;35m---------------------$name end----------------------\033[0m"
+            done
+            ) ||
+            (
+            test -e $exec && \
+            echo -e "\033[1;35m$exec_name\033[0m\033[1;31m: has no execute pemission!\033[0m" \
+            || echo -e "\033[1;35m$exec_name\033[0m\033[1;31m: is not existed!\033[0m"
+            )
+        ;;
+    "-x"|"x")
+        test -e $exec && 
+        test ! -x $exec && 
+        chmod +x $exec
+        ;;
+esac

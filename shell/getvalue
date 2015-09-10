@@ -1,0 +1,20 @@
+#! /bin/bash
+#脚本功能：
+	#获取用户基本信息，保存在~/.home_info中
+#创建时间：
+	#2015-02-02 13:09:55
+
+#检测文件是否存在
+if test -f "~/.home_info" ; then
+	echo 信息文件不存在!
+	exit -1
+fi
+
+#预提取的参数不能为空
+if test $# -lt 1 ; then
+	echo 请输入要提取的参数!
+	exit -1
+fi
+
+#提取值
+grep ^$1 ~/.home_info | awk -F "=" '{ print $2 }'

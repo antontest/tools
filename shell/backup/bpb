@@ -1,0 +1,6 @@
+#! /bin/bash
+#Name: bpb
+#Function: 
+#Create Time: 2015-06-01 12:27:42
+
+cp -avx ~/.bashrc ~/.bashrc.bak/.bashrc.bak.$(date +%Y.%m.%d.%H.%M.%S)

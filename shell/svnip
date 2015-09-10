@@ -1,0 +1,39 @@
+#! /bin/bash
+#功能：
+	#当svn服务网IP地址更换时，需要从新更换IP地址
+#时间：
+	#2014-10-28 17:26:48
+
+#对参数进行判断
+if [[ $# -eq 0 ]] ; then
+	echo 请输入svn服务器最新的IP地址！
+	exit -1
+#当输入--help参数时，显示帮助信息
+elif [[ $# -eq 1 ]] ; then
+	if [ "$1" = "--help" ] ; then
+		echo 用法：svnip + svn服务器IP地址
+		echo 如：svnip 192.168.1.105
+		exit -1
+	fi
+fi
+
+#判定svn服务器是否能连通
+for((i=0;i<5;i++))
+do
+    loss=$(pingcheck $1) #丢包检测
+	if test "$loss" = "0" ; then #如果能连通svn服务器，则退出循环
+		break
+	else
+		echo 连接服务器失败!
+		exit -1
+	fi
+done
+
+#更换svn服务器IP地址
+url=$(svn info | grep "URL" | sed 's/^URL:\ //g' | sed 's/\/svn.*//g')
+svn switch --relocate $url https://$1 #更改svn服务器IP地址
+
+#更新home下的.home_info中的svn服务器IP地址
+setvalue svn_ip $1
+
+exit 0

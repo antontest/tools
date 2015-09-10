@@ -1,0 +1,7 @@
+#! /bin/bash
+#    Name  : saferm
+# Function : rm file or directory safely 
+#    Time  : 2015-06-03 09:37:16
+
+cp -r $@ ~/backup
+rm -rf $@

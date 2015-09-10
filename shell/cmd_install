@@ -1,0 +1,134 @@
+#! /bin/bash
+# Name : cmd_install
+# Func : 
+# Time : 2015-09-08 14:54:15
+install_flag=0
+uninstall_flag=0
+
+function print_usage()
+{
+    echo -e "\033[0;31mUsage: cmd_install -i file1,file2,... -u file1, file2,..\033[0m"
+}
+
+function parser_args()
+{
+    #TEMP=`getopt -o iu --long install, unstall -n 'cmd_install' -- "$@"`
+    #if [$? != 0] ; then echo "Termiinating..." >&2 ; exit 1 ; fi
+    #eval set -- "$TEMP"
+    #while test -n "$1" ; do
+    #    case "$1" in
+    #        -i|--install) 
+    #            test -n $optarg 
+    #    esac
+    #done
+
+    while test -n "$1"
+    do
+        if test "$1" = "-i" -o "$arg" = "--install" ; then
+            shift
+            install_flag=1
+
+            for file in $@
+            do
+                if test "${file:0:1}" = "-" ; then
+                    break
+                fi
+                install_file+=$file" "
+                shift
+            done
+
+            test -z "$1" && break
+            continue
+        elif test "$1" = "-u" -o "$arg" = "--uninstall" ; then
+            shift
+            uninstall_flag=1
+
+            for file in $@
+            do
+                if test "${file:0:1}" = "-" ; then
+                    break;
+                fi
+                uninstall_file+=$file" "
+                shift
+            done
+
+            test -z "$1" && break
+            continue
+        else
+            if test "${1:0:1}" = "-" ; then
+                print_usage
+                exit 1
+            fi
+
+            other_arg+=$1" "
+            shift
+        fi
+    done
+}
+
+parser_args $@
+
+if test $install_flag -eq 1 -a -n "$install_file" ; then
+    for file in $install_file
+    do
+        test -e $file && test ! -e /usr/bin/`basename $file` && sudo ln -v -s $file /usr/bin/ 
+    done
+    exit 0
+fi
+
+if test $uninstall_flag -eq 1 -a -n "$uninstall_file" ; then
+    for file in $uninstall_file
+    do
+        test -e $file && test -e /usr/bin/`basename $file` && sudo rm -v /usr/bin/`basename $file`
+    done
+    exit 0
+fi
+
+if test $install_flag -eq 1 ; then 
+    exec_path=/home/anton/tools/shell:/home/anton/tools/exec
+    ln_path=${exec_path//:/ }
+    install_path="\/usr\/bin\/"
+    for path in $ln_path
+    do
+        #files=`find $path -maxdepth 1 -type f | grep -v cmd_install | xargs -I{} basename {} | sed "s/^.*$/test ! -e $install_path& \&\& echo &1 || echo &0"`
+        path_tmp=${path//\//\\\/}
+        
+        for file in `find $path -maxdepth 1 -type f | grep -i -v cmd_install`
+        do
+            test ! -e /usr/bin/`basename $file` && 
+            sudo ln -v -s $file /usr/bin/ 
+        done
+
+        #find $path -maxdepth 1 -type f \
+        #| grep -v cmd_install \
+        #| xargs -I{} basename {} \
+        #| sed "s/^.*$/(test ! -e $install_path& \&\& sudo ln -v -s $path_tmp\/& $install_path);/g" >> $sh_path 
+        #chmod +x $sh_path
+        #$sh_path
+        #| xargs sh -c
+        #find $path -maxdepth 1 -type f | grep -v cmd_install | xargs -I{} ln -v -s {} /usr/bin/
+    done
+    #rm $sh_path
+fi
+
+if test $uninstall_flag -eq 1 ; then 
+    exec_path=/home/anton/tools/shell:/home/anton/tools/exec
+    ln_path=${exec_path//:/ }
+    for path in $ln_path
+    do
+        path_tmp=${path//\//\\\/}
+        
+        for file in `find $path -maxdepth 1 -type f | grep -i -v cmd_install`
+        do
+            test -e /usr/bin/`basename $file` && 
+            sudo rm -v /usr/bin/`basename $file` 
+        done
+        
+        #find $path -maxdepth 1 -type f \
+        #| grep -v cmd_install \
+        #| xargs -I{} basename {} \
+        #| sed 's/^/\/usr\/bin\//g' \
+        #| xargs -I{} rm -v {}
+    done
+fi
+

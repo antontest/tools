@@ -1,0 +1,83 @@
+#! /bin/bash
+#脚本功能：
+	#测试shell命令行参数获取和tab键自动补全
+#创建时间：
+	#2015-02-01 14:48:19
+
+#保存要取值的参数
+name=$1
+shift
+
+#取参数值
+for j in $*
+do
+	#若找到参数，则取参数的值
+	if test "$name" = "$1" ; then
+		shift #命令行左移
+
+		#如果不遇到下一个参数，则一直获取参数的值
+		while [[ "$1" != "" ]]
+		do
+			tmp=$1 #保存值
+
+			#遇到下一个参数，则退出
+			if test "${tmp:0:1}" = "-" ; then
+				break
+			fi
+
+			#保存值
+			args="$args $tmp"
+
+			#命令行左移
+			shift
+		done
+
+		#若结果不为空，打印结果
+		if test -n "$args" ; then
+			echo $args
+		fi
+
+		#找到结果，退出
+		break
+	fi
+	shift
+done
+
+exit 0
+
+#命令行参数循环
+#while [[ "$*" != "" ]]
+for i in $*
+do
+	#获取指定参数后值
+	if test "$1" = "-a" ; then
+		#命令行参数左移
+		shift
+
+		#直到遇到下一个参数“-*“，则否循环获取参数值
+		while [[ "$1" != "" ]]
+		do
+			tmp=$1 #保存命令行参数
+
+			#若检测到下一个命令，则退出
+			if test "${tmp:0:1}" = "-" ; then #{tmp:0:1}取tmp变量的第1个字符
+				break #如果
+			fi
+
+			#保存参数值
+			args="$args $tmp"
+
+			#命令行参数左一一位
+			shift
+		done
+
+		#获取参数值后退出
+		break
+	fi
+	shift
+done
+
+#若参数值为空，则不打印
+if test -n "$args" ; then
+	echo $args
+fi

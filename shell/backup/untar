@@ -1,0 +1,17 @@
+#! /bin/bash
+#脚本功能：
+	#解压后缀为tar的压缩包
+#创建时间：
+	#2015-01-31 15:31:31
+
+if test $# -eq 0 ; then
+	echo 请输入正确的压缩包文件！
+	exit 0
+fi
+
+if test -z $(find . -maxdepth 1 -name $1) ; then
+	echo 压缩包不存在！
+	exit 1
+fi
+
+tar -vxf $1

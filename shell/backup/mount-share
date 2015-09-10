@@ -1,0 +1,8 @@
+#! /bin/bash
+#脚本功能：
+	#
+#创建时间：
+	#2015-05-25 08:43:26
+
+echo -e "$(getvalue root)\n" | sudo -S mount -t vboxsf share /home/anton/working/share/
+echo -e "\n挂载成功!"

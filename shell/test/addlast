@@ -1,0 +1,10 @@
+#! /bin/bash
+# Name : addlast
+# Func : 
+# Time : 2015-08-17 16:22:37
+
+num=`grep "this" file -n -i | sed '$s/\(.*\):.*$/\1/gp' -n`
+echo num:$num
+cmd="$num""a aa"
+echo $cmd
+sed "$num""a aa" file

@@ -1,0 +1,153 @@
+#! /bin/bash
+# Name : shini
+# Func : 
+# Time : 2015-08-19 19:50:33
+
+ini_name=""
+app_name=""
+key_name=""
+key_value=""
+get_flag=0
+set_flag=0
+rm_flag=0
+all_get_flag=0
+all_rm_flag=0
+add_flag=0
+# \brief printf usage of shell script
+# \param $@ [in] paramters from cmd line
+# \return 0, if succ
+#        -1, if fail
+function print_usage()
+{
+    echo -e "\e[1;31m#-------------------Shell Usage------------------#"
+    echo "Usage  : $(basename $0) [options] ini_name"
+    echo "Options: "
+    echo "     -h,--help                                Show usage of shell"
+    echo "     -g,--get  app_name key_name              get value"
+    echo "     -s,--set  app_name key_name              set value"
+    echo "     -r,--rm   app_name key_name              rm ini info"
+    echo "     -a,--add  app_name key_name key_value    add ini info"
+    echo "     --all-get app_name                       show ini value of a section"
+    echo -e "#-------------------Shell Usage-------------------#\e[0m"
+}
+
+# \brief get paramters from cmd line
+# \param $@ [in] paramters from cmd line
+# \return 0, if succ
+#        -1, if fail
+function parser_args()
+{
+    TEMP=`getopt -o hig:s:r:a: --long help,ignore,get:,set:,add:,all-get,rm: \
+        -n 'shini' -- "$@"`
+
+    if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+    # Note the quotes around `$TEMP': they are essential!
+    # set 会重新排列参数的顺序，也就是改变$1,$2...$n的值，这些值在getopt中重新排列过了
+    #eval set -- "$TEMP"
+
+    # 经过getopt的处理，下面处理具体选项。
+    while true ; do
+        case "$1" in
+            -h|--help) print_usage $@ ; exit 1;;
+            -g|--get)  get_flag=1     ; app_name=$2 ; key_name=$3 ; shift 3 ;;
+            -s|--set)  set_flag=1     ; app_name=$2 ; key_name=$3 ; key_value=$4 ; shift 4 ;;
+            -r|--rm)   rm_flag=1      ; app_name=$2 ; key_name=$3 ; shift 3 ;;
+            --all-get) all_get_flag=1 ; app_name=$2 ; shift 2 ;;
+            -a|--add)  add_flag=1     ; app_name=$2 ; key_name=$3 ; key_value=$4 ; shift 4 ;;
+            --) shift ; break ;;
+            *) break ;;
+        esac
+    done
+
+    # get others values
+    for arg in $@ ; do
+        ini_name="$arg"
+    done
+
+    return 0
+}
+
+function get_value()
+{
+    # If has read pemission, then read value ; or exit
+    test -r $ini_name && 
+    sed -n "/^\[$app_name\]/,/^\[/s/^$key_name\ *[=:]\ *//pg" $ini_name || 
+    (test -e $ini_name && \
+        echo -e "\033[1;31m$ini_name has no read permission!\033[0m" || \
+        echo -e "\033[1;31m$ini_name is not exist!\033[0m") && exit 1
+    
+    return 0
+}
+
+function get_all_value()
+{
+    # If has read pemission, then read value ; or exit
+    test -r $ini_name && 
+    sed -n "/^\[$app_name\]/,/^\[/s/.*[=:]\ *//pg" $ini_name || 
+    (test -e $ini_name && \
+        echo -e "\033[1;31m$ini_name has no read permission!\033[0m" || \
+        echo -e "\033[1;31m$ini_name is not exist!\033[0m") && exit 1
+    
+    return 0
+}
+
+function set_value()
+{
+    # If has write pemission, then write ; or exit
+    test -w $ini_name && 
+    sed -i "/^\[$app_name\]/,/^\[/s/^$key_name\ *\([=:]\)\ *.*$/$key_name\1$key_value/" $ini_name || 
+    (test -e $ini_name && \
+        echo -e "\033[1;31m$ini_name has no write permission!\033[0m" || \
+        echo -e "\033[1;31m$ini_name is not exist!\033[0m" && exit 1)
+
+    return 0
+}
+
+function add_value()
+{
+    # Test app whether already exist
+    sed -n "/^\[$app_name\]/,/^\[/p" $ini_name | 
+    grep "^$key_name\ *=" > /dev/null && 
+    echo -e "\033[1;31mAlready exist!\033[0m" && 
+    exit 1
+
+    # Get line num of adding
+    num=`sed -n "/^\[$app_name\]/,/^\[/{/^$/d;=}" $ini_name | sed '$d' | sed -n '$p'`
+    
+    # If has write pemission, then write ; or exit
+    test -w $ini_name && 
+    sed -i "$num a $key_name=$key_value" $ini_name || 
+    (test -e $ini_name && \
+        echo -e "\033[1;31m$ini_name has no write permission!\033[0m" || \
+        echo -e "\033[1;31m$ini_name is not exist!\033[0m" && exit 1)
+
+    return 0
+}
+
+function rm_value()
+{
+    # If has write pemission, then write ; or exit
+    test -w $ini_name && 
+    sed -i "/^\[$app_name\]/,/^\[/{/^$key_name\ *\([=:]\)\ *.*$/d}" $ini_name || 
+    (test -e $ini_name && \
+        echo -e "\033[1;31m$ini_name has no write permission!\033[0m" || \
+        echo -e "\033[1;31m$ini_name is not exist!\033[0m" && exit 1)
+
+    return 0
+}
+
+# parser parameters
+parser_args $@
+
+# Test ini file is exist
+test -z "$ini_name" && 
+echo -e "\033[1;31mPlease input ini file name!\033[0m" && 
+exit 1
+
+test $get_flag      -eq 1   &&  get_value       &&  exit 0
+test $all_get_flag  -eq 1   &&  get_all_value   &&  exit 0 
+test $set_flag      -eq 1   &&  set_value       &&  exit 0
+test $add_flag      -eq 1   &&  add_value       &&  exit 0
+test $rm_flag       -eq 1   &&  rm_value        &&  exit 0
+exit 1

@@ -1,0 +1,8 @@
+#! /bin/bash
+# Name : strcmd
+# Func : 
+# Time : 2015-08-17 16:57:04
+
+cmd=" echo $arg aa"
+arg="gg"
+echo $cmd | xargs

@@ -1,0 +1,88 @@
+#! /bin/bash
+#脚本功能：
+	#创建cmake工程
+#创建时间：
+    #2015-02-01 18:52:23
+
+#判断命令行参数个数
+if test $# -ne 1 ; then
+	echo 请指定工程名称！
+	exit -1
+fi
+
+#检测主目录下是否有cmake工程模板
+if test ! -d ~/.project_example/.cmake/ ; then
+	echo 工程模板不存在!
+	
+	#获取svn服务器IP地址
+	ip_file=.svn_ip
+	file_is_exist=$(find ~ -maxdepth 1 -name "$ip_file") #用户主目录下寻找默认IP保存文件
+
+	#检测保存服务器IP地址的文件是否存在，不存在则创建并输入其IP地址
+	if test -z "$file_is_exist" ; then
+		echo -n 请指定svn服务器的IP地址：
+		read default_ip #读取输入的IP地址
+		if test -z $(checkip $default_ip) ; then #检测IP地址正确性
+			echo 输入的IP地址格式错误!
+			exit -1
+		fi
+		setvalue svn_ip $default_ip #将服务器IP地址写入到指定文件，予以保存
+		#echo "svn_ip = $default_ip" > ~/$ip_file #将服务器IP地址写入到指定文件，予以保存
+	else
+		#default_ip=$(cat ~/$ip_file | grep "^svn_ip = [0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}" | sed -e 's/^svn_ip\ =\ //g') #匹配文件中的IP地址行，并获取正确的地址
+		default_ip=$(getvalue svn_ip)
+		if test -z $(checkip $default_ip) ; then #检测IP地址正确性
+			echo 保存信息中的IP地址格式错误!
+			exit -1
+		fi	
+	fi
+
+	#显示svn服务器IP地址
+	echo "svn服务器IP地址为：$default_ip"
+
+	#检测是否能与服务器连通
+	for((i=0;i<3;i++))
+	do
+		loss=$(pingcheck $default_ip) #ping服务器
+		if test "$loss" = "0" ; then #如果与服务器，则跳出循环
+			echo "服务器连接正常!"
+			break
+		fi	
+		echo "服务器连接异常!丢包为: $loss%"
+	done
+
+	#服务器IP地址更换，重新输入服务器IP地址
+	if test "$loss" = "100" ; then #当几次都丢失则认为服务器IP地址错误
+		echo svn服务器IP地址已更换，请重新输入svn服务器IP地址!
+		echo -n 请输入svn服务器IP地址：
+		read default_ip #读取IP地址
+	fi
+
+	#跳转到主目录cmake工程文件夹
+	mkdir ~/.project_example/
+	cd ~/.project_example/
+	
+	#从服务器下载cmake工程模板
+	svn checkout https://$default_ip/svn/AntonSVN/Linux/Useful\ Materials/cmake > /dev/null #去除打印消息 
+	echo "工程模板下载成功!"
+
+	#跳回到创建工程的目录
+	mv cmake .cmake
+	cd - > /dev/null
+fi
+
+#拷贝工程
+echo 拷贝工程文件...
+cp -r ~/.project_example/.cmake $1 > /dev/null
+
+#删除.svn信息
+echo -e $(getvalue root) | find $1 -name ".svn" | sudo -S xargs rm -r
+
+#检测是否创建成功
+if test -d $1 ; then 
+	echo "工程[ $1 ]创建成功!"
+else
+	echo "工程[ $1 ]创建失败!"
+fi
+
+exit 0

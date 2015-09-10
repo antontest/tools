@@ -1,0 +1,26 @@
+#! /bin/bash
+# Name : bpc
+# Func : 
+# Time : 2015-07-08 19:32:25
+
+if test -z "$CONF_PATH" ; then
+    exit 1
+fi
+
+if test -d $CONF_PATH; then
+    cp -uvp ~/.vimrc $CONF_PATH
+    #cp -uvpr ~/.vim $CONF_PATH
+
+    #cp -uvpr ~/_emacs $CONF_PATH
+    #cp -uvpr ~/.emacs.d $CONF_PATH
+    cp -uvp ~/.emacs $CONF_PATH
+
+    cp -uvp ~/.profile $CONF_PATH
+    cp -uvp ~/.bashrc $CONF_PATH
+    cp -uvp ~/.tmux.conf $CONF_PATH
+    cp -uvp ~/.home_info $CONF_PATH
+    #tar -cvf usr-share-vim.tar /usr/share/vim/addons/ /usr/share/vim/vim72
+    #tar -cvf etc-vim.tar /etc/vim
+else
+    echo "path not exist"
+fi

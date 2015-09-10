@@ -1,0 +1,19 @@
+#! /bin/bash
+# Name : judgeexe
+# Func : judge file is binary file
+# Time : 2015-08-12 09:02:43
+
+if test $# -lt 1 ; then
+    exit 1
+fi
+
+for arg in $@
+do
+    ret=$(file $arg | grep "ELF.*executable" > /dev/null \
+        && echo 1 || echo 0)
+    result+="$ret "
+done
+
+if test -n "$result" ; then
+    printf "$result\n"
+fi

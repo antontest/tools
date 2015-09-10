@@ -1,0 +1,15 @@
+#! /bin/bash
+# Name : addlib
+# Func : add lib to Makefile 
+# Time : 2015-07-19 14:45:09
+
+if test ! -e "./Makefile" ; then 
+    echo "Make does not exist!"
+    exit 1
+fi
+
+for lib in $@
+do
+    grep "^OTH_LIB =.*-l$lib" Makefile > /dev/null || (\
+        sed -i -e "s/^OTH_LIB =.*$/& -l$lib/" Makefile)
+done

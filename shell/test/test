@@ -1,0 +1,13 @@
+#! /bin/bash
+# Name : test
+# Func : 
+# Time : 2015-08-18 19:12:13
+
+str="1,2,3,"
+str=${str//,/\ }
+echo $str
+exit 1
+for arg in $str
+do
+    echo $arg
+done

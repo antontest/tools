@@ -1,0 +1,26 @@
+#! /bin/bash
+#脚本功能：
+	#ping时的丢包检测，打印ping的丢包比，为0~100,0时为无丢包，100为全丢
+#创建时间：
+	#2015-02-02 14:31:34
+
+#保证有IP地址输入
+if test $# -lt 1 ; then
+	echo 请输入IP地址!
+	exit -1
+else
+	if test -z $(checkip $1) ; then
+		echo 输入的IP地址格式错误!
+		exit -1
+	fi
+fi
+
+#丢包检测
+#set -x
+ping_info=$(ping $1 -c 1) #ping
+if test -z "$(echo $ping_info | grep errors)" ; then #判定是否有错误errors
+	echo $ping_info | grep "% packet loss" | sed -e 's/^.*.\ received,\ //g' -e 's/%\ packet loss,.*.$//g'
+else
+	echo $ping_info | grep "% packet loss" | sed -e 's/^.*.\ errors,\ //g' -e 's/%\ packet loss,.*.$//g'
+fi
+#set +x

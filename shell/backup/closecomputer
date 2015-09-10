@@ -1,0 +1,18 @@
+#! /bin/bash
+#脚本功能：
+	#Linux关机
+#创建时间：
+	#2015-02-06 21:57:55
+
+#获取root权限密码
+root_pw=$(getvalue root)
+
+#关机
+if test -n "$root_pw" ; then
+    echo $root_pw | sudo -S halt
+    echo -e "\nComputer closed!"
+	exit 0
+else
+	echo "root's password error!"
+	exit 1
+fi

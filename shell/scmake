@@ -1,0 +1,277 @@
+#! /bin/bash
+# Name : setcmake
+# Func : 
+# Time : 2015-08-17 14:02:25
+
+file=""
+# \brief printf usage of shell script
+# \param $@ [in] paramters from cmd line
+# \return 0, if succ
+#        -1, if fail
+function print_usage()
+{
+    echo -e "\e[1;31m#-------------------Shell Usage------------------#"
+    echo "Usage  : $(basename $0) [options] script-name"
+    echo "Options: "
+    echo "     -h,--help     Show usage of shell"
+    echo "     -p,--project  Set CMake project name"
+    echo "     -e,--exec     Set target file name"
+    echo "     -i,--install  Set install path"
+    echo "     -a,--add      Increase the specified parameters"
+    echo "     	[s | subdir]     Add child directory path"
+    echo "     	[i | include]    Add header file path"	
+    echo "     	[l | link]       Add library file path"
+    echo "     	[a | auxsrcpath] Add the source file path"	
+    echo "     	[t | target_lib] Add dependency Libraries"
+    echo "     -d,--del      Delete the specified parameters"
+    echo "     	[s | subdir]     del child directory path"
+    echo "     	[i | include]    del header file path"	
+    echo "     	[l | link]       del library file path"
+    echo "     	[a | auxsrcpath] del the source file path"	
+    echo "     	[t | target_lib] del dependency Libraries"
+    echo "     -m,--modify   Modify the specified parameters"
+    echo "     	[s | subdir]     modify child directory path"
+    echo "     	[i | include]    modify header file path"	
+    echo "     	[l | link]       modify library file path"
+    echo "     	[a | auxsrcpath] modify the source file path"	
+    echo "     	[t | target_lib] modify dependency Libraries"			
+    echo -e "#-------------------Shell Usage-------------------#\e[0m"
+}
+
+function sed_del()
+{
+    if test -n "$(grep -i "^$1.*($2\ " $3)" ; then
+        sed -i "/^$1.*($2\ /Is/($2\ /(/Ig" $3
+    elif test -n "$(grep -i "^$1.*\ $2)$" $3)" ; then
+        sed -i "/^$1.*\ $2)$/Is/\ $2)$/)/Ig" $3
+    elif test -n "$(grep -i "^$1.*\ $2\ " $3)" ; then
+        sed -i "/^$1.*\ $2\ /Is/\ $2\ /\ /Ig" $3
+    fi
+}
+
+function sed_modify()
+{
+    if test -n "$(grep -i "^$1.*($2\ " $4)" ; then 
+        if test -z "$(grep -i "^$1.*\ $3\ \|^$1.*\ $3)$" $4)" ; then
+            sed -i "/^$1.*($2\ /Is/($2\ /($3\ /Ig" $4
+        fi
+    elif test -n "$(grep -i "^$1.*\ $2)$" $4)" ; then
+        if test -z "$(grep -i "^$1.*($3\ \|^$1.*\ $3\ " $4)" ; then
+            sed -i "/^$1.*\ $2)$/Is/\ $2)$/\ $3)/Ig" $4
+        fi
+    elif test -n "$(grep -i "^$1.*\ $2\ " $4)" ; then
+        if test -z "$(grep -i "^$1.*($3\ \|^$1.*\ $3)$" $4)" ; then
+            sed -i "/^$1.*\ $2\ /Is/\ $2\ /\ $3\ /Ig" $4
+        fi
+    fi
+}
+
+# \brief get paramters from cmd line
+# \param $@ [in] paramters from cmd line
+# \return 0, if succ
+#        -1, if fail
+function parser_args()
+{
+    TEMP=`getopt -o hb:p:a:d:e:m:i: --long help,bin:,project:add:del:exec:modify:install_prefix: \
+     	-n 'setcmake' -- "$@"`
+
+    if [ $? != 0 ] ; then echo "Terminating..." >&2 ; exit 1 ; fi
+
+    # Note the quotes around `$TEMP': they are essential!
+    # set 会重新排列参数的顺序，也就是改变$1,$2...$n的值，这些值在getopt中重新排列过了
+    #eval set -- "$TEMP"
+
+    # 经过getopt的处理，下面处理具体选项。
+    while true ; do
+        case "$1" in
+            -h|--help) print_usage $@; exit 1 ;;
+            -p|--project) declare -u proc=$2 ; sed -i "s/\(project\ *(\).*/\1$proc)/Ig" $file ; shift 2 ;;
+            -e|--exec) sed -i "s/\(^add_execut.*\ *(\)\(.*\)\(\ .*)$\)/\1$2\3/Ig" $file ; shift 2 ;;
+            -i|--install_prefix) path=$2 ; path=${path////\\\/} ; sed -i "s/\(^set\ *(cmake_install_prefix\ *\)\(.*\))$/\1$path)/Ig" $file ; shift 2 ;;
+            -a|--add) 
+                # Get Mode
+                shift
+                mode=$1
+
+                # Get values of adding
+                shift
+                val=$1
+                ret=""
+
+                if test "$mode" = "auxsrcpath" -o "$mode" = "a" ; then
+                    if test -n "$(grep -i "^aux_source_dir.*$val\ " $file)" ; then
+                        continue
+                    fi
+                    line=`grep -i -n 'aux_source_dir' $file | sed -n '$s/\(.*\):.*$/\1/gp'`
+                    if test $line -lt 1 ; then
+                        exit 1
+                    fi
+                    srcpath=`sed -n 's/aux_source_dir.*\(\ .*\))$/\1/Ip' $file | head -n 1 | sed 's/\ //g'`
+                    while test "${val:0:1}" != "-" -a "$val" != "" 
+                    do 
+                        sed -i "$line""a AUX_SOURCE_DIRECTORY($val $srcpath)" $file
+                        shift
+                        val=$1
+                        let line=line+1
+                    done
+                    break
+                fi
+
+                if test "$mode" = "bin" -o "$mode" = "b" ; then
+                    if test -n "$(grep -i "^add_subdir.*($val\ " $file)" ; then
+                        continue
+                    fi
+                    line=`grep -i -n '^add_subdir*' $file | sed -n '$s/\(.*\):.*$/\1/gp'`
+                    if test $line -lt 1 ; then
+                        exit 1
+                    fi
+                    while test "${val:0:1}" != "-" -a "$val" != "" 
+                    do 
+                        sed -i "$line""a ADD_SUBDIRECTORY($val ${val}_bin)" $file
+                        shift
+                        val=$1
+                        let line=line+1
+                    done
+                    break
+                fi
+
+                while test "${val:0:1}" != "-" -a "$val" != "" 
+                do 
+                    case "$mode" in
+                        "s"|"subdir") str="^add_subdir.*$val\ " ;;
+                        "i"|"include") str="^include_dir.*\(($val\ \|\ $val)\|\ $val\ \)" ;;
+                        "l"|"link") str="^link_dir.*\(($val\ \|\ $val)\|\ $val\ \)" ;;
+                        "t"|"target_lib") str="^target_link_lib.*\(($val\ \|\ $val)\|\ $val\ \)" ;;
+                        *) echo "parameters error" ;; 
+                    esac
+
+                    if test -z "$(grep -i "$str" $file)"; then
+                        ret+=$val" "
+                    fi
+                    shift
+                    val=$1
+                done
+
+                # Set Value
+                if test -n "$ret" ; then
+                    case "$mode" in
+                        "s"|"subdir") sed -i "s/^add_subdir.*\ *(/&$ret/Ig" $file ;;
+                        "i"|"include") sed -i "s/^include_dir.*\ *(/&$ret/Ig" $file ;;
+                        "l"|"link") sed -i "s/^link_dir.*\ *(/&$ret/Ig" $file ;;
+                        "t"|"target_lib") sed -i "s/^target_link_lib.*\ *(.*\ /&$ret/Ig" $file ;;
+                        *) echo "parameters error" ;; 
+                    esac
+                fi
+
+                echo "parameter add success!"
+                ;;
+            -d|--del) 
+                # Get Mode
+                shift
+                mode=$1
+
+                # Get values of adding
+                shift
+                val=$1
+                ret=""
+
+                while test "${val:0:1}" != "-" -a "$val" != "" 
+                do 
+                    case "$mode" in
+                        "a"|"auxsrc") sed -i "/^aux_source_dir.*\ *($val\ .*$/I"d $file ;;
+                        "b"|"bin") sed -i "/^add_subdire.*($val\ $val_/I"d  $file ;;
+                        "i"|"include")
+			            sed_del "include_dir" $val $file
+                        ;;
+                        "l"|"link") #sed -i "s/\(^link_dir.*\ *(.*\)\($val \)\(.*$\)/\1\3/Ig" $file ;;
+			            sed_del "link_dir" $val $file
+                        ;;
+                        "t"|"target_lib") #-i sed "s/\(^target_link_lib.*\ *(.*\)\($val \)\(.*\)/\1\3/Ig" $file ;;
+                            if test -n "$(grep -i "^target_link_lib.*\ $val)$" $file)" ; then
+                                sed -i "/^target_link_lib.*\ $val)$/Is/\ $val)$/)/Ig" $file
+                            elif test -n "$(grep -i "^target_link_lib.*\ $val\ " $file)" ; then
+                                sed -i "/^target_link_lib.*\ $val\ /Is/\ $val\ /\ /Ig" $file
+                            fi
+                            ;;
+                        "s"|"subdir") #( grep -i "^add_subdir.*\ *(.*$val .*$" $file && sed -i "/^add_subdir.*$val\ /Is/$val\ //Ig" $file ) ;; #|| sed -i "/^add_subdir.*\ *(.*\ $val)$/Is/\ $val)$/)/Ig" $file ;;
+                            if test -n "$(grep -i "^add_subdir.*($val\ " $file)" ; then
+                                sed -i "/^add_subdir.*($val\ /Is/($val\ /(/Ig" $file
+                            elif test -n "$(grep -i "^add_subdir.*\ $val\ " $file)" ; then
+                                sed -i "/^add_subdir.*\ $val\ /Is/\ $val\ /\ /Ig" $file
+                            fi
+                            ;;
+                        *) echo "parameters error" ;; 
+                    esac
+                    shift
+                    val=$1
+                done
+                
+                echo "parameter delete success!"
+                ;;
+            -m|--modify) 
+                # Get Mode
+                shift
+                mode=$1
+
+                # Get values of adding
+                shift
+                val=$1
+                ret=""
+
+                if test "${val:0:1}" != "-" -a "$val" != "" ; then 
+                    case "$mode" in
+                        "p"|"project") 
+                            sed -i "/^project\ *(/Is/(.*)$/($val)/Ig" $file ;;
+                        "a"|"auxsrc") 
+                            if test -z "$(grep -i "^aux_source_dir.*($2\ " $file)" ; then
+                                sed -i "/^aux_source_dir.*\ *($val\ .*$/Is/($val\ /($2\ /Ig" $file
+                            fi
+                            ;;
+                        "b"|"bin") sed -i "/^add_subdir.*($val\ ${val}_bin/Is/($val\ ${val}_bin)$/($2\ $2_bin)/g" $file ;;
+                        "i"|"include")
+			                sed_modify "include_dir" $val $2 $file
+                            ;;
+                        "l"|"link") #sed -i "s/\(^link_dir.*\ *(.*\)\($val \)\(.*$\)/\1\3/Ig" $file ;;
+			                sed_modify "link_dir" $val $2 $file
+                            ;;
+                        "t"|"target_lib") #-i sed "s/\(^target_link_lib.*\ *(.*\)\($val \)\(.*\)/\1\3/Ig" $file ;;
+                            if test -n "$(grep -i "^target_link_lib.*\ $val)$" $file)" ; then
+                                if test -z "$(grep -i "^target_link_lib.*\ $2)$" $file)" ; then
+                                    echo 0 ;sed -i "/^target_link_lib.*\ $val)$/Is/\ $val)$/\ $2)/Ig" $file
+                                fi
+                            elif test -n "$(grep -i "^target_link_lib.*\ $val\ " $file)" ; then
+                                if test -z "$(grep -i "^target_link_lib.*\ $2\ " $file)" ; then
+                                    echo 1 ; sed -i "/^target_link_lib.*\ $val\ /Is/\ $val\ /\ $2\ /Ig" $file
+                                fi
+                            fi
+                            ;;
+                        "s"|"subdir") 
+                            if test -z "$(grep -i "^add_subdir.*$2\ .*$" $file)" ; then
+                                sed -i "/^add_subdir.*$val\ /Is/$val\ /$2\ /Ig" $file
+                            fi
+                            ;;
+                        *) echo "parameters error" ;; 
+                    esac
+                fi
+                
+                echo "parameter modify success!"
+                ;;
+            --) shift ; break ;;
+            *) exit 1 ;;
+        esac
+    done
+
+    return 0
+}
+
+if test $# -lt 1 ; then
+    print_usage $@
+fi
+
+file=`pwd`/CMakeLists.txt
+if test ! -e $file ; then
+    echo "CMakeLists.txt does not exist!"
+    exit 1 
+fi
+
+parser_args $@

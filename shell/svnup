@@ -1,0 +1,41 @@
+#! /bin/bash
+#脚本功能：
+	#更新到指定版本
+#创建时间：
+	#2015-01-12 10:15:41
+
+#获取文件夹或文件名
+showflag=0
+for arg in $*
+do
+	case "$arg" in
+		"-r")
+			showflag=1 ;;
+		*)
+			name="$arg" ;;
+		esac
+done
+
+#根据标志位直接更新到最新版本或指定版本
+if test $showflag -eq 0 ; then #更新到最新版
+	#svn up $@
+	echo 已更新到最新$(svn up $name)
+	exit
+else #更新到指定版本
+	svn log $name
+	echo 请输入指定更新的版本号：
+	read ver
+	echo 您指定更新到r$ver.
+	#set -x
+	ishave=$(svn log $name | grep ^r$ver)
+	if test -z "$ishave" ; then
+		echo 版本号输入错误！
+		exit
+	fi
+	#set +x
+	#set -x
+	echo -n 已更新到
+	svn up -r $ver $name
+	#set +x
+	exit
+fi

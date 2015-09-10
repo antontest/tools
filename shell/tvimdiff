@@ -1,0 +1,9 @@
+#! /bin/bash
+# Name : tvimdiff
+# Func : 
+# Time : 2015-07-06 12:36:35
+
+agrc=$#
+svn_id=$((agrc-1))
+local_id=$agrc
+eval vimdiff \$$svn_id \$$local_id

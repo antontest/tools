@@ -1,0 +1,7 @@
+#! /bin/bash
+# Name : reload
+# Func : reload config file ~/.bashrc and ~/.profile 
+# Time : 2015-08-24 12:53:38
+
+test -e ~/.bashrc && source ~/.bashrc && echo "Reload ~/.bashrc succ"
+test -e ~/.profile && source ~/.profile && echo "Reload ~/.profile succ"

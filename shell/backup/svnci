@@ -1,0 +1,84 @@
+#! /bin/bash
+#功能：
+	#更新指定文件夹中文件及文件夹(svn)
+#时间：
+	#2014-10-27 21:49:24
+
+# $#为参数的个数
+#echo $#
+
+#参数个数为0返回
+if [ $# == 0 ] ; then
+	echo 参数不能为空，请输入正确的参数！
+	exit
+elif [ $# == 1 ] ; then #--help参数
+	if [ "$1" = "--help" ] ; then
+		echo 用法：svnci [-p] 路径 [-m] 更新注释说明
+		echo 默认路径为当前目录,更新注释说明不能为空
+		echo "例:svn -p . -m \"删除不必要的文件\""
+	fi
+fi
+
+#let执行算术运算
+let ret=$#%2
+
+#判断输入参数个数是否正确
+if [ $ret = 1 ] ; then
+	echo 参数输入错误！
+	exit
+fi
+
+#截取命令行参数
+while getopts "p:m:" arg
+do
+	case $arg in
+		p) path=$OPTARG ;;
+		m) comment=$OPTARG ;;
+		?) echo 未知参数! ; exit -1;;
+	esac
+done
+
+#打印参数信息
+#echo path:$path
+#echo comment:$comment
+
+#如果未指定更新文件夹的路径，默认为当前文件夹
+if test -z $path ; then
+	path=.
+fi
+
+#寻找当前文件夹下的.svn文件夹
+path_is_exist=$(find $path -maxdepth 1 -name ".svn")
+
+#路径为空时，默认为当前目录,同时检测当前文件夹是否加入版本控制
+if test -z "$path_is_exist" ; then
+	echo 当前文件夹没有加入版本控制！
+	exit -1
+fi
+
+#更新信息不能为空
+if test -z "$comment" ; then
+	echo "请输入更新信息！"
+	exit -1
+fi
+
+#显示变化的文件及文件夹
+svn status "$path"
+
+#更新已经删除的文件
+del=$(svn status | sed -n 's/^\!\( \)*//gp' | sed 's/\ /\\ /g')
+if test -n "$del" ; then
+	echo "$del" | xargs svn delete
+fi
+
+#提交新增的文件
+#svn status | sed -n 's/^?\( \)*/  /p'
+add=$(svn status | sed -n 's/^\?\( \)*//gp' | sed 's/\ /\\ /g')
+if test -n "$add" ; then
+	echo "$add" | xargs svn add
+fi
+
+#提交更新
+svn ci -m "$comment" "$path"
+
+exit 0

@@ -1,0 +1,13 @@
+#! /bin/bash
+#脚本功能：
+	#查看指定端口号是否正在监听状态
+#创建时间：
+	#2014-11-06 13:10:44
+
+if test $# -lt 1 ; then
+	echo 请指定端口号！
+	exit 0
+fi
+
+netstat -anp | grep $1
+exit 0

@@ -1,0 +1,8 @@
+;ip address of svn server
+svn_ip=192.168.1.100
+
+;login password of svn server
+svn_pw=200115
+
+;user login password
+root=ad200115

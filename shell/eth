@@ -1,0 +1,10 @@
+#! /bin/bash
+# Name : eth
+# Func : 
+# Time : 2015-09-07 19:28:16
+
+test $# -ne 2 && echo -e "\033[0;31mUsage eth ori-eth new-eth\033[0m" && exit 1
+mac_addr=`socket -d $1`
+#test $mac_addr -lt 0 && echo -e "\033[0;31mUsage eth ori-eth new-eth\033[0m" && exit 1
+socket -e | grep -i $1 || echo -e "\033[0;31mUsage eth ori-eth new-eth\033[0m" && exit 1
+sudo sed -i "/ATTR{address}==\"$mac_addr\"/Is/NAME=\".*\"/NAME=\"$2\"/g" /etc/udev/rules.d/70-persistent-net.rules

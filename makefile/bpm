@@ -1,0 +1,8 @@
+#! /bin/bash
+
+if test $# -lt 1
+then
+    cp -uv ./Makefile ./backup/Makefile.$(date +20%y.%m.%d.%H.%M)
+else
+    cp -uv ./Makefile ./backup/Makefile.$@.$(date +20%y.%m.%d.%H.%M)
+fi

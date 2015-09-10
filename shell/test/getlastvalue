@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : getlastvalue
+# Func : 
+# Time : 2015-08-17 16:03:38
+
+sed -nr '/\ba=/h; ${g; s/.*a=(.*)$/\1/;p}' t

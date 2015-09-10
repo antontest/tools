@@ -1,0 +1,16 @@
+#! /bin/bash
+# Name : dellib
+# Func : del lib from Makefile 
+# Time : 2015-07-19 14:45:09
+
+if test ! -e "./Makefile" ; then 
+    echo "Make does not exist!"
+    exit 1
+fi
+
+for lib in $@
+do
+    if test -n "$(grep "OTH_LIB =.*-l$lib" Makefile)" ; then
+        sed -i -e "/^OTH_LIB =.*/s/ -l$lib//" Makefile
+    fi
+done

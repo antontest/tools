@@ -1,0 +1,26 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+
+# get library name by path, like src/lib/libhello.a, gets hello
+function (get_lib_by_path path output)
+    string(REGEX REPLACE ".*lib\(.*\).a$" "\\1" opt ${path})
+    set(${output} ${opt} PARENT_SCOPE)
+endfunction()
+
+# get files recursely in the path
+function (find_files mode path output)
+    if (${mode} MATCHES "aa")
+        file (GLOB_RECURSE files ${path}/*.a)
+    else()
+        file (GLOB_RECURSE files ${path}/*.${mode})
+    endif()
+    if (files)
+        if (${mode} MATCHES "aa")
+            set (${output} ${files} PARENT_SCOPE)
+        elseif (${mode} MATCHES "a")
+            get_lib_by_path (${files} ${output})
+            set (${output} ${${output}} PARENT_SCOPE)
+        else ()
+            set (${output} ${files} PARENT_SCOPE)
+        endif ()
+    endif()
+endfunction ()

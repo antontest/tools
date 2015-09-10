@@ -1,0 +1,35 @@
+#! /bin/bash
+#脚本功能：
+	#设置~/.home_info中的参数值
+#创建时间：
+	#2015-02-02 13:19:21
+
+#检测文件是否存在
+if test -f  "~/.home_info" ; then
+	echo 信息文件不存在!
+	exit -1
+fi
+
+#预提取的参数不能为空
+if test $# -ne 2 ; then
+	echo 请输入要设置的参数及其相应的值!
+	exit -1
+fi
+
+#检测是否需要修改
+if test "$2" = "$(getvalue $1)" ; then
+	echo 设置值相同!
+    exit 0
+fi
+
+#设置
+#set -x
+sed -i 's/'$1'=.*.$/'$1'='$2'/g' ~/.home_info
+#set +x
+
+#检测是否修改成功
+if test "$2" = "$(getvalue $1)" ; then
+	echo 设置成功!
+fi
+
+exit 0
