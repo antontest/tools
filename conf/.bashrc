@@ -99,6 +99,7 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 export PATH=/home/anton/tools/shell:$PATH
+export PATH=/home/anton/tools/shell/git:$PATH
 export PATH=/home/anton/tools/exec:$PATH
 
 export GTK_IM_MODULE=ibus
@@ -110,7 +111,7 @@ export LCLIMPORTDIR=/usr/local/splint/share/splint/import
 export PATH=/usr/local/splint/bin/splint:$PATH
 
 # more alias
-alias install='sudo apt-get install'
+alias install='echo `getvalue root` | sudo apt-get install'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ls='ls -CF --color=auto'

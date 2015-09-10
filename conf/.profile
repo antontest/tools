@@ -36,3 +36,4 @@ export SHELL_FUNC_PATH=$TOOLS_PATH/templates/shell/func
 export CONF_PATH=$TOOLS_PATH/conf
 export TAGS_PATH=$TOOLS_PATH/include
 export CSCOPE_PATH=$TOOLS_PATH/include
+export EXEC_LD_PATH=$SHELL_PATH:$EXEC_PATH
