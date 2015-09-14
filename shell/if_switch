@@ -13,5 +13,5 @@ test $value -ne 0 -a $value -ne 1 && echo -e "\033[0;31mUsage if_switch [0|1|on|
 echo -n "ip_forward: before("`cat /proc/sys/net/ipv4/ip_forward`"), after("
 echo "$1" > /proc/sys/net/ipv4/ip_forward 
 echo `cat /proc/sys/net/ipv4/ip_forward`")"
-#sysctl -w net.ipv4.ip_forward=$1
+sysctl -w net.ipv4.ip_forward=$1
 #sysctl -p /etc/sysctl.conf

@@ -1,4 +1,4 @@
-cscope 15 $HOME/tools/include -q 0000000514 0000030541
+cscope 15 $HOME/tools/include -q 0000000520 0000024123
 	@cfg.h
 
 1 #iâdeà
@@ -363,206 +363,6 @@ dœÇme
 Çme
 , 
 size
-);
-
-	@libsc_timer.h
-
-1 #iâdeà
-__LIBSC_TIMER_H__
-
-
-2 
-	#__LIBSC_TIMER_H__
-
-
-	)
-
-3 
-	~<¡dio.h
->
-
-4 
-	~<¡dlib.h
->
-
-5 
-	~<¡ršg.h
->
-
-6 
-	~<uni¡d.h
->
-
-7 
-	~<fú.h
->
-
-8 
-	~<sys/ty³s.h
->
-
-9 
-	~<sys/¡©.h
->
-
-10 
-	~<sigÇl.h
->
-
-11 
-	~<±h»ad.h
->
-
-12 
-	~<£m­hÜe.h
->
-
-13 
-	~<¡dboŞ.h
->
-
-14 
-	~<sys/sysšfo.h
->
-
-15 
-	~<sys/”ºo.h
->
-
-16 
-	~<sys/wa™.h
->
-
-17 
-	~<sys/£Ëù.h
->
-
-18 
-	~<g‘İt.h
->
-
-19 
-	~<time.h
->
-
-21 
-	#TIMER_ACCURACY
- 100
-
-	)
-
-26 
-	slibsc_tim”
- {
-
-31 
-	mi
-;
-
-32 
-	mc
-;
-
-33 *
-	mp
-;
-
-39 
-libsc_tim”_im¶
- *
-	mim¶
-;
-
-47 (*
-	ttim”_cb
-)(
-	tlibsc_tim”
- *
-	ttm
-);
-
-49 
-	slibsc_tim”_im¶
- {
-
-50 
-aùive
-;
-
-51 
-»³©
-;
-
-52 
-d–‘e
-;
-
-53 
-time_r
-;
-
-54 
-time_b
-;
-
-55 
-tim”_cb
- 
-cb
-;
-
-56 
-±h»ad_t
- 
-th»ad
-;
-
-67 
-libsc_tim”
- * 
-	`libsc_tim”_ü—‹
-(
-tm_ms
-, 
-tim”_cb
- 
-cb
-, 
-boŞ
- 
-»³©
-);
-
-74 
-	`libsc_tim”_¡¬t
-(
-libsc_tim”
- *
-tim”
-);
-
-81 
-	`libsc_tim”_¡İ
-(
-libsc_tim”
- *
-tim”
-);
-
-88 
-	`libsc_tim”_d–‘e
-(
-libsc_tim”
- *
-tim”
-);
-
-95 
-	`libsc_tim”_»£t
-(
-libsc_tim”
- *
-tim”
 );
 
 	@macro.h
@@ -2313,7 +2113,7 @@ sockaddr
 	tsock‘_im¶_t
 ;
 
-107 
+106 
 udp_brßdÿ¡_£nd
 (cÚ¡ *
 ÿ¡_
@@ -2323,11 +2123,11 @@ pÜt
 ÿ¡_times
 ,\
 
-108 cÚ¡ *
+107 cÚ¡ *
 ÿ¡_šfo
 );
 
-121 
+120 
 udp_brßdÿ¡_»cv
 (cÚ¡ *
 ÿ¡_
@@ -2337,13 +2137,13 @@ pÜt
 ÿ¡_times
 ,\
 
-122 *
+121 *
 ÿ¡_šfo
 , 
 size
 );
 
-138 
+137 
 udp_muÉiÿ¡_£nd
 (cÚ¡ *
 ÿ¡_
@@ -2353,11 +2153,11 @@ pÜt
 ÿ¡_times
 ,\
 
-139 cÚ¡ *
+138 cÚ¡ *
 ÿ¡_šfo
 );
 
-152 
+151 
 udp_muÉiÿ¡_»cv
 (cÚ¡ *
 ÿ¡_
@@ -2367,13 +2167,13 @@ pÜt
 ÿ¡_times
 ,\
 
-153 *
+152 *
 ÿ¡_šfo
 , 
 size
 );
 
-168 
+167 
 š‘_£rv”_ü—‹
 (
 sock‘_im¶
@@ -2383,7 +2183,7 @@ sck
 ty³
 , \
 
-169 cÚ¡ *
+168 cÚ¡ *
 
 , 
 u_shÜt
@@ -2391,7 +2191,7 @@ u_shÜt
 pÜt
 );
 
-182 
+181 
 loÿl_£rv”_ü—‹
 (
 sock‘_im¶
@@ -2403,7 +2203,7 @@ ty³
 ·th
 );
 
-189 
+188 
 £rv”_¡İ
 (
 sock‘_im¶
@@ -2411,7 +2211,7 @@ sock‘_im¶
 sck
 );
 
-201 
+200 
 š‘_ş›Á_cÚÃù
 (
 sock‘_im¶
@@ -2421,7 +2221,7 @@ sck
 ty³
 , \
 
-202 cÚ¡ *
+201 cÚ¡ *
 
 , 
 u_shÜt
@@ -2429,7 +2229,7 @@ u_shÜt
 pÜt
 );
 
-213 
+212 
 loÿl_ş›Á_cÚÃù
 (
 sock‘_im¶
@@ -2441,7 +2241,7 @@ ty³
 ·th
 );
 
-226 
+225 
 š‘_ş›Á_time_cÚÃù
 (
 sock‘_im¶
@@ -2451,7 +2251,7 @@ sck
 ty³
 , \
 
-227 cÚ¡ *
+226 cÚ¡ *
 
 , 
 u_shÜt
@@ -2461,7 +2261,7 @@ pÜt
 tm_ms
 );
 
-239 
+238 
 loÿl_ş›Á_time_cÚÃù
 (
 sock‘_im¶
@@ -2475,11 +2275,11 @@ ty³
 tm_ms
 );
 
-246 
+245 
 ¿w_sock‘_š™
 ();
 
-248 
+247 
 ·r£_‘h”_h—d
 (*
 d©a
@@ -2487,21 +2287,13 @@ d©a
 dho¡
 [6], \
 
-249 
+248 
 sho¡
 [6], *
 ´Ùo_ty³
 );
 
-251 
-´št_mac
-(cÚ¡ *
-šfo
-, 
-mac_addr
-[6]);
-
-253 
+250 
 ·r£_icmp_h—d
 (*
 d©a
@@ -2511,13 +2303,13 @@ ty³
 code
 );
 
-255 
+252 
 ·r£_pšg
 (*
 d©a
 );
 
-269 
+266 
 sùp_£rv”_ü—‹
 (
 sock‘_im¶
@@ -2529,7 +2321,7 @@ sck
 pÜt
 );
 
-280 
+277 
 sùp_ş›Á_cÚÃù
 (
 sock‘_im¶
@@ -2541,7 +2333,7 @@ sck
 pÜt
 );
 
-295 
+292 
 lšk¡©d
 ((*
 lšk_up
@@ -2551,16 +2343,246 @@ iâame
 lšk_down
 )(const *ifname));
 
-309 
-	`¬p_ch—t
+	@socket/socket_arp.h
+
+1 #iâdeà
+__SOCKET_ARP_H__
+
+
+2 
+	#__SOCKET_ARP_H__
+
+
+	)
+
+4 #iâdeà
+__SOCKET_HEADER_H__
+
+
+5 
+	#__SOCKET_HEADER_H__
+
+
+	)
+
+6 
+	~"sock‘_h—d”.h
+"
+
+8 
+	~"sock‘_´İ”ty.h
+"
+
+9 
+	~<±h»ad.h
+>
+
+10 
+	~<Ãack‘/·ck‘.h
+>
+
+11 
+	~<sys/sock‘.h
+>
+
+12 
+	~<lšux/Ãšk.h
+>
+
+13 
+	~<lšux/¹Ãšk.h
+>
+
+14 
+	~<Ãtš‘/sùp.h
+>
+
+15 
+	~<Ãt/if.h
+>
+
+16 
+	~<Ãt/if_¬p.h
+>
+
+17 
+	~<pÿp.h
+>
+
+19 
+	spÿp_šfo
+ {
+
+20 
+	mfd
+;
+
+21 
+	m©ck_
+[4];
+
+22 
+	m©ck_mac
+[6];
+
+23 
+	mloÿl_
+[4];
+
+24 
+	mloÿl_mac
+[6];
+
+25 
+	miâame
+[20];
+
+26 
+	mg©eway_
+[4];
+
+28 
+š_addr
+ 
+	mš_addr
+;
+
+29 
+sockaddr
+ 
+	maddr
+;
+
+30 
+sockaddr_š
+ 
+	maddr_š
+;
+
+31 
+sockaddr_Î
+ 
+	maddr_Î
+;
+
+32 } 
+	maddr
+;
+
+33 * 
+	m´Ùo
+;
+
+34 
+pÿp_hªdËr
+ 
+	mcb
+;
+
+35 * 
+	mcb_¬g
+;
+
+49 
+¬p_»que¡_·ckage
+(
+äame_¬p
+ *
+äame
+, 
+¤c_
+[4],
+
+50 
+¤c_mac
+[6], 
+d¡_
+[4]);
+
+61 
+¬p_»¶y_·ckage
+(
+äame_¬p
+ *
+äame
+, 
+¤c_
+[4],
+
+62 
+¤c_mac
+[6], 
+d¡_
+[4], 
+d¡_mac
+[6]);
+
+75 
+¬p_»que¡_£nd
+(
+fd
+, 
+sockaddr
+ *
+addr
+, 
+d¡_
+[4],
+
+76 
+¤c_
+[4], 
+¤c_mac
+[6]);
+
+90 
+¬p_»¶y_£nd
+(
+fd
+, 
+sockaddr
+ *
+addr
+, 
+d¡_
+[4], 
+d¡_mac
+[6],
+
+91 
+¤c_
+[4], 
+¤c_mac
+[6]);
+
+100 * 
+pÿp_li¡’
+(*
+¬g
+);
+
+111 
+¬p_ch—t
 (cÚ¡ *
 iâame
-, cÚ¡ *
+, cÚ¡ *
 ©ck_
 ,
 
-310 cÚ¡ *
+112 cÚ¡ *
 g©eway_
+);
+
+121 
+¬p_ch—tšg
+(*
+d¡
+);
+
+123 
+rou‹r_šfo
+(*
+šfo
 );
 
 	@socket/socket_base.h
@@ -3042,89 +3064,91 @@ __SOCKET_HEADER__
 	)
 
 4 #iâdeà
-_LITTLE_ENDIAN_
+__LITTLE_ENDIAN
 
 
 5 
-	#_LITTLE_ENDIAN_
+	#__LITTLE_ENDIAN
  0x01
 
 	)
 
 8 #iâdeà
-_BIG_ENDIAN_
+__BIG_ENDIAN
 
 
 9 
-	#_BIG_ENDIAN_
+	#__BIG_ENDIAN
  0x02
 
 	)
 
 12 #iâdeà
-_BYTE_ORDER_
+__BYTE_ORDER
 
 
 13 
-	#_BYTE_ORDER_
+	#__BYTE_ORDER
  (0x0201 & 0xff)
 
 	)
 
-24 
+24 #iâdeà
+ETHER_HDR
+
+
+25 
+	#ETHER_HDR
+
+
+	)
+
+26 
 	s‘h”_hdr
  {
 
-25 
+27 
 	md¡_mac
 [6];
 
-26 
+28 
 	m¤c_mac
 [6];
 
-27 
+29 
 	m´Ùo_ty³
 ;
 
-28 } 
+30 } 
 __©Œibu‹__
  ((
 __·cked__
 ));
 
-30 
+33 #iâdeà
+ICMP_HDR
+
+
+34 
+	#ICMP_HDR
+
+
+	)
+
+35 
 	sicmp_hdr
  {
 
-31 
+36 
 	mi_ty³
 ;
 
-32 
+37 
 	mi_code
 ;
 
-33 
+38 
 	mi_cksum
-;
-
-34 } 
-__©Œibu‹__
- ((
-__·cked__
-));
-
-36 
-	spšg_hdr
- {
-
-37 
-	mi_id
-;
-
-38 
-	mi_£q
 ;
 
 39 } 
@@ -3133,77 +3157,487 @@ __©Œibu‹__
 __·cked__
 ));
 
-41 
-	s¬p_hdr
+42 #iâdeà
+PING_HDR
 
 
-43 
-	m¬_hrd
-;
+43 
+	#PING_HDR
 
-44 
-	m¬_´o
-;
+
+	)
+
+44 
+	spšg_hdr
+ {
 
 45 
-	m¬_hÊ
+	mi_id
 ;
 
 46 
-	m¬_¶n
+	mi_£q
 ;
 
-47 
-	m¬_İ
-;
+47 } 
+__©Œibu‹__
+ ((
+__·cked__
+));
 
-59 
+50 #iâdeà
+FRAME_HDR
+
+
+51 
+	#FRAME_HDR
+
+
+	)
+
+53 
 	säame_hdr
  {
 
-60 
+54 
 	md¡_mac
 [6];
 
-61 
+55 
 	m¤c_mac
 [6];
 
-62 
-	m´Ùo_ty³
+56 
+	m´ÙocŞ
 ;
 
-66 
+60 #iâdeà
+ARP_HDR
+
+
+61 
+	#ARP_HDR
+
+
+	)
+
+63 
+	s¬p_hdr
+
+
+65 
+	m¬_hrd
+;
+
+66 
+	m¬_´o
+;
+
+67 
+	m¬_hÊ
+;
+
+68 
+	m¬_¶n
+;
+
+69 
+	m¬_İ
+;
+
+70 
+	m¤c_mac
+[6];
+
+71 
+	m¤c_
+[4];
+
+72 
+	md¡_mac
+[6];
+
+73 
+	md¡_
+[4];
+
+86 #iâdeà
+IP_HDR
+
+
+87 
+	#IP_HDR
+
+
+	)
+
+89 
+	s_hdr
+
+
+91 #ià
+__BYTE_ORDER
+ =ğ
+__LITTLE_ENDIAN
+
+
+92 
+	mihl
+:4;
+
+93 
+	mv”siÚ
+:4;
+
+94 #–ià
+__BYTE_ORDER
+ =ğ
+__BIG_ENDIAN
+
+
+95 
+	mv”siÚ
+:4;
+
+96 
+	mihl
+:4;
+
+100 
+	mtos
+;
+
+101 
+	mtÙ_Ën
+;
+
+102 
+	mid
+;
+
+103 
+	mäag_off
+;
+
+104 
+	m‰l
+;
+
+105 
+	m´ÙocŞ
+;
+
+106 
+	mcheck
+;
+
+107 
+	m¤c_
+[4];
+
+108 
+	md¡_
+[4];
+
+112 #iâdeà
+UDP_HDR
+
+
+113 
+	#UDP_HDR
+
+
+	)
+
+115 
+	sudp_hdr
+ {
+
+116 
+	m¤c_pÜt
+;
+
+117 
+	md¡_pÜt
+;
+
+118 
+	mËn
+;
+
+119 
+	mcheck
+;
+
+123 #iâdeà
+TCP_HDR
+
+
+124 
+	#TCP_HDR
+
+
+	)
+
+126 
+	stı_hdr
+ {
+
+127 
+	m¤c_pÜt
+;
+
+128 
+	md¡_pÜt
+;
+
+129 
+	m£q
+;
+
+130 
+	mack
+;
+
+131 
+	moff
+;
+
+132 
+	mæags
+;
+
+133 
+	mwš
+;
+
+134 
+	mcheck
+;
+
+135 
+	murg
+;
+
+139 #iâdeà
+FRAME_ARP
+
+
+140 
+	#FRAME_ARP
+
+
+	)
+
+142 
 	säame_¬p
  {
 
-67 
+143 
 äame_hdr
  
 	mfh
 ;
 
-68 
+144 
 ¬p_hdr
  
 	mah
 ;
 
-69 
-	m¤c_mac
-[6];
+148 #iâdeà
+FRAME_UDP
 
-70 
-	m¤c_
-[4];
 
-71 
-	md¡_mac
-[6];
+149 
+	#FRAME_UDP
 
-72 
-	md¡_
-[4];
+
+	)
+
+151 
+	säame_udp
+ {
+
+152 
+äame_hdr
+ 
+	mfh
+;
+
+153 
+_hdr
+ 
+	mih
+;
+
+154 
+udp_hdr
+ 
+	muh
+;
+
+158 #iâdeà
+FRAME_TCP
+
+
+159 
+	#FRAME_TCP
+
+
+	)
+
+161 
+	säame_tı
+ {
+
+162 
+äame_hdr
+ 
+	mfh
+;
+
+163 
+_hdr
+ 
+	mih
+;
+
+164 
+tı_hdr
+ 
+	mth
+;
+
+168 #iâdeà
+FRAME_IP
+
+
+169 
+	#FRAME_IP
+
+
+	)
+
+170 
+	säame_
+ {
+
+171 
+äame_hdr
+ 
+	mfh
+;
+
+172 
+_hdr
+ 
+	mih
+;
+
+174 
+udp_hdr
+ 
+	muh
+;
+
+175 
+tı_hdr
+ 
+	mth
+;
+
+176 } 
+	m´Ùo
+;
+
+177 *
+	md©a
+;
+
+181 #iâdeà
+HDR_ETHER_SIZE
+
+
+182 
+	#HDR_ETHER_SIZE
+ (
+äame_dhr
+)
+
+	)
+
+185 #iâdeà
+HDR_ARP_SIZE
+
+
+186 
+	#HDR_ARP_SIZE
+ (
+¬p_dhr
+)
+
+	)
+
+189 #iâdeà
+HDR_IP_SIZE
+
+
+190 
+	#HDR_FRAME_IP_SIZE
+ (
+_hdr
+)
+
+	)
+
+193 #iâdeà
+HDR_UDP_SIZE
+
+
+194 
+	#HDR_UDP_SIZE
+ (
+udp_hdr
+)
+
+	)
+
+197 #iâdeà
+FRAME_ARP_SIZE
+
+
+198 
+	#FRAME_ARP_SIZE
+ (
+äame_¬p
+)
+
+	)
+
+201 #iâdeà
+FRAME_UDP_SIZE
+
+
+202 
+	#FRAME_UDP_SIZE
+ (
+äame_udp
+)
+
+	)
+
+205 #iâdeà
+FRAME_TCP_SIZE
+
+
+206 
+	#FRAME_TCP_SIZE
+ (
+äame_tı
+)
+
+	)
 
 	@socket/socket_property.h
 
@@ -3282,30 +3716,46 @@ __SOCKET_PROPERTY_H__
 >
 
 20 
-	~<lšux/if_‘h”.h
+	~<Ãt/if_¬p.h
 >
 
 21 
-	~<lšux/sockios.h
+	~<lšux/if_‘h”.h
 >
 
 22 
-	~<Ãtš‘/tı.h
+	~<lšux/sockios.h
 >
 
 23 
-	~<Ãtš‘/sùp.h
+	~<Ãtš‘/tı.h
 >
 
 24 
+	~<Ãtš‘/sùp.h
+>
+
+25 
 	~<lšux/¹Ãšk.h
 >
 
-29 #iâdeà
+26 
+	~<Ãack‘/·ck‘.h
+>
+
+27 
+	~<¡d¬g.h
+>
+
+28 
+	~"sock‘_h—d”.h
+"
+
+33 #iâdeà
 MACRO_STR
 
 
-30 
+34 
 	#MACRO_STR
 (
 x
@@ -3313,153 +3763,153 @@ x
 
 	)
 
-33 #iâdeà
+37 #iâdeà
 SIOCETHTOOL
 
 
-34 
+38 
 	#SIOCETHTOOL
  0x8946
 
 	)
 
-37 
+41 
 	#ETHTOOL_GSET
  0x00000001
 
 	)
 
-38 
+42 
 	#ETHTOOL_SSET
  0x00000002
 
 	)
 
-41 
+45 
 	#SPEED_10
  10
 
 	)
 
-42 
+46 
 	#SPEED_100
  100
 
 	)
 
-43 
+47 
 	#SPEED_1000
  1000
 
 	)
 
-44 
+48 
 	#SPEED_2500
  2500
 
 	)
 
-45 
+49 
 	#SPEED_10000
  10000
 
 	)
 
-48 
+52 
 	s‘htoŞ_cmd
  {
 
-49 
+53 
 __u32
  
 	mcmd
 ;
 
-50 
+54 
 __u32
  
 	msuµÜ‹d
 ;
 
-51 
+55 
 __u32
  
 	madv”tisšg
 ;
 
-52 
+56 
 __u16
  
 	m¥“d
 ;
 
-53 
+57 
 __u8
  
 	mdu¶ex
 ;
 
-54 
+58 
 __u8
  
 	mpÜt
 ;
 
-55 
+59 
 __u8
  
 	mphy_add»ss
 ;
 
-56 
+60 
 __u8
  
 	mŒªsûiv”
 ;
 
-57 
+61 
 __u8
  
 	mautÚeg
 ;
 
-58 
+62 
 __u32
  
 	mmaxtxpkt
 ;
 
-59 
+63 
 __u32
  
 	mmaxrxpkt
 ;
 
-60 
+64 
 __u32
  
 	m»£rved
 [4];
 
-73 
+77 
 	ssock‘_ty³
  {
 
-77 
+81 
 	mty³_maüo
 ;
 
-82 *
+86 *
 	mty³_Çme
 ;
 
-96 
+100 
 g‘_
 (
 
 []);
 
-106 
+110 
 g‘__by_iâame
 (cÚ¡ *
 iâame
@@ -3467,7 +3917,7 @@ iâame
 
 );
 
-116 
+120 
 g‘_mac_addr
 (cÚ¡ *
 iâame
@@ -3475,7 +3925,7 @@ iâame
 mac
 );
 
-126 * 
+130 * 
 g‘_subÃt_addr
 (cÚ¡ *
 
@@ -3483,55 +3933,55 @@ g‘_subÃt_addr
 mask
 );
 
-135 
+139 
 mask_to_b™s
 (cÚ¡ *
 mask
 );
 
-144 
+148 
 g‘_iâame
 (*
 iâame
 );
 
-153 
+157 
 g‘_ÿn_»ad_by‹s
 (
 fd
 );
 
-162 
+166 
 make_sock‘_nÚblock
 (
 fd
 );
 
-171 
+175 
 make_sock‘_block
 (
 fd
 );
 
-180 
+184 
 make_li¡’_sock‘_»u£abË
 (
 fd
 );
 
-189 
+193 
 make_sock‘_k“p_®ive
 (
 fd
 );
 
-198 
+202 
 make_sock‘_şo£Ãxec
 (
 fd
 );
 
-208 
+212 
 £t_sock‘_»cv_buf
 (
 fd
@@ -3539,7 +3989,7 @@ fd
 buf_size
 );
 
-218 
+222 
 £t_sock‘_£nd_buf
 (
 fd
@@ -3547,19 +3997,19 @@ fd
 buf_size
 );
 
-227 
+231 
 g‘_sock‘_»cv_buf
 (
 fd
 );
 
-236 
+240 
 g‘_sock‘_£nd_buf
 (
 fd
 );
 
-247 
+251 
 make_sock‘_şo£_aùiÚ
 (
 fd
@@ -3569,7 +4019,7 @@ is_Ú
 tm_s
 );
 
-257 
+261 
 make_sock‘_brßdÿ¡
 (
 fd
@@ -3577,7 +4027,7 @@ fd
 Ú
 );
 
-267 
+271 
 make_sock‘_muÉiÿ¡_loİ
 (
 fd
@@ -3585,7 +4035,7 @@ fd
 Ú
 );
 
-277 
+281 
 make_sock‘_muÉiÿ¡_‰l
 (
 fd
@@ -3593,7 +4043,7 @@ fd
 ‰l
 );
 
-287 
+291 
 add_sock‘_to_memb”sh
 (
 fd
@@ -3603,7 +4053,7 @@ fd
 mrq
 );
 
-297 
+301 
 drİ_sock‘_äom_memb”sh
 (
 fd
@@ -3613,19 +4063,19 @@ fd
 mrq
 );
 
-306 
+310 
 g‘_sock‘_£nd_timeout
 (
 fd
 );
 
-315 
+319 
 g‘_sock‘_»cv_timeout
 (
 fd
 );
 
-325 
+329 
 make_sock‘_£nd_timeout
 (
 fd
@@ -3633,7 +4083,7 @@ fd
 tm_ms
 );
 
-335 
+339 
 make_sock‘_»cv_timeout
 (
 fd
@@ -3641,25 +4091,25 @@ fd
 tm_ms
 );
 
-344 
+348 
 g‘_sock‘_´ÙocŞ
 (
 fd
 );
 
-353 
+357 
 g‘_sock‘_ty³
 (
 fd
 );
 
-362 * 
+366 * 
 g‘_sock‘_ty³_¡r
 (
 fd
 );
 
-373 
+377 
 make_sock‘_´omisc
 (cÚ¡ *
 iâame
@@ -3669,7 +4119,7 @@ fd
 Ú
 );
 
-383 
+387 
 g‘_š‹rçû_šdex
 (
 fd
@@ -3679,29 +4129,29 @@ iäeq
 »q
 );
 
-390 
+394 
 is_big_’dŸn
 ();
 
-399 
+403 
 m©ch_
 (cÚ¡ *
 
 );
 
-408 
+412 
 g‘_‘h_¥“d
 (cÚ¡ *
 iâame
 );
 
-417 
+421 
 g‘_sock‘_”rÜ
 (
 fd
 );
 
-427 
+431 
 g‘_g©eway
 (*
 g©eway
@@ -3709,1834 +4159,156 @@ g©eway
 iâame
 );
 
-	@socket_app.h
-
-1 #iâdeà
-__SOCKET_APP_H__
-
-
-2 
-	#__SOCKET_APP_H__
-
-
-	)
-
-4 #iâdeà
-__SOCKET_BASE_H__
-
-
-5 
-	~<sock‘_ba£.h
->
-
-8 #iâdeà
-__SOCKET_PROPERTY_H__
-
-
-9 
-	~<sock‘_´İ”ty.h
->
-
-12 #iâdeà
-__SOCKET_EVENT_H__
-
-
-13 
-	~"sock‘_ev’t.h
-"
-
-16 
-	~<±h»ad.h
->
-
-17 
-	~<Ãack‘/·ck‘.h
->
-
-18 
-	~<sys/sock‘.h
->
-
-19 
-	~"sock‘_h—d”.h
-"
-
-24 
-	#MAX_CLIENT_NUM
- 10
-
-	)
-
-25 
-	#DFT_STRING_SIZE
- 128
-
-	)
-
-26 
-	#SOCKET_DATA_SIZE
- (
-sock‘_d©a
-)
-
-	)
-
-27 
-	#SOCKET_DATA_HEADER_SIZE
- (()&(((
-sock‘_d©a
- *)0)->
-v®ue
-))
-
-	)
-
-32 * (*
-	tth»ad_ruÁše
-)(*
-	t¬g
-);
-
-45 
-	ssock‘_im¶
-
-
-50 
-	mfd
-;
-
-55 
-	mşi_fd
-[
-MAX_CLIENT_NUM
-];
-
-60 
-±h»ad_t
- 
-	m±d
-;
-
-65 
-ev’t_loİ_t
- 
-	mevl
-;
-
-71 
-sockaddr_š
- 
-	mš_addr
-;
-
-72 
-sockaddr_un
- 
-	mun_addr
-;
-
-73 } 
-	maddr
-;
-
-79 
-	mbody
-[0];
-
-80 } 
-	tsock‘_im¶_t
-;
-
-96 
-udp_brßdÿ¡_£nd
-(cÚ¡ *
-ÿ¡_
-, 
-pÜt
-, 
-ÿ¡_times
-,\
-
-97 cÚ¡ *
-ÿ¡_šfo
-);
-
-110 
-udp_brßdÿ¡_»cv
-(cÚ¡ *
-ÿ¡_
-, 
-pÜt
-, 
-ÿ¡_times
-,\
-
-111 *
-ÿ¡_šfo
-, 
-size
-);
-
-127 
-udp_muÉiÿ¡_£nd
-(cÚ¡ *
-ÿ¡_
-, 
-pÜt
-, 
-ÿ¡_times
-,\
-
-128 cÚ¡ *
-ÿ¡_šfo
-);
-
-141 
-udp_muÉiÿ¡_»cv
-(cÚ¡ *
-ÿ¡_
-, 
-pÜt
-, 
-ÿ¡_times
-,\
-
-142 *
-ÿ¡_šfo
-, 
-size
-);
-
-157 
-š‘_£rv”_ü—‹
-(
-sock‘_im¶
- *
-sck
-, 
-ty³
-, \
-
-158 cÚ¡ *
-
-, 
-u_shÜt
- 
-pÜt
-);
-
-171 
-loÿl_£rv”_ü—‹
-(
-sock‘_im¶
- *
-sck
-, 
-ty³
+444 
+xioùl
+(
+fd
+, 
+»que¡
+, *
+¬gp
 , cÚ¡ *
-·th
-);
+fmt
+, ...);
 
-178 
-£rv”_¡İ
-(
-sock‘_im¶
- *
-sck
-);
-
-190 
-š‘_ş›Á_cÚÃù
-(
-sock‘_im¶
- *
-sck
-, 
-ty³
-, \
-
-191 cÚ¡ *
-
-, 
-u_shÜt
- 
-pÜt
-);
-
-202 
-loÿl_ş›Á_cÚÃù
-(
-sock‘_im¶
- *
-sck
-, 
-ty³
+454 
+g‘_š‹rçû_¡©e
+(
+fd
 , cÚ¡ *
-·th
+iâame
 );
 
-215 
-š‘_ş›Á_time_cÚÃù
-(
-sock‘_im¶
- *
-sck
-, 
-ty³
-, \
-
-216 cÚ¡ *
-
-, 
-u_shÜt
- 
-pÜt
-, 
-tm_ms
-);
-
-228 
-loÿl_ş›Á_time_cÚÃù
-(
-sock‘_im¶
- *
-sck
-, 
-ty³
-, cÚ¡ *
-·th
-, 
-tm_ms
-);
-
-235 
-¿w_sock‘_š™
-();
-
-237 
-·r£_‘h”_h—d
-(*
-d©a
+464 
+g‘_Ãt_mac
+(*
+d¡
 , 
-dho¡
-[6], \
-
-238 
-sho¡
-[6], *
-´Ùo_ty³
+mac
+[6], 
+timeout
 );
 
-240 
-´št_mac
+476 
+2¬r
 (cÚ¡ *
-šfo
+
 , 
-mac_addr
+¬r
+[4]);
+
+484 
+¬r2
+(*
+_¬r
+, *
+
+);
+
+492 
+mac2¬r
+(cÚ¡ *
+mac
+, 
+mac_¬r
 [6]);
 
-242 
-·r£_icmp_h—d
-(*
-d©a
-, *
-ty³
-, *
-code
+500 
+¬r2mac
+(cÚ¡ *
+mac_¬r
+, 
+mac
+[]);
+
+508 
+´št_mac
+(cÚ¡ *
+mac
+, cÚ¡ *
+šfo
 );
 
-244 
-·r£_pšg
-(*
-d©a
+516 
+´št_v4
+(cÚ¡ *
+
+, cÚ¡ *
+šfo
 );
 
-	@socket_base.h
+	@socket/socket_router.h
 
 1 #iâdeà
-__SOCKET_BASE_H__
+__SOCKET_ROUTER_H__
 
 
 2 
-	#__SOCKET_BASE_H__
+	#__SOCKET_ROUTER_H__
 
 
 	)
 
-4 
+3 
 	~<¡dio.h
 >
 
-5 
-	~<¡dlib.h
->
-
-6 
-	~<¡ršg.h
->
-
-7 
-	~<uni¡d.h
->
-
-8 
-	~<sys/”ºo.h
->
-
-9 
-	~<sys/ty³s.h
->
-
-10 
-	~<sys/un.h
->
-
-11 
-	~<sys/sock‘.h
->
-
-12 
-	~<Ãtš‘/š.h
->
-
-13 
-	~<Ãtš‘/tı.h
->
-
-14 
-	~<Ãtš‘/sùp.h
->
-
-28 
-sock‘_ü—‹
-(
-domaš
-, 
-ty³
-);
-
-37 
-š‘_addr_š™
-(
-sockaddr_š
- *
-addr
-, cÚ¡ *
-
-, 
-u_shÜt
- 
-pÜt
-);
-
-45 
-loÿl_addr_š™
-(
-sockaddr_un
- *
-addr
-, cÚ¡ *
-·th
-);
-
-55 
-sock‘_bšd
-(
-fd
-, 
-sockaddr
- *
-addr
-);
-
-65 
-sock‘_li¡’
-(
-fd
-, 
-backlog
-);
-
-78 
-¡¬tup_š‘_£rv”
-(
-ty³
-, cÚ¡ *
-
-, \
-
-79 
-u_shÜt
- 
-pÜt
-);
-
-92 
-¡¬tup_š‘_ş›Á
-(
-ty³
-, 
-sockaddr_š
- *
-addr
-, \
-
-93 cÚ¡ *
-
-, 
-u_shÜt
- 
-pÜt
-);
-
-106 
-¡¬tup_loÿl_£rv”
-(
-ty³
-, cÚ¡ *
-·th
-);
-
-117 
-¡¬tup_loÿl_ş›Á
-(
-ty³
-, 
-sockaddr_un
- *
-addr
-, cÚ¡ *
-·th
-);
-
-127 
-sock‘_acû±
-(
-fd
-);
-
-137 
-sock‘_cÚÃù
-(
-fd
-, *
-şi_addr
-);
-
-148 
-sock‘_time_cÚÃù
-(
-fd
-, *
-şi_addr
-, 
-tm_ms
-);
-
-157 
-sock‘_şo£
-(
-fd
-);
-
-172 
-sock‘_£nd
-(
-fd
-, *
-buf
-, 
-size
-);
-
-184 
-sock‘_time_£nd
-(
-fd
-, *
-buf
-, 
-size
-, 
-time_ms
-);
-
-201 
-sock‘_£ndto
-(
-fd
-, *
-buf
-, 
-size
-, cÚ¡ *
-
-, 
-pÜt
-);
-
-213 
-sock‘_addr_£ndto
-(
-fd
-, *
-buf
-, 
-size
-, *
-addr
-);
-
-229 
-sock‘_»cv
-(
-fd
-, *
-buf
-, 
-size
-);
-
-241 
-sock‘_time_»cv
-(
-fd
-, *
-buf
-, 
-size
-, 
-time_ms
-);
-
-259 
-sock‘_»cväom
-(
-fd
-, *
-buf
-, 
-size
-, cÚ¡ *
-
-, 
-pÜt
-);
-
-271 
-sock‘_addr_»cväom
-(
-fd
-, *
-buf
-, 
-size
-, *
-addr
-);
-
-	@socket_event.h
-
-1 #iâdeà
-__SOCKET_EVENT_H__
-
-
-2 
-	#__SOCKET_EVENT_H__
-
-
-	)
-
-4 #iâdeà
-__SOCKET_BASE_H__
-
-
-5 
-	~<sock‘_ba£.h
->
-
-11 (*
-	tev’t_cb
-)(
-	tfd
-, *
-	t¬g
-);
-
-16 
-	eev’t_ty³
-
-
-18 
-SOCKET_ON_ACCEPT
- = 1,
-
-19 
-SOCKET_ON_CONNECT
- = 2,
-
-20 
-SOCKET_ON_RECV
- = 4,
-
-21 
-SOCKET_ON_SEND
- = 8,
-
-22 
-SOCKET_ON_CLOSE
- = 16
-
-23 } 
-	tev’t_ty³_t
-;
-
-35 
-	sÿÎ_back
-
-
-40 
-ev’t_cb
- 
-evt_cb
-;
-
-45 *
-¬g
-;
-
-46 } 
-	tÿÎ_back_t
-;
-
-55 
-	sev’t_loİ
-
-
-64 
-ÿÎ_back
- 
-Ú_acû±
-;
-
-69 
-ÿÎ_back
- 
-Ú_cÚÃù
-;
-
-74 
-ÿÎ_back
- 
-Ú_£nd
-;
-
-79 
-ÿÎ_back
- 
-Ú_»cv
-;
-
-84 
-ÿÎ_back
- 
-Ú_şo£
-;
-
-85 } 
-	tev’t_loİ_t
-;
-
-95 
-	`sock‘_ev’t_š™
-(
-ev’t_loİ_t
- *
-evl
-);
-
-105 
-	`sock‘_ev’t_add
-(
-ev’t_loİ_t
- *
-evl
-, 
-ev’t_ty³_t
- 
-evt
-, 
-ev’t_cb
- 
-cb
-, *
-¬g
-);
-
-113 
-	`sock‘_ev’t_d–‘e
-(
-ev’t_loİ_t
- *
-evl
-, 
-ev’t_ty³_t
- 
-evt
-);
-
-120 
-	`sock‘_ev’t_ş—¿Î
-(
-ev’t_loİ_t
- *
-evl
-);
-
-128 
-	`sock‘_ev’t_´oûss
-(
-fd
-, 
-ÿÎ_back
- 
-cb
-);
-
-	@socket_header.h
-
-1 #iâdeà
-__SOCKET_HEADER__
-
-
-2 
-	#__SOCKET_HEADER__
-
-
-	)
-
-4 #iâdeà
-_LITTLE_ENDIAN_
-
-
-5 
-	#_LITTLE_ENDIAN_
- 0x01
-
-	)
-
-8 #iâdeà
-_BIG_ENDIAN_
-
-
-9 
-	#_BIG_ENDIAN_
- 0x02
-
-	)
-
-12 #iâdeà
-_BYTE_ORDER_
-
-
-13 
-	#_BYTE_ORDER_
- (0x0201 & 0xff)
-
-	)
-
-24 
-	s‘h”_hdr
- {
-
-25 
-	m‘h”_dho¡
-[6];
-
-26 
-	m‘h”_sho¡
-[6];
-
-27 
-	m´Ùo_ty³
-;
-
-28 } 
-__©Œibu‹__
- ((
-__·cked__
-));
-
-30 
-	sicmp_hdr
- {
-
-31 
-	mi_ty³
-;
-
-32 
-	mi_code
-;
-
-33 
-	mi_cksum
-;
-
-34 } 
-__©Œibu‹__
- ((
-__·cked__
-));
-
-36 
-	spšg_hdr
- {
-
-37 
-	mi_id
-;
-
-38 
-	mi_£q
-;
-
-39 } 
-__©Œibu‹__
- ((
-__·cked__
-));
-
-	@socket_msg.h
-
-1 #iâdeà
-__SOCKET_MSG_H__
-
-
-2 
-	#__SOCKET_MSG_H__
-
-
-	)
-
-4 #iâdeà
-__SOCKET_BASE_H__
-
-
-5 
-	~"sock‘_ba£.h
-"
-
-8 
-	~<sys/shm.h
->
-
-9 
-	~<£m­hÜe.h
->
-
-10 
-	~<±h»ad.h
->
-
-15 
-	#MOD_MAX
- 32
-
-	)
-
-16 
-	#MSG_MAX_LEN
- (1024 * 32)
-
-	)
-
-17 
-	#MSG_SOCKET_DIR
- "/v¬/msg/"
-
-	)
-
-22 
-	tmod_id_t
-;
-
-23 
-	tmsg_æag_t
-;
-
-29 
-	emsg_r¡
- {
-
-30 
-	mMSG_RST_SUCCESS
- = 0,
-
-31 
-	mMSG_RST_FAILURE
-,
-
-32 
-	mMSG_RST_INVALID_CFG
-,
-
-33 
-	mMSG_RST_INVALID_MOD_ID
-,
-
-34 
-	mMSG_RST_SOCKET_ERROR
-,
-
-35 
-	mMSG_RST_THREAD_ERROR
-,
-
-36 
-	mMSG_RST_QUEUE_FULL
-
-
-37 } 
-	tmsg_r¡_t
-;
-
-40 
-	mMOD_ID_UNKNOW
- = 0,
-
-41 
-	mMOD_ID_TMR
- = 1
-
-47 
-	smsg
- {
-
-48 
-	m’dŸn
-;
-
-49 
-mod_id_t
- 
-	m¤c_id
-;
-
-50 
-mod_id_t
- 
-	md¡_id
-;
-
-51 
-mod_id_t
- 
-	mmod
-;
-
-52 
-	mmsg_id
-;
-
-53 
-	mËn
-;
-
-54 
-	mhŞd_út
-;
-
-56 (*
-	mde¡ruùÜ
-)(*);
-
-57 *
-	mä“_±r
-;
-
-58 
-msg
- *
-	mÃxt
-;
-
-63 
-	mbody
-[0];
-
-64 } 
-	tmsg_t
-;
-
-66 
-	#MSG
-(
-p
-è((
-msg
- *)Õ))
-
-	)
-
-67 
-	#MSG_MOD
-(
-p
-èĞ
-	`MSG
-Õ)->
-mod
- )
-
-	)
-
-68 
-	#MSG_MSGID
-(
-p
-èĞ
-	`MSG
-Õ)->
-msg_id
- )
-
-	)
-
-69 
-	#MSG_LEN
-(
-p
-èĞ
-	`MSG
-Õ)->
-Ën
- )
-
-	)
-
-70 
-	#MSG_DATA
-(
-p
-èĞ
-	`MSG
-Õ)->
-body
- )
-
-	)
-
-71 
-	#MSG_SRC
-(
-p
-èĞ
-	`MSG
-Õ)->
-¤c_id
- )
-
-	)
-
-73 Ğ*
-	tmsg_hªdËr_t
- )(
-	tmsg
- *msg);
-
-74 
-	$msg_æag_t
- ( *
-	tmsg_id’t
- )(
-	tmsg
- *msg);
-
-82 
-	smsg_mod_cfg
- {
-
-83 *
-Çme
-;
-
-84 
-mod_id_t
- 
-mod_id
-;
-
-85 
-±h»ad_t
- 
-th»ad_id
-;
-
-86 
-msg_hªdËr_t
- 
-hªdËr
-;
-
-87 } 
-	tmsg_mod_cfg_t
-;
-
-90 
-	sloÿl_msg_’Œy
- {
-
-94 
-mod_id_t
- 
-mod_id
-;
-
-99 
-pos
-;
-
-100 
-£m_t
- 
-£m
-;
-
-101 
-±h»ad_mu‹x_t
- 
-mtx
-;
-
-102 
-msg
- *
-hªdlšg_msg
-;
-
-107 
-msg_id’t
- 
-id’t
-;
-
-108 
-msg_hªdËr_t
- 
-hªdËr
-;
-
-109 
-±h»ad_t
- 
-´oc_th»ad
-;
-
-110 
-´oc_¡İ
-;
-
-115 
-msg_hdËd_tÙ®
-;
-
-116 
-mod_»g_sys_u±ime
-;
-
-117 } 
-	tloÿl_’Œy_t
-;
-
-119 
-	sshm_’Œy
- {
-
-120 
-mod_id_t
- 
-mod_id
-;
-
-121 
-æag
-;
-
-122 
-sockaddr_š
- 
-š_addr
-;
-
-123 
-sockaddr_un
- 
-un_addr
-;
-
-124 } 
-	tshm_’Œy_t
-;
-
-126 
-	smsg_ùl
- {
-
-130 
-	sloc_ùl
- {
-
-131 
-±h»ad_rwlock_t
- 
-rwlock
-;
-
-132 
-loÿl_msg_’Œy
- 
-»g_tbl
-[ 
-MOD_MAX
- ];
-
-133 } *
-p_loc_ùl
-;
-
-138 
-	sshm_ùl
- {
-
-139 
-±h»ad_rwlock_t
- 
-rwlock
-;
-
-140 
-shm_’Œy
- 
-»g_tbl
-[ 
-MOD_MAX
- ];
-
-141 } *
-p_shm_ùl
-;
-
-146 
-c_fd
-;
-
-147 
-±h»ad_t
- 
-c_th»ad
-;
-
-148 
-c_¡İ
-;
-
-149 } 
-	tmsg_ùl_t
-;
-
-151 
-msg_ùl
- *
-p_msg_ùl
- = 
-NULL
-;
-
-	@socket_property.h
-
-1 #iâdeà
-__SOCKET_PROPERTY_H__
-
-
-2 
-	#__SOCKET_PROPERTY_H__
-
-
-	)
-
 4 
-	~<¡dio.h
->
-
-5 
-	~<¡dlib.h
->
-
-6 
 	~<¡ršg.h
 >
 
-7 
+5 
 	~<uni¡d.h
 >
 
-8 
-	~<fú.h
->
-
-9 
-	~<sys/”ºo.h
->
-
-10 
-	~<sys/sysšfo.h
->
-
-11 
+6 
 	~<sys/ty³s.h
 >
 
-12 
+7 
+	~<sigÇl.h
+>
+
+8 
 	~<sys/sock‘.h
 >
 
-13 
-	~<sys/ioùl.h
->
-
-14 
-	~<Ãtš‘/š.h
->
-
-15 
+9 
 	~<¬·/š‘.h
 >
 
-16 
+10 
 	~<Ãtdb.h
 >
 
-17 
-	~<içddrs.h
+11 
+	~<Ãtš‘/if_‘h”.h
 >
 
-18 
-	~<sys/un.h
+12 
+	~<uni¡d.h
 >
 
-19 
-	~<Ãt/if.h
+13 
+	~<Ãt/if_¬p.h
 >
 
-20 
-	~<lšux/if_‘h”.h
+14 
+	~<¡dlib.h
 >
 
-21 
-	~<lšux/sockios.h
->
+15 
+	~"sock‘_´İ”ty.h
+"
 
-22 
-	~<Ãtš‘/tı.h
->
+16 
+	~"sock‘_h—d”.h
+"
 
-23 
-	~<Ãtš‘/sùp.h
->
-
-28 #iâdeà
-MACRO_STR
-
-
-29 
-	#MACRO_STR
-(
-x
-è{x, #x}
-
-	)
-
-32 #iâdeà
-SIOCETHTOOL
-
-
-33 
-	#SIOCETHTOOL
- 0x8946
-
-	)
-
-36 
-	#ETHTOOL_GSET
- 0x00000001
-
-	)
-
-37 
-	#ETHTOOL_SSET
- 0x00000002
-
-	)
-
-40 
-	#SPEED_10
- 10
-
-	)
-
-41 
-	#SPEED_100
- 100
-
-	)
-
-42 
-	#SPEED_1000
- 1000
-
-	)
-
-43 
-	#SPEED_2500
- 2500
-
-	)
-
-44 
-	#SPEED_10000
- 10000
-
-	)
-
-47 
-	s‘htoŞ_cmd
- {
-
-48 
-__u32
- 
-	mcmd
-;
-
-49 
-__u32
- 
-	msuµÜ‹d
-;
-
-50 
-__u32
- 
-	madv”tisšg
-;
-
-51 
-__u16
- 
-	m¥“d
-;
-
-52 
-__u8
- 
-	mdu¶ex
-;
-
-53 
-__u8
- 
-	mpÜt
-;
-
-54 
-__u8
- 
-	mphy_add»ss
-;
-
-55 
-__u8
- 
-	mŒªsûiv”
-;
-
-56 
-__u8
- 
-	mautÚeg
-;
-
-57 
-__u32
- 
-	mmaxtxpkt
-;
-
-58 
-__u32
- 
-	mmaxrxpkt
-;
-
-59 
-__u32
- 
-	m»£rved
-[4];
-
-72 
-	ssock‘_ty³
- {
-
-76 
-	mty³_maüo
-;
-
-81 *
-	mty³_Çme
-;
-
-95 
-g‘_
-(
-
-[]);
-
-105 
-g‘__by_iâame
-(cÚ¡ *
-iâame
-, *
-
-);
-
-115 
-g‘_mac_addr
-(cÚ¡ *
-iâame
-, *
-mac
-);
-
-125 * 
-g‘_subÃt_addr
-(cÚ¡ *
-
-, cÚ¡ *
-mask
-);
-
-134 
-mask_to_b™s
-(cÚ¡ *
-mask
-);
-
-143 
-g‘_iâame
+18 
+rou‹
 (*
-iâame
-);
-
-152 
-g‘_ÿn_»ad_by‹s
-(
-fd
-);
-
-161 
-make_sock‘_nÚblock
-(
-fd
-);
-
-170 
-make_sock‘_block
-(
-fd
-);
-
-179 
-make_li¡’_sock‘_»u£abË
-(
-fd
-);
-
-188 
-make_sock‘_k“p_®ive
-(
-fd
-);
-
-197 
-make_sock‘_şo£Ãxec
-(
-fd
-);
-
-207 
-£t_sock‘_»cv_buf
-(
-fd
-, 
-buf_size
-);
-
-217 
-£t_sock‘_£nd_buf
-(
-fd
-, 
-buf_size
-);
-
-226 
-g‘_sock‘_»cv_buf
-(
-fd
-);
-
-235 
-g‘_sock‘_£nd_buf
-(
-fd
-);
-
-246 
-make_sock‘_şo£_aùiÚ
-(
-fd
-, 
-is_Ú
-, 
-tm_s
-);
-
-256 
-make_sock‘_brßdÿ¡
-(
-fd
-, 
-Ú
-);
-
-266 
-make_sock‘_muÉiÿ¡_loİ
-(
-fd
-, 
-Ú
-);
-
-276 
-make_sock‘_muÉiÿ¡_‰l
-(
-fd
-, 
-‰l
-);
-
-286 
-add_sock‘_to_memb”sh
-(
-fd
-, 
-_m»q
- *
-mrq
-);
-
-296 
-drİ_sock‘_äom_memb”sh
-(
-fd
-, 
-_m»q
- *
-mrq
-);
-
-305 
-g‘_sock‘_£nd_timeout
-(
-fd
-);
-
-314 
-g‘_sock‘_»cv_timeout
-(
-fd
-);
-
-324 
-make_sock‘_£nd_timeout
-(
-fd
-, 
-tm_ms
-);
-
-334 
-make_sock‘_»cv_timeout
-(
-fd
-, 
-tm_ms
-);
-
-343 
-g‘_sock‘_´ÙocŞ
-(
-fd
-);
-
-352 
-g‘_sock‘_ty³
-(
-fd
-);
-
-361 * 
-g‘_sock‘_ty³_¡r
-(
-fd
-);
-
-372 
-make_sock‘_´omisc
-(cÚ¡ *
-iâame
-, 
-fd
-, 
-Ú
-);
-
-382 
-g‘_š‹rçû_šdex
-(
-fd
-, 
-iäeq
- *
-»q
-);
-
-389 
-is_big_’dŸn
-();
-
-398 
-m©ch_
-(cÚ¡ *
-
-);
-
-407 
-g‘_‘h_¥“d
-(cÚ¡ *
-iâame
+d¡
 );
 
 	@thread.h
@@ -5626,23 +4398,29 @@ __THREAD_H__
 ;
 
 29 
+±h»ad_wÜk”_t
+ 
+	mÚ_ex™
+;
+
+30 
 ±h»ad_mu‹x_t
  
 	mlock
 ;
 
-30 
+31 
 ±h»ad_cÚd_t
  
 	m»ady
 ;
 
-31 } 
+32 } 
 	tth»ad_t
 ;
 
-42 
-±h»ad_¡¬t
+43 
+th»ad_¡¬t
 (
 th»ad_t
  *
@@ -5659,8 +4437,8 @@ run
 k“p
 );
 
-51 
-±h»ad_exec
+52 
+th»ad_exec
 (
 th»ad_t
  *
@@ -5673,56 +4451,70 @@ ruÁše
 ¬g
 );
 
-58 
-±h»ad_run
+61 
+th»ad_Úex™
+(
+th»ad_t
+ *
+im¶
+, 
+±h»ad_ruÁše
+ 
+ruÁše
+, *
+¬g
+);
+
+68 
+th»ad_run
 (
 th»ad_t
  *
 im¶
 );
 
-67 
-±h»ad_lock
+77 
+th»ad_lock
 (
 th»ad_t
  *
 im¶
 );
 
-76 
-±h»ad_Œylock
+86 
+th»ad_Œylock
 (
 th»ad_t
  *
 im¶
 );
 
-85 
-±h»ad_uÆock
+95 
+th»ad_uÆock
 (
 th»ad_t
  *
 im¶
 );
 
-94 
-±h»ad_d–‘e
+104 
+th»ad_d–‘e
 (
 th»ad_t
  *
 im¶
 );
 
-101 
-±h»ad_wa™_ov”
+111 
+th»ad_wa™_ov”
 (
 th»ad_t
  *
 im¶
 );
 
-108 
-±h»ad_time_wa™_ov”
+118 
+th»ad_time_wa™_ov”
 (
 th»ad_t
  *
@@ -5845,10 +4637,8 @@ tim”_im¶
 
 60 (*
 	ttim”_cb
-)(
-	ttim”
- *
-	ttm
+)(*
+	t¬g
 );
 
 65 
@@ -5881,17 +4671,21 @@ tim”_cb
 cb
 ;
 
-99 
+95 *
+¬g
+;
+
+100 
 ±h»ad_t
  
 th»ad
 ;
 
-100 }
+101 }
 	ttim”_im¶_t
 ;
 
-110 
+111 
 tim”
  * 
 	`tim”_ü—t
@@ -5901,78 +4695,56 @@ tm_ms
 tim”_cb
  
 cb
+, *
+¬g
 , 
 boŞ
  
 »³©
 );
 
-117 
+118 
 	`tim”_¡¬t
 (
 tim”
  *timer);
 
-124 
+125 
 	`tim”_¡İ
 (
 tim”
  *timer);
 
-131 
+132 
 	`tim”_de¡roy
 (
 tim”
  *timer);
 
-138 
+139 
 	`tim”_»£t
 (
 tim”
  *timer);
 
-	@tt.h
-
-4 
-	~<¡dio.h
->
-
-5 
-	~<¡dlib.h
->
-
-6 
-	~<¡ršg.h
->
-
-7 
-	~<uni¡d.h
->
-
 	@
 1
 .
 0
-21
-278
+15
+213
 cfg.h
 dir.h
-libsc_timer.h
 macro.h
 print.h
 proc.h
 sock.h
 socket/socket_app.h
+socket/socket_arp.h
 socket/socket_base.h
 socket/socket_event.h
 socket/socket_header.h
 socket/socket_property.h
-socket_app.h
-socket_base.h
-socket_event.h
-socket_header.h
-socket_msg.h
-socket_property.h
+socket/socket_router.h
 thread.h
 timer.h
-tt.h

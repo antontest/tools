@@ -55,8 +55,9 @@ case "$cmd" in
         exit 0 ;;
     "-d"|"d"|"del"|"--del")
         test -d build && cd build && make clean && cd ..
-        test -d build && rm -rf build && exit 0
-        exit 1 ;;
+        find -iname build | xargs rm -rfv {}
+        #test -d build && rm -rf build && exit 0
+        exit 0 ;;
     "-i"|"i"|"install"|"--install")
         test -d build && cd build 
         test $# -eq 2 && cmake .. -DCMAKE_INSTALL_PREFIX=$2

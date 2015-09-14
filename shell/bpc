@@ -7,6 +7,21 @@ if test -z "$CONF_PATH" ; then
     exit 1
 fi
 
+if test "$1" = "-u" -o "$1" = "u" ; then
+    test ! -d $CONF_PATH && exit 1
+    cp -uvp $CONF_PATH/.vimrc ~/.vimrc 
+    cp -uvp $CONF_PATH/.emacs ~/.emacs 
+
+    cp -uvp $CONF_PATH/.profile ~/.profile 
+    cp -uvp $CONF_PATH/.bashrc ~/.bashrc 
+    cp -uvp $CONF_PATH/.tmux.conf ~/.tmux.conf 
+    cp -uvp $CONF_PATH/.home_info ~/.home_info 
+
+    cp -uvp $CONF_PATH/protocols /etc/protocols 
+    cp -uvp $CONF_PATH/ld.so.conf /etc/ld.so.conf 
+
+fi
+
 if test -d $CONF_PATH; then
     cp -uvp ~/.vimrc $CONF_PATH
     #cp -uvpr ~/.vim $CONF_PATH
@@ -19,6 +34,8 @@ if test -d $CONF_PATH; then
     cp -uvp ~/.bashrc $CONF_PATH
     cp -uvp ~/.tmux.conf $CONF_PATH
     cp -uvp ~/.home_info $CONF_PATH
+    cp -uvp /etc/protocols $CONF_PATH
+    cp -uvp /etc/ld.so.conf $CONF_PATH
     #tar -cvf usr-share-vim.tar /usr/share/vim/addons/ /usr/share/vim/vim72
     #tar -cvf etc-vim.tar /etc/vim
 else
