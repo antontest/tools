@@ -1,0 +1,16 @@
+comments.vim -- add comments
+keys: 
+>c -- add comments ; 
+<c -- delete comments ; 
+=c -- comments styles
+
+mark.vim -- hight light variable
+keys: 
+,m -- mark ; 
+,n -- unmark;  
+,/ -- next mark; 
+,? -- last mark
+
+DoxygenToolkit.vim -- add comments
+kets: 
+ctl + @ + m
