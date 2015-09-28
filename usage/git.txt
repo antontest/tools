@@ -1,0 +1,21 @@
+git config setting:
+    git config --global user.name "anton"
+    git config --global user.email "d198908@163.com"
+
+git basic command:
+    git init -- initialize a local git responsity
+    git add  -- add file or directory to local git index 
+        git add dir1
+        git add file1 file2
+        git add .
+    git rm   -- remove file or directory from local git responsity 
+        git rm -r *
+        git rm file1 file2
+        git rm --ached file1
+    git status -- check local git responsity state
+    git log    -- show update log 
+        git log -1 / git log -5
+        git log --stat -summary
+        git show
+    git merge -- merge two to one
+
