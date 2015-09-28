@@ -35,23 +35,9 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     SET(CMAKE_INSTALL_PREFIX "$ENV{TOOLS_PATH}" CACHE PATH "default install path" FORCE)
 endif()
 
-# install header files
-# INSTALL(FILES include/main.h DESTINATION include)
-find_files(h include HLIST)
-foreach(hfile ${HLIST})
-    INSTALL(FILES ${hfile} DESTINATION include)
-endforeach()
-
-# install library
-# INSTALL(TARGETS main_static ARCHIVE DESTINATION lib)
-find_files(aa lib LIBLIST)
-if (LIBLIST)
-    foreach(libfile ${LIBLIST})
-        INSTALL(FILES ${libfile} DESTINATION lib)
-    endforeach()
-else()
-    INSTALL(TARGETS main_static ARCHIVE DESTINATION lib)
-endif()
+# install header and library files
+install_hfiles(include include)
+install_lib(lib lib)
 
 # install target
 INSTALL(TARGETS main RUNTIME DESTINATION exec)

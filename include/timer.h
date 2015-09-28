@@ -1,142 +1,81 @@
-#ifndef __LIBSC_TIMER_H__
-#define __LIBSC_TIMER_H__
+/**
+ * @defgroup timer
+ * @{ @ingroup timer
+ */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <signal.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <stdbool.h>
-#include <sys/sysinfo.h>
-#include <sys/errno.h>
-#include <sys/wait.h>
-#include <sys/select.h>
-#include <getopt.h>
-#include <time.h>
+#ifndef __timer_H__
+#define __timer_H__
 
-#define TIMER_ACCURACY 100
+typedef enum timer_state_t {
+    TIMER_STARTING  = 100,
+    TIMER_RUNNING   ,
+    TIMER_PAUSED    ,
+    TIMER_DESTROYED 
+} timer_state_t;
+
+typedef struct timer timer;
 
 /**
- * \breif Repeasent a tiemr.
+ * @brief  function of timer
  *
- * This structure represent a timer you created, you use the instance of this
- * structure to operate with the timer.\n
- * Don't create the structure yourself, use the libsc_timer_create instead.\n
- * Don't delete the structure yourself, use the libsc_timer_delete instead.\n
+ * @param  [in] argument provided to timer
  */
-typedef struct timer {
-    /**
-     * This field is used for user to store temp data in a timer. When timerout,
-     * the timer will give as a parameter when the callback been called. So you 
-     * get the data in callback.
-     */
-    union {
-        int i;
-        char c;
-        void *p;
-    };
-
-    /**
-     * Implement releated private field, don't touch it.
-     */
-    struct timer_impl *impl;
-}timer;
+typedef void (*timer_main_t)(void *arg);
 
 /**
- * \brief Timer callback function.
- *
- * You specify a function with the same signature as this function when
- * create the timer. When timeout, the function you specified will be called
- * with parameter tell you which timer is timeout, so you could specify the same
- * callback function with many timers to easy coding.
- *
- * \param timer [in] Parameter tell you which timer is timerout.
+ * @brief timer to do something
  */
-typedef void (*timer_cb)(void *arg);
+struct timer {
+    /**
+     * let timer start to run
+     */
+    void (*start)(timer *this);
+
+    /**
+     * pause timer to wait
+     */
+    void (*pause)(timer *this);
+
+    /**
+     * resume timer to run again
+     */
+    void (*resume)(timer *this);
+
+    /**
+     * delete timer and free it
+     */
+    void (*destroy)(timer *this);
+
+    /**
+     * get timer running state
+     */
+    int (*get_state)(timer *this);
+
+    /**
+     * get timer running state's string
+     */
+    char *(*get_state_str)(timer *this);
+
+    /**
+     * get timer running times
+     */
+    unsigned int (*get_runtimes)(timer *this);
+
+    /**
+     * set timer interval
+     */
+    void (*set_interval)(timer *this, unsigned int interval);
+};
 
 /**
- * \brief Implement releated private field, don't touch it.
- */
-typedef struct timer_impl {
-    /**
-     * activation state
-     */
-    int active;
-    
-    /**
-     * whether the timer is running cycly
-     */
-    int repeat;
-    
-    /**
-     * end timer
-     */
-    int delete;
-
-    /**
-     * timer cycle time every time
-     */
-    int time_r;
-    
-    /**
-     * timer time
-     */
-    int time_b;
-    
-    /**
-     * callback function of timer
-     */
-    timer_cb cb;
-    void *arg;
-    
-    /**
-     * thread id of timer
-     */
-    pthread_t thread;
-}timer_impl_t;
-
-/**
- * \brief Create a timer.
+ * @brief create a new timer to run cyclely
  *
- * \param tm_ms  [in] Timeout time in microseconds.
- * \param cb     [in] The callback function to call when timeout.This parameter
- *                    could be NULL, but not recommended.
- * \param repeat [in] Specify whether the timer need repeat timeout.
- */
-struct timer * timer_creat(int tm_ms, timer_cb cb, void *arg, bool repeat);
-
-/**
- * \brief Start a timer
+ * @param main           [in] timer main function
+ * @param arg            [in] argument provided to the main function
+ * @param timer_interval [in] timer waiting time, ms
  *
- * \param timer [in] The timer to start.
+ * @return timer instance
  */
-void timer_start(struct timer *timer);
+timer *timer_start(timer_main_t main, void *arg, unsigned int timer_interval);
 
-/**
- * @brief Stop a timer.
- *
- * @param timer [in] The timer to stop
- */
-void timer_stop(struct timer *timer);
-
-/**
- * @brief Delete a timer.
- *
- * @param timer [in] The timer to delete.
- */
-void timer_destroy(struct timer *timer);
-
-/**
- * @brief Reset a timer.
- *
- * @param timer [in] The timer to reset.
- */
-void timer_reset(struct timer *timer);
-
-
-#endif
+#endif /** __TIMER_H__ @} */

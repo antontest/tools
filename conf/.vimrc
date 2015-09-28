@@ -1,3 +1,14 @@
+if has("terminfo")
+   set t_Co=8
+   set t_Sf=^[[3%p1%dm
+   set t_Sb=^[[4%p1%dm
+else
+   set t_Co=8
+   set t_Sf=^[[3%dm
+   set t_Sb=^[[4%dm
+endif
+
+
 " This must be first, beacuse it changes other options as a side effect.
 set nocompatible
 
@@ -102,14 +113,24 @@ set wildmenu
 " set visualbell
 
 " show syntax highlighting
+
 syntax on
 syntax enable
+set t_Co=256
+if &t_Co > 2 || has("gui_running")
+  "syntax on
+  "syntax enable
+  "set t_Co=256
+  set hlsearch
+endif
 
 " color scheme
 " set background=dark
 " set t_Co=88
 " colorscheme wombat
 " colorscheme desert
+" colorscheme molokai
+
 
 " cancel auto backup
 set nobackup
@@ -170,30 +191,56 @@ autocmd BufReadPost *
 "*****************************************************
 " let Tlist_Ctags_Cmd="/usr/bin/ctags"
 let Tlist_Compact_Format=1
-
+"let Tlist_Ctags_Cmd="exctags"
 let Tlist_Show_One_File=1  
 let Tlist_Auto_Highlight_tag=1
 let Tlist_Exit_OnlyWindow=1 
 let Tlist_Use_SingClick=1
 let Tlist_Auto_Open = 0
 let Tlist_Auto_Update = 1
+set completeopt=longest,menu
 " Sort by name
 " let Tlist_Sort_Type = "name"
 
 "*****************************************************
 ""                       ctag                      *
 "*****************************************************
+function! UpdateCtags()
+    let curdir=getcwd()
+    while !filereadable("./tags")
+        cd ..
+        if getcwd() == "/"
+            break
+        endif
+    endwhile
+    if filewritable("./tags")
+        !ctags -R --file-scope=yes --langmap=c:+.h --languages=c,c++ --links=yes --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q
+        TlistUpdate
+    endif
+    execute ":cd " . curdir
+endfunction
+map <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
+"nmap <F10> :call UpdateCtags()<CR>
+"autocmd BufWritePost *.c,*.h,*.cpp call UpdateCtags()
+
+
 "F12生成/更新tags文件 
 set tags=tags;
 " set tags+=../tags;
 set tags+=~/tools/include/tags;
 set tags+=~/.vim/systags;
 set tags+=/usr/include/tags;
+set tags+=~/.vim/tags/libc.tags
+set tags+=~/.vim/tags/susv2.tags
+set tags+=~/.vim/tags/glib.tags
+set tags+=~/.vim/tags/cpp.tags
 set autochdir 
 " function! UpdateTagsFile() 
 "    silent !ctags -R --fields=+ianS --extra=+q 
 " endfunction 
 " nmap <F12> :call UpdateTagsFile()<CR> 
+nmap <silent><leader>t :OmniTagsLoad ./tags<CR>
+nmap <leader>u :OmniTagsUpdate
 
 "*****************************************************
 ""                       cscope                      *
@@ -259,3 +306,80 @@ let g:DoxygenToolkit_briefTag_funcName="yes"
 let g:doxygen_enhanced_color=1
 
 :nmap <C-@>m :Dox<CR>
+
+"*****************************************************
+""                  NeoComplCache                    *
+"*****************************************************
+let g:neocomplcache_enable_at_startup=1
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplcache.
+let g:neocomplcache_enable_at_startup = 1
+" Use smartcase.
+let g:neocomplcache_enable_smart_case = 1
+" Use camel case completion.
+let g:neocomplcache_enable_camel_case_completion = 1
+" Use underbar completion.
+let g:neocomplcache_enable_underbar_completion = 1
+" Set minimum syntax keyword length.
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache_enable_quick_match = 1
+
+" Define dictionary.
+let g:neocomplcache_dictionary_filetype_lists = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+    \ }
+
+" Define keyword.
+if !exists('g:neocomplcache_keyword_patterns')
+    let g:neocomplcache_keyword_patterns = {}
+endif
+let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplcache#undo_completion()
+inoremap <expr><C-l>     neocomplcache#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
+inoremap <expr><space>  pumvisible() ? neocomplcache#close_popup() . "\<SPACE>" : "\<SPACE>"
+
+" AutoComplPop like behavior.
+"let g:neocomplcache_enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplcache_enable_auto_select = 1
+"let g:neocomplcache_disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+
+"*****************************************************
+""                OmniCppComplete                    *
+"*****************************************************
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 1
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+
+autocmd BufNewFile *.html 0r ~/.vim/skel/dot.html
+autocmd BufNewFile *.h    0r ~/.vim/skel/dot.h   | exe "%s/<FILE>/".expand("%")
+autocmd BufNewFile *.c    0r ~/.vim/skel/dot.c   | exe "%s/<FILE>/".expand("%")
+autocmd BufNewFile *.cpp  0r ~/.vim/skel/dot.cpp | exe "%s/<FILE>/".expand("%")
+autocmd BufNewFile *.pc   0r ~/.vim/skel/dot.pc  | exe "%s/<FILE>/".expand("%")
+autocmd BufNewFile *.ec   0r ~/.vim/skel/dot.ec  | exe "%s/<FILE>/".expand("%")
+

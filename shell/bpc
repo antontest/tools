@@ -24,7 +24,7 @@ fi
 
 if test -d $CONF_PATH; then
     cp -uvp ~/.vimrc $CONF_PATH
-    #cp -uvpr ~/.vim $CONF_PATH
+    cp -uvpr ~/.vim $CONF_PATH
 
     #cp -uvpr ~/_emacs $CONF_PATH
     #cp -uvpr ~/.emacs.d $CONF_PATH

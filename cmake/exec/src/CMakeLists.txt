@@ -1,5 +1,6 @@
 # cmake version
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+include($ENV{CMAKE_PATH}/func/func.cmake)
 
 # set include and lib path
 INCLUDE_DIRECTORIES($ENV{INCLUDE_PATH} ${PROJECT_SOURCE_DIR}/src/include)

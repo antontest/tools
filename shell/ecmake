@@ -13,6 +13,8 @@
 #fi
 
 # find cmake files
+test ! -e CMakeLists.txt && echo -e "\033[1;31mCould not find CMakeLists.txt!\033[0m" && exit 1
+test ! -e CMakeLists.txt && echo -e "" && exit 1
 cmake_files=`find -name CMakeLists.txt | sed "s/^\.\///g" | grep -v "^\..*"`
 test -z "$cmake_files" && 
 echo -e "\033[1;31mCould not find CMakeLists.txt!\033[0m" && 
@@ -59,6 +61,7 @@ case "$cmd" in
         #test -d build && rm -rf build && exit 0
         exit 0 ;;
     "-i"|"i"|"install"|"--install")
+        test ! -d build && ($0 ; $0) || $0
         test -d build && cd build 
         test $# -eq 2 && cmake .. -DCMAKE_INSTALL_PREFIX=$2
         make install
