@@ -422,8 +422,11 @@ set timeoutlen=50
 "let g:airline_theme = 'powerlineish'
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
 
-set guifont=Liberation\ Mono\ for\ Powerline\ 10 
+"set guifont=Liberation\ Mono\ for\ Powerline\ 10 
+set guifont=Ubuntu\ Mono\ derivative\ Powerline
 " set status line
 set laststatus=2
 set ambiwidth=double
@@ -450,8 +453,7 @@ function! AirlineInit()
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
 
-let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
+
 
 
 
