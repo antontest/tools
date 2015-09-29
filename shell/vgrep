@@ -22,4 +22,4 @@ len=${#str}
 let len-=2
 str=${str:0:$len}
 
-grep $para $str $src --color=auto
+grep -n $para $str $src --color=auto

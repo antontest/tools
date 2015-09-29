@@ -1,0 +1,4 @@
+vim 7.4:
+(1) git clone https://github.com/vim/vim
+(2) ./configure --with-features=huge --enable-cscope --enable-rubyinterp --enable-largefile --disable-netbeans --enable-pythoninterp --with-python-config-dir=/usr/lib/python2.7/config --enable-perlinterp --enable-luainterp --with-luajit --enable-fail-if-missing --with-lua-prefix=/usr --enable-gui=gnome2 --enable-cscope --prefix=/usr
+(3) make && sudo make install
