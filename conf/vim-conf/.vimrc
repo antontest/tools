@@ -385,16 +385,40 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 
-  " powerline symbols
-  let g:airline_left_sep = ''
-  let g:airline_left_alt_sep = ''
-  let g:airline_right_sep = ''
-  let g:airline_right_alt_sep = ''
-  let g:airline_symbols.branch = ''
-  let g:airline_symbols.readonly = ''
-  let g:airline_symbols.linenr = ''
-let g:airline_theme='wombat'
-set ttimeoutlen=50
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
+" vim-powerline symbols
+"let g:airline_left_sep          = '⮀'
+"let g:airline_left_alt_sep      = '⮁'
+"let g:airline_right_sep         = '⮂'
+"let g:airline_right_alt_sep     = '⮃'
+"let g:airline_branch_prefix     = '⭠'
+"let g:airline_readonly_symbol   = '⭤'
+"let g:airline_linecolumn_prefix = '⭡'
+
+"let g:airline_theme='wombat'
+set timeoutlen=50
 "let g:airline_theme = 'powerlineish'
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
@@ -402,6 +426,8 @@ let g:airline#extensions#branch#enabled=1
 set guifont=Liberation\ Mono\ for\ Powerline\ 10 
 " set status line
 set laststatus=2
+set ambiwidth=double
+set fillchars+=stl:\ ,stlnc:\
 " enable powerline-fonts
 let g:airline_powerline_fonts = 1
 " enable tabline
@@ -417,9 +443,15 @@ nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
 function! AirlineInit()
-    let g:airline_section_a = airline#section#create(['mode', ' ', 'foo'])
-    let g:airline_section_b = airline#section#create_left(['ffenc','file'])
+    "let g:airline_section_a = airline#section#create(['mode', ' ', 'foo'])
+    "let g:airline_section_b = airline#section#create_left(['ffenc','file'])
     let g:airline_section_c = airline#section#create(['%{getcwd()}'])
+    let g:airline_section_x = '%t'
 endfunction
 autocmd User AirlineAfterInit call AirlineInit()
+
+let g:airline_enable_branch     = 1
+let g:airline_enable_syntastic  = 1
+
+
 
