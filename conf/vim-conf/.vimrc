@@ -1,13 +1,3 @@
-if has("terminfo")
-   set t_Co=8
-   set t_Sf=^[[3%p1%dm
-   set t_Sb=^[[4%p1%dm
-else
-   set t_Co=8
-   set t_Sf=^[[3%dm
-   set t_Sb=^[[4%dm
-endif
-
 
 " This must be first, beacuse it changes other options as a side effect.
 set nocompatible
@@ -387,4 +377,49 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 ""                        Mark                       *
 "*****************************************************
 let mapleader = "," 
+
+"*****************************************************
+""                    Vim-Airline                    *
+"*****************************************************
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+
+  " powerline symbols
+  let g:airline_left_sep = ''
+  let g:airline_left_alt_sep = ''
+  let g:airline_right_sep = ''
+  let g:airline_right_alt_sep = ''
+  let g:airline_symbols.branch = ''
+  let g:airline_symbols.readonly = ''
+  let g:airline_symbols.linenr = ''
+let g:airline_theme='wombat'
+set ttimeoutlen=50
+"let g:airline_theme = 'powerlineish'
+let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#branch#enabled=1
+
+set guifont=Liberation\ Mono\ for\ Powerline\ 10 
+" set status line
+set laststatus=2
+" enable powerline-fonts
+let g:airline_powerline_fonts = 1
+" enable tabline
+" let g:airline#extensions#tabline#enabled = 1
+" set left separator
+let g:airline#extensions#tabline#left_sep = ' '
+" set left separator which are not editting
+let g:airline#extensions#tabline#left_alt_sep = '|'
+" show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" 映射切换buffer的键位
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+
+function! AirlineInit()
+    let g:airline_section_a = airline#section#create(['mode', ' ', 'foo'])
+    let g:airline_section_b = airline#section#create_left(['ffenc','file'])
+    let g:airline_section_c = airline#section#create(['%{getcwd()}'])
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
