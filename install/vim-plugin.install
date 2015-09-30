@@ -1,0 +1,6 @@
+1 vim-snipmate(code auto complete)
+2 vim-airline (vim status line)    
+    (1) fonts
+    1.1 git clone https://github.com/powerline/fonts
+    1.2 cd fonts && ./install.sh
+    1.3 sudo fc-cache -vf ~/.fonts/

@@ -1,3 +1,27 @@
+" Text formatting and layout
+:filetype indent on
+set formatoptions=tcrqn
+set autoindent
+set smartindent
+set cindent 
+set smarttab
+set tabstop=4 
+set softtabstop=4 
+set shiftwidth=4
+set expandtab	   " expand tab to space
+"set noexpandtab 
+"set nowrap 
+set fileformats=unix,dos
+
+
+"delete 4 spaces when setting the back grid key
+set smarttab
+set softtabstop=4
+set magic
+
+"Format C code
+set et
+set ci
 
 " This must be first, beacuse it changes other options as a side effect.
 set nocompatible
@@ -60,23 +84,7 @@ map <C-l> <C-W>l
 
 " size of cmd window
 set cmdheight=1
-
-" Default Indentation
-:filetype indent on
-set autoindent
-set cindent	 " indent when
-set tabstop=4	   " tab width
-set softtabstop=4   " backspace
-set shiftwidth=4	" indent width
-set expandtab	   " expand tab to space
-
-"delete 4 spaces when setting the back grid key
-set smarttab
-set softtabstop=4
-
-"Format C code
-set et
-set ci 
+ 
 autocmd FileType make setlocal noexpandtab "Format C code
 " :retab
 
@@ -175,6 +183,27 @@ autocmd BufReadPost *
             \ if line("'\"") > 0 && line ("'\"") <= line("$") |
             \ exe "normal! g'\"" |
             \ endif 
+
+" vim Multi label
+" nnoremap gm m
+" let g:EasyClipUseCutDefaults = 1
+" let g:EasyClipUseSubstituteDefaults = 1
+" cmap <c-v> <plug>EasyClipCommandModePaste
+" nmap yd <Plug>MoveMotionPlug
+" xmap yd <Plug>MoveMotionXPlug
+" nmap ydd <Plug>MoveMotionLinePlug
+
+"*****************************************************
+""                     NERDTree                      *
+"*****************************************************
+let NERDTreeWinPos = 'right'
+nnoremap <silent> <C-F1> :NERDTree<CR>
+
+
+"*****************************************************
+""                      AutoVim                      *
+"*****************************************************
+let g:calendar_frame = 'default'
 
 "*****************************************************
 ""                     taglist                      *
@@ -423,7 +452,6 @@ set timeoutlen=50
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
 let g:airline_enable_branch     = 1
-let g:airline_enable_syntastic  = 1
 
 "set guifont=Liberation\ Mono\ for\ Powerline\ 10 
 set guifont=Ubuntu\ Mono\ derivative\ Powerline

@@ -1,3 +1,14 @@
+Multi label -- vim Multi label
+:tabnew [++opt选项] ［＋cmd］ 文件            建立对指定文件新的tab
+:tabc       关闭当前的tab
+:tabo       关闭所有其他的tab
+:tabs       查看所有打开的tab
+:tabp      前一个
+:tabn      后一个
+标准模式下：
+gt , gT 可以直接在tab之间切换。
+
+
 comments.vim -- add comments
 keys: 
 >c -- add comments ; 
@@ -14,3 +25,32 @@ keys:
 DoxygenToolkit.vim -- add comments
 kets: 
 ctl + @ + m
+
+a.vim -- Alternate Files quickly (.c --> .h etc)
+:A switches to the header file corresponding to the current file being edited (or vise versa)
+:AS splits and switches
+:AV vertical splits and switches
+:AT new tab and switches
+:AN cycles through matches
+:IH switches to file under cursor
+:IHS splits and switches
+:IHV vertical splits and switches
+:IHT new tab and switches
+:IHN cycles through matches
+<Leader>ih switches to file under cursor
+<Leader>is switches to the alternate file of file under cursor (e.g. on  <foo.h> switches to foo.cpp)
+<Leader>ihn cycles through matches
+
+calendar.vim -- A calendar application for Vim
+Press E key to view the event list.
+Press T key to view the task list.
+press ? key to view a quick help.
+:Calendar open calendar
+	:Calendar 2000 1 1
+	:Calendar -view=year
+	:Calendar -view=year -split=vertical -width=27
+	:Calendar -view=year -split=horizontal -position=below -height=12
+	:Calendar -first_day=monday
+	:Calendar -view=clock
+
+
