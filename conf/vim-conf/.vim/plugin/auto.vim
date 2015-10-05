@@ -25,8 +25,8 @@ fu Cp()
         ino , ,<SPACE>
 	ino ; ;<SPACE>
 	ino < <SPACE><
-	ino * <SPACE>*
-	ino / <SPACE>/<SPACE>
+	"ino * <SPACE>*
+	"ino / <SPACE>/<SPACE>
 	ino >> <SPACE>>><SPACE>
 	ino << <SPACE><<<SPACE>
 	ino > <SPACE>>
@@ -39,12 +39,6 @@ fu Py()
 	nm mm :call Ct()<CR>
 	im mm <ESC>$
 	im nn <ESC>o
-	im <F2> <ESC>
-	if exists("$DISPLAY")
-		nm <F2> :call Cv()<CR>
-	el
-		nm <F2> :call Ct()<CR>
-	en
 endf
 fu Cc()
 	no != <SPACE>!=<SPACE>
@@ -53,17 +47,11 @@ fu Cc()
 	if exists("$DISPLAY")
 		if &filetype == 'perl'
 		   nm mm :call Ct()<CR>
-		   nm<F2> :call Cv()<CR>
-		   im<F2> <ESC> :call Cv()<CR>
 	    el
 		   nm mm :call Ct()<CR><CR>
 		   nm mm :call Ct()<CR><CR>
-		   nm<F2> :call Cv()<CR><CR>
-		   im<F2> <ESC> :call Cv()<CR><CR>
 		en
 	el
-		nm<F2> :call Ct()<CR>
-		im<F2> <ESC> :call Ct()<CR>
 		nm mm :call Ct()<CR>
 	en
 endf

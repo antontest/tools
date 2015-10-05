@@ -1,56 +1,177 @@
-Multi label -- vim Multi label
-:tabnew [++opt选项] ［＋cmd］ 文件            建立对指定文件新的tab
-:tabc       关闭当前的tab
-:tabo       关闭所有其他的tab
-:tabs       查看所有打开的tab
-:tabp      前一个
-:tabn      后一个
-标准模式下：
-gt , gT 可以直接在tab之间切换。
+Multi label 
+	-- vim多标签
+keys:
+	-- :tabnew [++opt选项] ［＋cmd］ 文件            建立对指定文件新的tab
+	-- :tabc       关闭当前的tab
+	-- :tabo       关闭所有其他的tab
+	-- :tabs       查看所有打开的tab
+	-- :tabp      前一个
+	-- :tabn      后一个
+-- 标准模式下：
+	-- gt , gT 可以直接在tab之间切换。
 
-
-comments.vim -- add comments
+	
+""--------------------------------------------------------------------------
+comments.vim 
+	-- 代码注释
 keys: 
->c -- add comments ; 
-<c -- delete comments ; 
-=c -- comments styles
+	-- >c  --- add comments ; 
+	-- <c  --- delete comments ; 
+	-- =c  --- comments styles
 
-mark.vim -- hight light variable
+	
+""--------------------------------------------------------------------------
+nerdcommenter 
+	-- 代码注释
+keys:
+	-- <leader> + c + space --- 自动注释或反注释
+	-- <leader> + cc --- 注释当前行和选中行  
+	-- <leader> + cn --- 没有发现和\cc有区别  
+	-- <leader> + c +<空格> --- 如果被选区域有部分被注释，则对被选区域执行取消注释操作，其它情况执行反转注释操作  
+	-- <leader> + cm --- 对被选区域用一对注释符进行注释，前面的注释对每一行都会添加注释  
+	-- <leader> + ci --- 执行反转注释操作，选中区域注释部分取消注释，非注释部分添加注释  
+	-- <leader> + cs --- 添加性感的注释，代码开头介绍部分通常使用该注释  
+	-- <leader> + cy --- 添加注释，并复制被添加注释的部分  
+	-- <leader> + c$ --- 注释当前光标到改行结尾的内容  
+	-- <leader> + cA --- 跳转到该行结尾添加注释，并进入编辑模式  
+	-- <leader> + ca --- 转换注释的方式，比如： /**/和//  
+	-- <leader> + cl cb --- 左对齐和左右对其，左右对其主要针对/**/  
+	-- <leader> + cu --- 取消注释  
+
+	
+""--------------------------------------------------------------------------
+mark.vim 
+	-- 高亮显示变量或函数名
 keys: 
-,m -- mark ; 
-,n -- unmark;  
-,/ -- next mark; 
-,? -- last mark
+	-- ,m --- 标记 ; 
+	-- ,n --- 取消标记;  
+	-- ,/ --- 下一个标记; 
+	-- ,? --- 最后一个标记
 
-DoxygenToolkit.vim -- add comments
-kets: 
-ctl + @ + m
+	
+""--------------------------------------------------------------------------
+DoxygenToolkit.vim 
+	-- 函数头注释
+keys: 
+	-- ctl + @ + m
 
-a.vim -- Alternate Files quickly (.c --> .h etc)
-:A switches to the header file corresponding to the current file being edited (or vise versa)
-:AS splits and switches
-:AV vertical splits and switches
-:AT new tab and switches
-:AN cycles through matches
-:IH switches to file under cursor
-:IHS splits and switches
-:IHV vertical splits and switches
-:IHT new tab and switches
-:IHN cycles through matches
-<Leader>ih switches to file under cursor
-<Leader>is switches to the alternate file of file under cursor (e.g. on  <foo.h> switches to foo.cpp)
-<Leader>ihn cycles through matches
-
-calendar.vim -- A calendar application for Vim
-Press E key to view the event list.
-Press T key to view the task list.
-press ? key to view a quick help.
-:Calendar open calendar
-	:Calendar 2000 1 1
-	:Calendar -view=year
-	:Calendar -view=year -split=vertical -width=27
-	:Calendar -view=year -split=horizontal -position=below -height=12
-	:Calendar -first_day=monday
-	:Calendar -view=clock
+	
+""--------------------------------------------------------------------------
+a.vim 
+	-- 快速切换c, h等文件 (.c --> .h etc)
+keys:
+	-- :A switches to the header file corresponding to the current file being edited (or vise versa)
+	-- :AS splits and switches
+	-- :AV vertical splits and switches
+	-- :AT new tab and switches
+	-- :AN cycles through matches
+	-- :IH switches to file under cursor
+	-- :IHS splits and switches
+	-- :IHV vertical splits and switches
+	-- :IHT new tab and switches
+	-- :IHN cycles through matches
+	-- <Leader>ih switches to file under cursor
+	-- <Leader>is switches to the alternate file of file under cursor (e.g. on  <foo.h> switches to foo.cpp)
+	-- <Leader>ihn cycles through matches
 
 
+""--------------------------------------------------------------------------
+calendar.vim 
+	-- 一个VIM日历应用
+keys:
+		-- Press E key to view the event list.
+	-- Press T key to view the task list.
+	-- press ? key to view a quick help.
+	-- :Calendar open calendar
+		-- :Calendar 2000 1 1
+		-- :Calendar -view=year
+		-- :Calendar -view=year -split=vertical -width=27
+		-- :Calendar -view=year -split=horizontal -position=below -height=12
+		-- :Calendar -first_day=monday
+		-- :Calendar -view=clock
+
+		
+""--------------------------------------------------------------------------	
+vim-easymotion 
+	-- 移动操作的键绑定, 能搜索并高亮所有可能的选择以供跳转,
+	-- 类似Vimperator里链接跳转的方式
+keys:
+	-- ,,w
+
+	
+""--------------------------------------------------------------------------
+rainbow.vim 
+	-- 括号高亮插件
+vim-repeat 
+	-- 普通模式下通过"."来重复操作，可结合surround插件结合使用
+
+	
+""--------------------------------------------------------------------------	
+Sessionman 
+	-- 管理VIM的会话，可以让你在重新打开VIM之后立刻进行之前的编辑状态
+keys:
+	-- <leader>sl  --- 显示VIM会话列表
+	-- <leader>ss  --- 保存会话
+	-- <leader>sc  --- 关闭会话
+	
+	
+""--------------------------------------------------------------------------
+NERDTree 	
+	-- 工程源文件资源管理器
+keys:
+	-- <leader>d  --- 显示源文件树形结构
+	
+
+""--------------------------------------------------------------------------
+taglist	
+	-- 代码资源管理器，显示全局变量，结构体，函数声明等
+keys:
+	-- <leader>tl  --- 显示代码树形结构
+	
+	
+""--------------------------------------------------------------------------
+tagbar 	
+	-- 代码资源管理器，显示全局变量，结构体，函数声明等，支持面向对象
+keys:
+	-- <leader>tg  --- 显示代码树形结构
+	
+
+""--------------------------------------------------------------------------
+UltiSnips 
+	-- 快速输入添加代码段
+keys:
+	-- F2  --- 代码自动补全开关
+	-- <tab>  --- 跳至下一处
+
+
+""--------------------------------------------------------------------------
+Tabularize
+	-- 按等号、冒号、表格等来对齐文本
+keys:
+	-- <Leader>a=  ---  以=等号未标准对齐
+	-- <Leader>a&  ---  以=等号未标准对齐
+	
+	
+""--------------------------------------------------------------------------
+Surround 
+	-- 专门用来处理这种配对符号的插件，它可以非常高效快速的
+	-- 修改、删除及增加一个配对符号
+keys:
+	-- ds  - delete a surrounding
+	-- cs  - change a surrounding
+	-- ysiw  - add a surrounding
+	-- ySiw  - add a surrounding and place the surrounded text on a new line + indent it
+	-- yssiw - add a surrounding to the whole line
+	-- ySs - add a surrounding to the whole line, place it on a new line + indent it
+	-- ySS - same as ySs
+	-- Visual mode
+	-- s   - in visual mode, add a surrounding
+	-- S   - in visual mode, add a surrounding but place text on new line + indent it
+	-- Insert mode
+	-- <CTRL-s> - in insert mode, add a surrounding
+	-- <CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent
+	-- <CTRL-g>s - same as <CTRL-s>
+	-- <CTRL-g>S - same as <CTRL-s><CTRL-s>
+	
+	
+	

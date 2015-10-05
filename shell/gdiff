@@ -1,0 +1,9 @@
+#! /bin/bash
+# Name : gdiff
+# Func : 
+# Time : 2015-09-30 20:33:27
+
+git config --global diff.tool vimdiff  
+git config --global difftool.prompt false  
+git config --global alias.d difftool
+git d $@
