@@ -1,0 +1,36 @@
+#! /bin/bash
+# Name : ftp-put
+# Func : 
+# Time : 2015-10-13 11:17:02
+
+test $# -lt 2 && echo "Usage: ftp-put ftp_server_ip file1 file2 ..." && exit 1
+
+# check whether is exit directroy
+ftp_server_ip=$1
+shift 
+for file in $@
+do
+    test -d $file && echo "Can't not upload directroy!" && exit 1
+done
+
+# get ftp server user and passwd
+ftp_info=`ftpinfo $ftp_server_ip`
+test $? -eq 1 -o "$ftp_info" = "" && echo "ftp server info read failed!" && exit 1
+# test && echo "no $1 ftp server info!" && exit 1
+
+# upload
+ftp -n<<!
+open $ftp_server_ip
+user $ftp_info
+binary
+cd .
+lcd ./
+hash
+prompt
+mput $@
+close
+bye
+!
+
+echo -e "upload \033[0;35m$@\033[0m success!"
+exit 0

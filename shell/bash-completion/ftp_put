@@ -1,0 +1,24 @@
+# Name : autocomp
+# Func : 
+# Time : 2015-10-13 13:18:33
+
+
+have ftp-put && {
+_ftp-put()
+{
+    local cur prev opts
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    opts=`sed '/:/s/\(.*\):.*/\1/gp' -n /home/anton/tools/conf/vsftpd-conf/ftp-tools/.vsftpd-conf.info `
+
+    if [[ ${prev} == 'ftp-put' ]] ; then
+        COMPREPLY=( $( compgen -W '$opts' -- "$cur" ) )
+        return 0
+    else
+        COMPREPLY=( $( compgen -W '`ls`' -- "$cur" ) )
+        return 0
+    fi
+}
+
+complete -F _ftp-put $filenames ftp-put
+}

@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : tarnew
+# Func : 
+# Time : 2015-10-13 11:53:11
+
+tar -zcvf $@
