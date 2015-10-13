@@ -1,4 +1,4 @@
-# Name : autocomp
+# Name : ftp_put auto_complete
 # Func : 
 # Time : 2015-10-13 13:18:33
 
@@ -11,13 +11,15 @@ _ftp-put()
     prev=${COMP_WORDS[COMP_CWORD-1]}
     opts=`sed '/:/s/\(.*\):.*/\1/gp' -n /home/anton/tools/conf/vsftpd-conf/ftp-tools/.vsftpd-conf.info `
 
+    local IFS=$'\t\n'
     if [[ ${prev} == 'ftp-put' ]] ; then
         COMPREPLY=( $( compgen -W '$opts' -- "$cur" ) )
         return 0
-    else
-        COMPREPLY=( $( compgen -W '`ls`' -- "$cur" ) )
-        return 0
     fi
+
+    _expand || return 0
+    COMPREPLY=( $( compgen -f -X ".*" -- "$cur" ) \
+                $( compgen -d -- "$cur" ) )
 }
 
 complete -F _ftp-put $filenames ftp-put
