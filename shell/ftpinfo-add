@@ -1,7 +1,0 @@
-#! /bin/bash
-# Name : ftpinfo-add
-# Func : 
-# Time : 2015-10-13 18:41:25
-
-test $# -ne 3 && echo "Usage ftpinfo-add ip user passwd" && exit 1
-echo "$1:$2 $3" >> $TOOLS_PATH/conf/vsftpd-conf/ftp-tools/.vsftpd-conf.info

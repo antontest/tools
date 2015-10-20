@@ -1,0 +1,433 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+CLK_TCK	/usr/include/time.h	47;"	d
+F_LOCK	/usr/include/unistd.h	1079;"	d
+F_OK	/usr/include/unistd.h	285;"	d
+F_TEST	/usr/include/unistd.h	1081;"	d
+F_TLOCK	/usr/include/unistd.h	1080;"	d
+F_ULOCK	/usr/include/unistd.h	1078;"	d
+IDNAPI	/usr/include/stringprep.h	27;"	d
+IDNAPI	/usr/include/stringprep.h	29;"	d
+IDNAPI	/usr/include/stringprep.h	31;"	d
+IDNAPI	/usr/include/stringprep.h	33;"	d
+L_INCR	/usr/include/unistd.h	320;"	d
+L_SET	/usr/include/unistd.h	319;"	d
+L_XTND	/usr/include/unistd.h	321;"	d
+R_OK	/usr/include/unistd.h	282;"	d
+SEEK_CUR	/usr/include/unistd.h	313;"	d
+SEEK_END	/usr/include/unistd.h	314;"	d
+SEEK_SET	/usr/include/unistd.h	312;"	d
+STDERR_FILENO	/usr/include/unistd.h	213;"	d
+STDIN_FILENO	/usr/include/unistd.h	211;"	d
+STDOUT_FILENO	/usr/include/unistd.h	212;"	d
+STRINGPREP_BIDI	/usr/include/stringprep.h	/^    STRINGPREP_BIDI = 2,$/;"	e	enum:__anon3
+STRINGPREP_BIDI_BOTH_L_AND_RAL	/usr/include/stringprep.h	/^    STRINGPREP_BIDI_BOTH_L_AND_RAL = 3,$/;"	e	enum:__anon1
+STRINGPREP_BIDI_CONTAINS_PROHIBITED	/usr/include/stringprep.h	/^    STRINGPREP_BIDI_CONTAINS_PROHIBITED = 5,$/;"	e	enum:__anon1
+STRINGPREP_BIDI_LEADTRAIL_NOT_RAL	/usr/include/stringprep.h	/^    STRINGPREP_BIDI_LEADTRAIL_NOT_RAL = 4,$/;"	e	enum:__anon1
+STRINGPREP_BIDI_L_TABLE	/usr/include/stringprep.h	/^    STRINGPREP_BIDI_L_TABLE = 8$/;"	e	enum:__anon3
+STRINGPREP_BIDI_PROHIBIT_TABLE	/usr/include/stringprep.h	/^    STRINGPREP_BIDI_PROHIBIT_TABLE = 6,$/;"	e	enum:__anon3
+STRINGPREP_BIDI_RAL_TABLE	/usr/include/stringprep.h	/^    STRINGPREP_BIDI_RAL_TABLE = 7,$/;"	e	enum:__anon3
+STRINGPREP_CONTAINS_PROHIBITED	/usr/include/stringprep.h	/^    STRINGPREP_CONTAINS_PROHIBITED = 2,$/;"	e	enum:__anon1
+STRINGPREP_CONTAINS_UNASSIGNED	/usr/include/stringprep.h	/^    STRINGPREP_CONTAINS_UNASSIGNED = 1,$/;"	e	enum:__anon1
+STRINGPREP_FLAG_ERROR	/usr/include/stringprep.h	/^    STRINGPREP_FLAG_ERROR = 102,$/;"	e	enum:__anon1
+STRINGPREP_H	/usr/include/stringprep.h	23;"	d
+STRINGPREP_MALLOC_ERROR	/usr/include/stringprep.h	/^    STRINGPREP_MALLOC_ERROR = 201$/;"	e	enum:__anon1
+STRINGPREP_MAP_TABLE	/usr/include/stringprep.h	/^    STRINGPREP_MAP_TABLE = 3,$/;"	e	enum:__anon3
+STRINGPREP_MAX_MAP_CHARS	/usr/include/stringprep.h	89;"	d
+STRINGPREP_NFKC	/usr/include/stringprep.h	/^    STRINGPREP_NFKC = 1,$/;"	e	enum:__anon3
+STRINGPREP_NFKC_FAILED	/usr/include/stringprep.h	/^    STRINGPREP_NFKC_FAILED = 200,$/;"	e	enum:__anon1
+STRINGPREP_NO_BIDI	/usr/include/stringprep.h	/^    STRINGPREP_NO_BIDI = 2,$/;"	e	enum:__anon2
+STRINGPREP_NO_NFKC	/usr/include/stringprep.h	/^    STRINGPREP_NO_NFKC = 1,$/;"	e	enum:__anon2
+STRINGPREP_NO_UNASSIGNED	/usr/include/stringprep.h	/^    STRINGPREP_NO_UNASSIGNED = 4$/;"	e	enum:__anon2
+STRINGPREP_OK	/usr/include/stringprep.h	/^    STRINGPREP_OK = 0,$/;"	e	enum:__anon1
+STRINGPREP_PROFILE_ERROR	/usr/include/stringprep.h	/^    STRINGPREP_PROFILE_ERROR = 101,$/;"	e	enum:__anon1
+STRINGPREP_PROHIBIT_TABLE	/usr/include/stringprep.h	/^    STRINGPREP_PROHIBIT_TABLE = 5,$/;"	e	enum:__anon3
+STRINGPREP_TOO_SMALL_BUFFER	/usr/include/stringprep.h	/^    STRINGPREP_TOO_SMALL_BUFFER = 100,$/;"	e	enum:__anon1
+STRINGPREP_UNASSIGNED_TABLE	/usr/include/stringprep.h	/^    STRINGPREP_UNASSIGNED_TABLE = 4,$/;"	e	enum:__anon3
+STRINGPREP_UNKNOWN_PROFILE	/usr/include/stringprep.h	/^    STRINGPREP_UNKNOWN_PROFILE = 103,$/;"	e	enum:__anon1
+STRINGPREP_VERSION	/usr/include/stringprep.h	46;"	d
+Stringprep_profile	/usr/include/stringprep.h	/^  typedef struct Stringprep_table Stringprep_profile;$/;"	t	typeref:struct:Stringprep_table
+Stringprep_profile_flags	/usr/include/stringprep.h	/^  } Stringprep_profile_flags;$/;"	t	typeref:enum:__anon2
+Stringprep_profile_steps	/usr/include/stringprep.h	/^  } Stringprep_profile_steps;$/;"	t	typeref:enum:__anon3
+Stringprep_profiles	/usr/include/stringprep.h	/^  struct Stringprep_profiles$/;"	s
+Stringprep_profiles	/usr/include/stringprep.h	/^  typedef struct Stringprep_profiles Stringprep_profiles;$/;"	t	typeref:struct:Stringprep_profiles
+Stringprep_profiles::name	/usr/include/stringprep.h	/^    const char *name;$/;"	m	struct:Stringprep_profiles	access:public
+Stringprep_profiles::tables	/usr/include/stringprep.h	/^    const Stringprep_profile *tables;$/;"	m	struct:Stringprep_profiles	access:public
+Stringprep_rc	/usr/include/stringprep.h	/^  } Stringprep_rc;$/;"	t	typeref:enum:__anon1
+Stringprep_table	/usr/include/stringprep.h	/^  struct Stringprep_table$/;"	s
+Stringprep_table::flags	/usr/include/stringprep.h	/^    Stringprep_profile_flags flags;$/;"	m	struct:Stringprep_table	access:public
+Stringprep_table::operation	/usr/include/stringprep.h	/^    Stringprep_profile_steps operation;$/;"	m	struct:Stringprep_table	access:public
+Stringprep_table::table	/usr/include/stringprep.h	/^    const Stringprep_table_element *table;$/;"	m	struct:Stringprep_table	access:public
+Stringprep_table_element	/usr/include/stringprep.h	/^  struct Stringprep_table_element$/;"	s
+Stringprep_table_element	/usr/include/stringprep.h	/^  typedef struct Stringprep_table_element Stringprep_table_element;$/;"	t	typeref:struct:Stringprep_table_element
+Stringprep_table_element::end	/usr/include/stringprep.h	/^    uint32_t end;		\/* 0 if only one character *\/$/;"	m	struct:Stringprep_table_element	access:public
+Stringprep_table_element::map	/usr/include/stringprep.h	/^    uint32_t map[STRINGPREP_MAX_MAP_CHARS];	\/* NULL if end is not 0 *\/$/;"	m	struct:Stringprep_table_element	access:public
+Stringprep_table_element::start	/usr/include/stringprep.h	/^    uint32_t start;$/;"	m	struct:Stringprep_table_element	access:public
+TEMP_FAILURE_RETRY	/usr/include/unistd.h	1104;"	d
+W_OK	/usr/include/unistd.h	283;"	d
+X_OK	/usr/include/unistd.h	284;"	d
+_POSIX2_C_BIND	/usr/include/unistd.h	72;"	d
+_POSIX2_C_DEV	/usr/include/unistd.h	76;"	d
+_POSIX2_LOCALEDEF	/usr/include/unistd.h	84;"	d
+_POSIX2_SW_DEV	/usr/include/unistd.h	80;"	d
+_POSIX2_VERSION	/usr/include/unistd.h	68;"	d
+_POSIX_VERSION	/usr/include/unistd.h	35;"	d
+_STRINGS_H	/usr/include/strings.h	20;"	d
+_STRING_H	/usr/include/string.h	24;"	d
+_STROPTS_H	/usr/include/stropts.h	20;"	d
+_TIME_H	/usr/include/time.h	27;"	d
+_UNISTD_H	/usr/include/unistd.h	24;"	d
+_XOPEN_CRYPT	/usr/include/unistd.h	109;"	d
+_XOPEN_ENH_I18N	/usr/include/unistd.h	113;"	d
+_XOPEN_LEGACY	/usr/include/unistd.h	116;"	d
+_XOPEN_UNIX	/usr/include/unistd.h	106;"	d
+_XOPEN_VERSION	/usr/include/unistd.h	88;"	d
+_XOPEN_XCU_VERSION	/usr/include/unistd.h	98;"	d
+_XOPEN_XPG2	/usr/include/unistd.h	101;"	d
+_XOPEN_XPG3	/usr/include/unistd.h	102;"	d
+_XOPEN_XPG4	/usr/include/unistd.h	103;"	d
+__CORRECT_ISO_CPP_STRINGS_H_PROTO	/usr/include/strings.h	33;"	d
+__CORRECT_ISO_CPP_STRING_H_PROTO	/usr/include/string.h	37;"	d
+__POSIX2_THIS_VERSION	/usr/include/unistd.h	54;"	d
+__USING_NAMESPACE_STD	/usr/include/time.h	/^__USING_NAMESPACE_STD(tm)$/;"	f
+__bzero	/usr/include/string.h	/^extern void __bzero (void *__s, size_t __n) __THROW __nonnull ((1));$/;"	p	signature:(void *__s, size_t __n)
+__clock_t_defined	/usr/include/time.h	54;"	d
+__clockid_t_defined	/usr/include/time.h	87;"	d
+__clockid_time_t	/usr/include/time.h	95;"	d
+__getpgid	/usr/include/unistd.h	/^extern __pid_t __getpgid (__pid_t __pid) __THROW;$/;"	p	signature:(__pid_t __pid)
+__gid_t_defined	/usr/include/stropts.h	28;"	d
+__gid_t_defined	/usr/include/unistd.h	234;"	d
+__intptr_t_defined	/usr/include/unistd.h	269;"	d
+__isleap	/usr/include/time.h	304;"	d
+__mempcpy	/usr/include/string.h	/^extern void *__mempcpy (void *__restrict __dest,$/;"	p	signature:(void *__restrict __dest, __const void *__restrict __src, size_t __n)
+__need_NULL	/usr/include/string.h	32;"	d
+__need_NULL	/usr/include/time.h	37;"	d
+__need_NULL	/usr/include/unistd.h	226;"	d
+__need_clock_t	/usr/include/time.h	67;"	d
+__need_getopt	/usr/include/unistd.h	886;"	d
+__need_size_t	/usr/include/string.h	31;"	d
+__need_size_t	/usr/include/strings.h	28;"	d
+__need_size_t	/usr/include/time.h	36;"	d
+__need_size_t	/usr/include/unistd.h	225;"	d
+__need_time_t	/usr/include/time.h	83;"	d
+__need_timer_t	/usr/include/time.h	107;"	d
+__need_timespec	/usr/include/time.h	127;"	d
+__off64_t_defined	/usr/include/unistd.h	252;"	d
+__off_t_defined	/usr/include/unistd.h	248;"	d
+__pid_t_defined	/usr/include/time.h	175;"	d
+__pid_t_defined	/usr/include/unistd.h	262;"	d
+__socklen_t_defined	/usr/include/unistd.h	276;"	d
+__ssize_t_defined	/usr/include/unistd.h	222;"	d
+__stpcpy	/usr/include/string.h	/^extern char *__stpcpy (char *__restrict __dest, __const char *__restrict __src)$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src)
+__stpncpy	/usr/include/string.h	/^extern char *__stpncpy (char *__restrict __dest,$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src, size_t __n)
+__strtok_r	/usr/include/string.h	/^extern char *__strtok_r (char *__restrict __s,$/;"	p	signature:(char *__restrict __s, __const char *__restrict __delim, char **__restrict __save_ptr)
+__time_t_defined	/usr/include/time.h	70;"	d
+__timer_t_defined	/usr/include/time.h	99;"	d
+__timespec_defined	/usr/include/time.h	114;"	d
+__tm_gmtoff	/usr/include/time.h	/^  long int __tm_gmtoff;		\/* Seconds east of UTC.  *\/$/;"	m	struct:tm	access:public
+__tm_zone	/usr/include/time.h	/^  __const char *__tm_zone;	\/* Timezone abbreviation.  *\/$/;"	m	struct:tm	access:public
+__uid_t_defined	/usr/include/stropts.h	33;"	d
+__uid_t_defined	/usr/include/unistd.h	239;"	d
+__useconds_t_defined	/usr/include/unistd.h	257;"	d
+__wur	/usr/include/unistd.h	/^			   ftruncate64) __wur;$/;"	v
+__wur	/usr/include/unistd.h	/^			   pread64) __wur;$/;"	v
+__wur	/usr/include/unistd.h	/^			   pwrite64) __wur;$/;"	v
+__wur	/usr/include/unistd.h	/^		       lockf64) __wur;$/;"	v
+__wur	/usr/include/unistd.h	/^     __THROW __nonnull ((1)) __attribute_deprecated__ __wur;$/;"	v
+_exit	/usr/include/unistd.h	/^extern void _exit (int __status) __attribute__ ((__noreturn__));$/;"	p	signature:(int __status)
+access	/usr/include/unistd.h	/^extern int access (__const char *__name, int __type) __THROW __nonnull ((1));$/;"	p	signature:(__const char *__name, int __type)
+acct	/usr/include/unistd.h	/^extern int acct (__const char *__name) __THROW;$/;"	p	signature:(__const char *__name)
+alarm	/usr/include/unistd.h	/^extern unsigned int alarm (unsigned int __seconds) __THROW;$/;"	p	signature:(unsigned int __seconds)
+asctime	/usr/include/time.h	/^extern char *asctime (__const struct tm *__tp) __THROW;$/;"	p	signature:(__const struct tm *__tp)
+asctime_r	/usr/include/time.h	/^extern char *asctime_r (__const struct tm *__restrict __tp,$/;"	p	signature:(__const struct tm *__restrict __tp, char *__restrict __buf)
+basename	/usr/include/string.h	/^extern char *basename (__const char *__filename) __THROW __nonnull ((1));$/;"	p	signature:(__const char *__filename)
+bcmp	/usr/include/string.h	/^extern int bcmp (__const void *__s1, __const void *__s2, size_t __n)$/;"	p	signature:(__const void *__s1, __const void *__s2, size_t __n)
+bcmp	/usr/include/strings.h	/^extern int bcmp (__const void *__s1, __const void *__s2, size_t __n)$/;"	p	signature:(__const void *__s1, __const void *__s2, size_t __n)
+bcopy	/usr/include/string.h	/^extern void bcopy (__const void *__src, void *__dest, size_t __n)$/;"	p	signature:(__const void *__src, void *__dest, size_t __n)
+bcopy	/usr/include/strings.h	/^extern void bcopy (__const void *__src, void *__dest, size_t __n) __THROW;$/;"	p	signature:(__const void *__src, void *__dest, size_t __n)
+bzero	/usr/include/string.h	/^extern void bzero (void *__s, size_t __n) __THROW __nonnull ((1));$/;"	p	signature:(void *__s, size_t __n)
+bzero	/usr/include/strings.h	/^extern void bzero (void *__s, size_t __n) __THROW;$/;"	p	signature:(void *__s, size_t __n)
+clock	/usr/include/time.h	/^extern clock_t clock (void) __THROW;$/;"	p	signature:(void)
+clock_getcpuclockid	/usr/include/time.h	/^extern int clock_getcpuclockid (pid_t __pid, clockid_t *__clock_id) __THROW;$/;"	p	signature:(pid_t __pid, clockid_t *__clock_id)
+clock_getres	/usr/include/time.h	/^extern int clock_getres (clockid_t __clock_id, struct timespec *__res) __THROW;$/;"	p	signature:(clockid_t __clock_id, struct timespec *__res)
+clock_gettime	/usr/include/time.h	/^extern int clock_gettime (clockid_t __clock_id, struct timespec *__tp) __THROW;$/;"	p	signature:(clockid_t __clock_id, struct timespec *__tp)
+clock_nanosleep	/usr/include/time.h	/^extern int clock_nanosleep (clockid_t __clock_id, int __flags,$/;"	p	signature:(clockid_t __clock_id, int __flags, __const struct timespec *__req, struct timespec *__rem)
+clock_settime	/usr/include/time.h	/^extern int clock_settime (clockid_t __clock_id, __const struct timespec *__tp)$/;"	p	signature:(clockid_t __clock_id, __const struct timespec *__tp)
+clock_t	/usr/include/time.h	/^typedef __clock_t clock_t;$/;"	t
+clockid_t	/usr/include/time.h	/^typedef __clockid_t clockid_t;$/;"	t
+close	/usr/include/unistd.h	/^extern int close (int __fd);$/;"	p	signature:(int __fd)
+confstr	/usr/include/unistd.h	/^extern size_t confstr (int __name, char *__buf, size_t __len) __THROW;$/;"	p	signature:(int __name, char *__buf, size_t __len)
+crypt	/usr/include/unistd.h	/^extern char *crypt (__const char *__key, __const char *__salt)$/;"	p	signature:(__const char *__key, __const char *__salt)
+ctermid	/usr/include/unistd.h	/^extern char *ctermid (char *__s) __THROW;$/;"	p	signature:(char *__s)
+ctime	/usr/include/time.h	/^extern char *ctime (__const time_t *__timer) __THROW;$/;"	p	signature:(__const time_t *__timer)
+ctime_r	/usr/include/time.h	/^extern char *ctime_r (__const time_t *__restrict __timer,$/;"	p	signature:(__const time_t *__restrict __timer, char *__restrict __buf)
+difftime	/usr/include/time.h	/^extern double difftime (time_t __time1, time_t __time0)$/;"	p	signature:(time_t __time1, time_t __time0)
+dup2	/usr/include/unistd.h	/^extern int dup2 (int __fd, int __fd2) __THROW;$/;"	p	signature:(int __fd, int __fd2)
+dup3	/usr/include/unistd.h	/^extern int dup3 (int __fd, int __fd2, int __flags) __THROW;$/;"	p	signature:(int __fd, int __fd2, int __flags)
+dysize	/usr/include/time.h	/^extern int dysize (int __year) __THROW  __attribute__ ((__const__));$/;"	p	signature:(int __year)
+eaccess	/usr/include/unistd.h	/^extern int eaccess (__const char *__name, int __type)$/;"	p	signature:(__const char *__name, int __type)
+encrypt	/usr/include/unistd.h	/^extern void encrypt (char *__block, int __edflag) __THROW __nonnull ((1));$/;"	p	signature:(char *__block, int __edflag)
+end	/usr/include/stringprep.h	/^    uint32_t end;		\/* 0 if only one character *\/$/;"	m	struct:Stringprep_table_element	access:public
+endusershell	/usr/include/unistd.h	/^extern void endusershell (void) __THROW; \/* Discard cached info.  *\/$/;"	p	signature:(void)
+euidaccess	/usr/include/unistd.h	/^extern int euidaccess (__const char *__name, int __type)$/;"	p	signature:(__const char *__name, int __type)
+execl	/usr/include/unistd.h	/^extern int execl (__const char *__path, __const char *__arg, ...)$/;"	p	signature:(__const char *__path, __const char *__arg, ...)
+execle	/usr/include/unistd.h	/^extern int execle (__const char *__path, __const char *__arg, ...)$/;"	p	signature:(__const char *__path, __const char *__arg, ...)
+execlp	/usr/include/unistd.h	/^extern int execlp (__const char *__file, __const char *__arg, ...)$/;"	p	signature:(__const char *__file, __const char *__arg, ...)
+execv	/usr/include/unistd.h	/^extern int execv (__const char *__path, char *__const __argv[])$/;"	p	signature:(__const char *__path, char *__const __argv[])
+execve	/usr/include/unistd.h	/^extern int execve (__const char *__path, char *__const __argv[],$/;"	p	signature:(__const char *__path, char *__const __argv[], char *__const __envp[])
+execvp	/usr/include/unistd.h	/^extern int execvp (__const char *__file, char *__const __argv[])$/;"	p	signature:(__const char *__file, char *__const __argv[])
+execvpe	/usr/include/unistd.h	/^extern int execvpe (__const char *__file, char *__const __argv[],$/;"	p	signature:(__const char *__file, char *__const __argv[], char *__const __envp[])
+fattach	/usr/include/stropts.h	/^extern int fattach (int __fildes, __const char *__path) __THROW;$/;"	p	signature:(int __fildes, __const char *__path)
+fdatasync	/usr/include/unistd.h	/^extern int fdatasync (int __fildes);$/;"	p	signature:(int __fildes)
+fdetach	/usr/include/stropts.h	/^extern int fdetach (__const char *__path) __THROW;$/;"	p	signature:(__const char *__path)
+fexecve	/usr/include/unistd.h	/^extern int fexecve (int __fd, char *__const __argv[], char *__const __envp[])$/;"	p	signature:(int __fd, char *__const __argv[], char *__const __envp[])
+ffs	/usr/include/string.h	/^extern int ffs (int __i) __THROW __attribute__ ((__const__));$/;"	p	signature:(int __i)
+ffs	/usr/include/strings.h	/^extern int ffs (int __i) __THROW __attribute__ ((const));$/;"	p	signature:(int __i)
+ffsl	/usr/include/string.h	/^extern int ffsl (long int __l) __THROW __attribute__ ((__const__));$/;"	p	signature:(long int __l)
+ffsll	/usr/include/string.h	/^__extension__ extern int ffsll (long long int __ll)$/;"	p	signature:(long long int __ll)
+flags	/usr/include/stringprep.h	/^    Stringprep_profile_flags flags;$/;"	m	struct:Stringprep_table	access:public
+fork	/usr/include/unistd.h	/^extern __pid_t fork (void) __THROW;$/;"	p	signature:(void)
+fpathconf	/usr/include/unistd.h	/^extern long int fpathconf (int __fd, int __name) __THROW;$/;"	p	signature:(int __fd, int __name)
+fsync	/usr/include/unistd.h	/^extern int fsync (int __fd);$/;"	p	signature:(int __fd)
+ftruncate	/usr/include/unistd.h	1026;"	d
+get_current_dir_name	/usr/include/unistd.h	/^extern char *get_current_dir_name (void) __THROW;$/;"	p	signature:(void)
+getdate	/usr/include/time.h	/^extern struct tm *getdate (__const char *__string);$/;"	p	signature:(__const char *__string)
+getdate_r	/usr/include/time.h	/^extern int getdate_r (__const char *__restrict __string,$/;"	p	signature:(__const char *__restrict __string, struct tm *__restrict __resbufp)
+getdtablesize	/usr/include/unistd.h	/^extern int getdtablesize (void) __THROW;$/;"	p	signature:(void)
+getegid	/usr/include/unistd.h	/^extern __gid_t getegid (void) __THROW;$/;"	p	signature:(void)
+geteuid	/usr/include/unistd.h	/^extern __uid_t geteuid (void) __THROW;$/;"	p	signature:(void)
+getgid	/usr/include/unistd.h	/^extern __gid_t getgid (void) __THROW;$/;"	p	signature:(void)
+gethostid	/usr/include/unistd.h	/^extern long int gethostid (void);$/;"	p	signature:(void)
+gethostname	/usr/include/unistd.h	/^extern int gethostname (char *__name, size_t __len) __THROW __nonnull ((1));$/;"	p	signature:(char *__name, size_t __len)
+getlogin	/usr/include/unistd.h	/^extern char *getlogin (void);$/;"	p	signature:(void)
+getlogin_r	/usr/include/unistd.h	/^extern int getlogin_r (char *__name, size_t __name_len) __nonnull ((1));$/;"	p	signature:(char *__name, size_t __name_len)
+getmsg	/usr/include/stropts.h	/^extern int getmsg (int __fildes, struct strbuf *__restrict __ctlptr,$/;"	p	signature:(int __fildes, struct strbuf *__restrict __ctlptr, struct strbuf *__restrict __dataptr, int *__restrict __flagsp)
+getpagesize	/usr/include/unistd.h	/^extern int getpagesize (void)  __THROW __attribute__ ((__const__));$/;"	p	signature:(void)
+getpass	/usr/include/unistd.h	/^extern char *getpass (__const char *__prompt) __nonnull ((1));$/;"	p	signature:(__const char *__prompt)
+getpgid	/usr/include/unistd.h	/^extern __pid_t getpgid (__pid_t __pid) __THROW;$/;"	p	signature:(__pid_t __pid)
+getpgrp	/usr/include/unistd.h	/^extern __pid_t getpgrp (void) __THROW;$/;"	p	signature:(void)
+getpgrp	/usr/include/unistd.h	636;"	d
+getpid	/usr/include/unistd.h	/^extern __pid_t getpid (void) __THROW;$/;"	p	signature:(void)
+getpmsg	/usr/include/stropts.h	/^extern int getpmsg (int __fildes, struct strbuf *__restrict __ctlptr,$/;"	p	signature:(int __fildes, struct strbuf *__restrict __ctlptr, struct strbuf *__restrict __dataptr, int *__restrict __bandp, int *__restrict __flagsp)
+getppid	/usr/include/unistd.h	/^extern __pid_t getppid (void) __THROW;$/;"	p	signature:(void)
+getresgid	/usr/include/unistd.h	/^extern int getresgid (__gid_t *__rgid, __gid_t *__egid, __gid_t *__sgid)$/;"	p	signature:(__gid_t *__rgid, __gid_t *__egid, __gid_t *__sgid)
+getresuid	/usr/include/unistd.h	/^extern int getresuid (__uid_t *__ruid, __uid_t *__euid, __uid_t *__suid)$/;"	p	signature:(__uid_t *__ruid, __uid_t *__euid, __uid_t *__suid)
+getsid	/usr/include/unistd.h	/^extern __pid_t getsid (__pid_t __pid) __THROW;$/;"	p	signature:(__pid_t __pid)
+getuid	/usr/include/unistd.h	/^extern __uid_t getuid (void) __THROW;$/;"	p	signature:(void)
+getusershell	/usr/include/unistd.h	/^extern char *getusershell (void) __THROW;$/;"	p	signature:(void)
+gid_t	/usr/include/stropts.h	/^typedef __gid_t gid_t;$/;"	t
+gid_t	/usr/include/unistd.h	/^typedef __gid_t gid_t;$/;"	t
+gmtime	/usr/include/time.h	/^extern struct tm *gmtime (__const time_t *__timer) __THROW;$/;"	p	signature:(__const time_t *__timer)
+gmtime_r	/usr/include/time.h	/^extern struct tm *gmtime_r (__const time_t *__restrict __timer,$/;"	p	signature:(__const time_t *__restrict __timer, struct tm *__restrict __tp)
+group_member	/usr/include/unistd.h	/^extern int group_member (__gid_t __gid) __THROW;$/;"	p	signature:(__gid_t __gid)
+index	/usr/include/string.h	/^extern char *index (__const char *__s, int __c)$/;"	p	signature:(__const char *__s, int __c)
+index	/usr/include/string.h	/^index (__const char *__s, int __c) __THROW$/;"	f	signature:(__const char *__s, int __c)
+index	/usr/include/string.h	/^index (char *__s, int __c) __THROW$/;"	f	signature:(char *__s, int __c)
+index	/usr/include/strings.h	/^extern char *index (__const char *__s, int __c)$/;"	p	signature:(__const char *__s, int __c)
+index	/usr/include/strings.h	/^index (__const char *__s, int __c) __THROW$/;"	f	signature:(__const char *__s, int __c)
+index	/usr/include/strings.h	/^index (char *__s, int __c) __THROW$/;"	f	signature:(char *__s, int __c)
+intptr_t	/usr/include/unistd.h	/^typedef __intptr_t intptr_t;$/;"	t
+ioctl	/usr/include/stropts.h	/^extern int ioctl (int __fd, unsigned long int __request, ...) __THROW;$/;"	p	signature:(int __fd, unsigned long int __request, ...)
+isastream	/usr/include/stropts.h	/^extern int isastream (int __fildes) __THROW;$/;"	p	signature:(int __fildes)
+isatty	/usr/include/unistd.h	/^extern int isatty (int __fd) __THROW;$/;"	p	signature:(int __fd)
+localtime	/usr/include/time.h	/^extern struct tm *localtime (__const time_t *__timer) __THROW;$/;"	p	signature:(__const time_t *__timer)
+localtime_r	/usr/include/time.h	/^extern struct tm *localtime_r (__const time_t *__restrict __timer,$/;"	p	signature:(__const time_t *__restrict __timer, struct tm *__restrict __tp)
+lockf	/usr/include/unistd.h	1090;"	d
+lseek	/usr/include/unistd.h	/^extern __off_t lseek (int __fd, __off_t __offset, int __whence) __THROW;$/;"	p	signature:(int __fd, __off_t __offset, int __whence)
+lseek	/usr/include/unistd.h	338;"	d
+lseek64	/usr/include/unistd.h	/^extern __off64_t lseek64 (int __fd, __off64_t __offset, int __whence)$/;"	p	signature:(int __fd, __off64_t __offset, int __whence)
+map	/usr/include/stringprep.h	/^    uint32_t map[STRINGPREP_MAX_MAP_CHARS];	\/* NULL if end is not 0 *\/$/;"	m	struct:Stringprep_table_element	access:public
+memccpy	/usr/include/string.h	/^extern void *memccpy (void *__restrict __dest, __const void *__restrict __src,$/;"	p	signature:(void *__restrict __dest, __const void *__restrict __src, int __c, size_t __n)
+memchr	/usr/include/string.h	/^extern void *memchr (__const void *__s, int __c, size_t __n)$/;"	p	signature:(__const void *__s, int __c, size_t __n)
+memchr	/usr/include/string.h	/^memchr (__const void *__s, int __c, size_t __n) __THROW$/;"	f	signature:(__const void *__s, int __c, size_t __n)
+memchr	/usr/include/string.h	/^memchr (void *__s, int __c, size_t __n) __THROW$/;"	f	signature:(void *__s, int __c, size_t __n)
+memcmp	/usr/include/string.h	/^extern int memcmp (__const void *__s1, __const void *__s2, size_t __n)$/;"	p	signature:(__const void *__s1, __const void *__s2, size_t __n)
+memcpy	/usr/include/string.h	/^extern void *memcpy (void *__restrict __dest,$/;"	p	signature:(void *__restrict __dest, __const void *__restrict __src, size_t __n)
+memfrob	/usr/include/string.h	/^extern void *memfrob (void *__s, size_t __n) __THROW __nonnull ((1));$/;"	p	signature:(void *__s, size_t __n)
+memmem	/usr/include/string.h	/^extern void *memmem (__const void *__haystack, size_t __haystacklen,$/;"	p	signature:(__const void *__haystack, size_t __haystacklen, __const void *__needle, size_t __needlelen)
+memmove	/usr/include/string.h	/^extern void *memmove (void *__dest, __const void *__src, size_t __n)$/;"	p	signature:(void *__dest, __const void *__src, size_t __n)
+mempcpy	/usr/include/string.h	/^extern void *mempcpy (void *__restrict __dest,$/;"	p	signature:(void *__restrict __dest, __const void *__restrict __src, size_t __n)
+memrchr	/usr/include/string.h	/^extern void *memrchr (__const void *__s, int __c, size_t __n)$/;"	p	signature:(__const void *__s, int __c, size_t __n)
+memset	/usr/include/string.h	/^extern void *memset (void *__s, int __c, size_t __n) __THROW __nonnull ((1));$/;"	p	signature:(void *__s, int __c, size_t __n)
+mktime	/usr/include/time.h	/^extern time_t mktime (struct tm *__tp) __THROW;$/;"	p	signature:(struct tm *__tp)
+name	/usr/include/stringprep.h	/^    const char *name;$/;"	m	struct:Stringprep_profiles	access:public
+nanosleep	/usr/include/time.h	/^extern int nanosleep (__const struct timespec *__requested_time,$/;"	p	signature:(__const struct timespec *__requested_time, struct timespec *__remaining)
+off64_t	/usr/include/unistd.h	/^typedef __off64_t off64_t;$/;"	t
+off_t	/usr/include/unistd.h	/^typedef __off64_t off_t;$/;"	t
+off_t	/usr/include/unistd.h	/^typedef __off_t off_t;$/;"	t
+operation	/usr/include/stringprep.h	/^    Stringprep_profile_steps operation;$/;"	m	struct:Stringprep_table	access:public
+pathconf	/usr/include/unistd.h	/^extern long int pathconf (__const char *__path, int __name)$/;"	p	signature:(__const char *__path, int __name)
+pause	/usr/include/unistd.h	/^extern int pause (void);$/;"	p	signature:(void)
+pid_t	/usr/include/time.h	/^typedef __pid_t pid_t;$/;"	t
+pid_t	/usr/include/unistd.h	/^typedef __pid_t pid_t;$/;"	t
+pread	/usr/include/unistd.h	392;"	d
+profil	/usr/include/unistd.h	/^extern int profil (unsigned short int *__sample_buffer, size_t __size,$/;"	p	signature:(unsigned short int *__sample_buffer, size_t __size, size_t __offset, unsigned int __scale)
+putmsg	/usr/include/stropts.h	/^extern int putmsg (int __fildes, __const struct strbuf *__ctlptr,$/;"	p	signature:(int __fildes, __const struct strbuf *__ctlptr, __const struct strbuf *__dataptr, int __flags)
+putpmsg	/usr/include/stropts.h	/^extern int putpmsg (int __fildes, __const struct strbuf *__ctlptr,$/;"	p	signature:(int __fildes, __const struct strbuf *__ctlptr, __const struct strbuf *__dataptr, int __band, int __flags)
+pwrite	/usr/include/unistd.h	393;"	d
+rindex	/usr/include/string.h	/^extern char *rindex (__const char *__s, int __c)$/;"	p	signature:(__const char *__s, int __c)
+rindex	/usr/include/string.h	/^rindex (__const char *__s, int __c) __THROW$/;"	f	signature:(__const char *__s, int __c)
+rindex	/usr/include/string.h	/^rindex (char *__s, int __c) __THROW$/;"	f	signature:(char *__s, int __c)
+rindex	/usr/include/strings.h	/^extern char *rindex (__const char *__s, int __c)$/;"	p	signature:(__const char *__s, int __c)
+rindex	/usr/include/strings.h	/^rindex (__const char *__s, int __c) __THROW$/;"	f	signature:(__const char *__s, int __c)
+rindex	/usr/include/strings.h	/^rindex (char *__s, int __c) __THROW$/;"	f	signature:(char *__s, int __c)
+rmdir	/usr/include/unistd.h	/^extern int rmdir (__const char *__path) __THROW __nonnull ((1));$/;"	p	signature:(__const char *__path)
+sbrk	/usr/include/unistd.h	/^extern void *sbrk (intptr_t __delta) __THROW;$/;"	p	signature:(intptr_t __delta)
+setegid	/usr/include/unistd.h	/^extern int setegid (__gid_t __gid) __THROW;$/;"	p	signature:(__gid_t __gid)
+seteuid	/usr/include/unistd.h	/^extern int seteuid (__uid_t __uid) __THROW;$/;"	p	signature:(__uid_t __uid)
+setgid	/usr/include/unistd.h	/^extern int setgid (__gid_t __gid) __THROW;$/;"	p	signature:(__gid_t __gid)
+setlogin	/usr/include/unistd.h	/^extern int setlogin (__const char *__name) __THROW __nonnull ((1));$/;"	p	signature:(__const char *__name)
+setpgid	/usr/include/unistd.h	/^extern int setpgid (__pid_t __pid, __pid_t __pgid) __THROW;$/;"	p	signature:(__pid_t __pid, __pid_t __pgid)
+setpgrp	/usr/include/unistd.h	/^extern int setpgrp (void) __THROW;$/;"	p	signature:(void)
+setpgrp	/usr/include/unistd.h	675;"	d
+setregid	/usr/include/unistd.h	/^extern int setregid (__gid_t __rgid, __gid_t __egid) __THROW;$/;"	p	signature:(__gid_t __rgid, __gid_t __egid)
+setresgid	/usr/include/unistd.h	/^extern int setresgid (__gid_t __rgid, __gid_t __egid, __gid_t __sgid)$/;"	p	signature:(__gid_t __rgid, __gid_t __egid, __gid_t __sgid)
+setresuid	/usr/include/unistd.h	/^extern int setresuid (__uid_t __ruid, __uid_t __euid, __uid_t __suid)$/;"	p	signature:(__uid_t __ruid, __uid_t __euid, __uid_t __suid)
+setreuid	/usr/include/unistd.h	/^extern int setreuid (__uid_t __ruid, __uid_t __euid) __THROW;$/;"	p	signature:(__uid_t __ruid, __uid_t __euid)
+setsid	/usr/include/unistd.h	/^extern __pid_t setsid (void) __THROW;$/;"	p	signature:(void)
+setuid	/usr/include/unistd.h	/^extern int setuid (__uid_t __uid) __THROW;$/;"	p	signature:(__uid_t __uid)
+setusershell	/usr/include/unistd.h	/^extern void setusershell (void) __THROW; \/* Rewind and re-read the file.  *\/$/;"	p	signature:(void)
+sleep	/usr/include/unistd.h	/^extern unsigned int sleep (unsigned int __seconds);$/;"	p	signature:(unsigned int __seconds)
+socklen_t	/usr/include/unistd.h	/^typedef __socklen_t socklen_t;$/;"	t
+ssize_t	/usr/include/unistd.h	/^typedef __ssize_t ssize_t;$/;"	t
+start	/usr/include/stringprep.h	/^    uint32_t start;$/;"	m	struct:Stringprep_table_element	access:public
+stime	/usr/include/time.h	/^extern int stime (__const time_t *__when) __THROW;$/;"	p	signature:(__const time_t *__when)
+stpcpy	/usr/include/string.h	/^extern char *stpcpy (char *__restrict __dest, __const char *__restrict __src)$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src)
+stpncpy	/usr/include/string.h	/^extern char *stpncpy (char *__restrict __dest,$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src, size_t __n)
+strcasecmp	/usr/include/string.h	/^extern int strcasecmp (__const char *__s1, __const char *__s2)$/;"	p	signature:(__const char *__s1, __const char *__s2)
+strcasecmp	/usr/include/strings.h	/^extern int strcasecmp (__const char *__s1, __const char *__s2)$/;"	p	signature:(__const char *__s1, __const char *__s2)
+strcasecmp_l	/usr/include/string.h	/^extern int strcasecmp_l (__const char *__s1, __const char *__s2,$/;"	p	signature:(__const char *__s1, __const char *__s2, __locale_t __loc)
+strcasecmp_l	/usr/include/strings.h	/^extern int strcasecmp_l (__const char *__s1, __const char *__s2,$/;"	p	signature:(__const char *__s1, __const char *__s2, __locale_t __loc)
+strcasestr	/usr/include/string.h	/^extern char *strcasestr (__const char *__haystack, __const char *__needle)$/;"	p	signature:(__const char *__haystack, __const char *__needle)
+strcat	/usr/include/string.h	/^extern char *strcat (char *__restrict __dest, __const char *__restrict __src)$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src)
+strchr	/usr/include/string.h	/^strchr (__const char *__s, int __c) __THROW$/;"	f	signature:(__const char *__s, int __c)
+strchr	/usr/include/string.h	/^strchr (char *__s, int __c) __THROW$/;"	f	signature:(char *__s, int __c)
+strcmp	/usr/include/string.h	/^extern int strcmp (__const char *__s1, __const char *__s2)$/;"	p	signature:(__const char *__s1, __const char *__s2)
+strcoll	/usr/include/string.h	/^extern int strcoll (__const char *__s1, __const char *__s2)$/;"	p	signature:(__const char *__s1, __const char *__s2)
+strcoll_l	/usr/include/string.h	/^extern int strcoll_l (__const char *__s1, __const char *__s2, __locale_t __l)$/;"	p	signature:(__const char *__s1, __const char *__s2, __locale_t __l)
+strcpy	/usr/include/string.h	/^extern char *strcpy (char *__restrict __dest, __const char *__restrict __src)$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src)
+strcspn	/usr/include/string.h	/^extern size_t strcspn (__const char *__s, __const char *__reject)$/;"	p	signature:(__const char *__s, __const char *__reject)
+strdupa	/usr/include/string.h	187;"	d
+strerror	/usr/include/string.h	/^extern char *strerror (int __errnum) __THROW;$/;"	p	signature:(int __errnum)
+strerror_l	/usr/include/string.h	/^extern char *strerror_l (int __errnum, __locale_t __l) __THROW;$/;"	p	signature:(int __errnum, __locale_t __l)
+strfry	/usr/include/string.h	/^extern char *strfry (char *__string) __THROW __nonnull ((1));$/;"	p	signature:(char *__string)
+strftime	/usr/include/time.h	/^extern size_t strftime (char *__restrict __s, size_t __maxsize,$/;"	p	signature:(char *__restrict __s, size_t __maxsize, __const char *__restrict __format, __const struct tm *__restrict __tp)
+strftime_l	/usr/include/time.h	/^extern size_t strftime_l (char *__restrict __s, size_t __maxsize,$/;"	p	signature:(char *__restrict __s, size_t __maxsize, __const char *__restrict __format, __const struct tm *__restrict __tp, __locale_t __loc)
+stringprep	/usr/include/stringprep.h	/^  extern IDNAPI int stringprep (char *in, size_t maxlen,$/;"	p	signature:(char *in, size_t maxlen, Stringprep_profile_flags flags, const Stringprep_profile * profile)
+stringprep_4i	/usr/include/stringprep.h	/^  extern IDNAPI int stringprep_4i (uint32_t * ucs4, size_t * len,$/;"	p	signature:(uint32_t * ucs4, size_t * len, size_t maxucs4len, Stringprep_profile_flags flags, const Stringprep_profile * profile)
+stringprep_4zi	/usr/include/stringprep.h	/^  extern IDNAPI int stringprep_4zi (uint32_t * ucs4, size_t maxucs4len,$/;"	p	signature:(uint32_t * ucs4, size_t maxucs4len, Stringprep_profile_flags flags, const Stringprep_profile * profile)
+stringprep_check_version	/usr/include/stringprep.h	/^  extern IDNAPI const char *stringprep_check_version (const char$/;"	p	signature:(const char *req_version)
+stringprep_convert	/usr/include/stringprep.h	/^  extern IDNAPI char *stringprep_convert (const char *str,$/;"	p	signature:(const char *str, const char *to_codeset, const char *from_codeset)
+stringprep_iscsi	/usr/include/stringprep.h	176;"	d
+stringprep_kerberos5	/usr/include/stringprep.h	158;"	d
+stringprep_locale_charset	/usr/include/stringprep.h	/^  extern IDNAPI const char *stringprep_locale_charset (void);$/;"	p	signature:(void)
+stringprep_locale_to_utf8	/usr/include/stringprep.h	/^  extern IDNAPI char *stringprep_locale_to_utf8 (const char *str);$/;"	p	signature:(const char *str)
+stringprep_nameprep	/usr/include/stringprep.h	139;"	d
+stringprep_nameprep_no_unassigned	/usr/include/stringprep.h	142;"	d
+stringprep_plain	/usr/include/stringprep.h	151;"	d
+stringprep_profile	/usr/include/stringprep.h	/^  extern IDNAPI int stringprep_profile (const char *in,$/;"	p	signature:(const char *in, char **out, const char *profile, Stringprep_profile_flags flags)
+stringprep_strerror	/usr/include/stringprep.h	/^  extern IDNAPI const char *stringprep_strerror (Stringprep_rc rc);$/;"	p	signature:(Stringprep_rc rc)
+stringprep_ucs4_nfkc_normalize	/usr/include/stringprep.h	/^  extern IDNAPI uint32_t *stringprep_ucs4_nfkc_normalize (uint32_t * str,$/;"	p	signature:(uint32_t * str, ssize_t len)
+stringprep_ucs4_to_utf8	/usr/include/stringprep.h	/^  extern IDNAPI char *stringprep_ucs4_to_utf8 (const uint32_t * str,$/;"	p	signature:(const uint32_t * str, ssize_t len, size_t * items_read, size_t * items_written)
+stringprep_unichar_to_utf8	/usr/include/stringprep.h	/^  extern IDNAPI int stringprep_unichar_to_utf8 (uint32_t c, char *outbuf);$/;"	p	signature:(uint32_t c, char *outbuf)
+stringprep_utf8_nfkc_normalize	/usr/include/stringprep.h	/^  extern IDNAPI char *stringprep_utf8_nfkc_normalize (const char *str,$/;"	p	signature:(const char *str, ssize_t len)
+stringprep_utf8_to_locale	/usr/include/stringprep.h	/^  extern IDNAPI char *stringprep_utf8_to_locale (const char *str);$/;"	p	signature:(const char *str)
+stringprep_utf8_to_ucs4	/usr/include/stringprep.h	/^  extern IDNAPI uint32_t *stringprep_utf8_to_ucs4 (const char *str,$/;"	p	signature:(const char *str, ssize_t len, size_t * items_written)
+stringprep_utf8_to_unichar	/usr/include/stringprep.h	/^  extern IDNAPI uint32_t stringprep_utf8_to_unichar (const char *p);$/;"	p	signature:(const char *p)
+stringprep_xmpp_nodeprep	/usr/include/stringprep.h	167;"	d
+stringprep_xmpp_resourceprep	/usr/include/stringprep.h	169;"	d
+strlen	/usr/include/string.h	/^extern size_t strlen (__const char *__s)$/;"	p	signature:(__const char *__s)
+strncasecmp	/usr/include/string.h	/^extern int strncasecmp (__const char *__s1, __const char *__s2, size_t __n)$/;"	p	signature:(__const char *__s1, __const char *__s2, size_t __n)
+strncasecmp	/usr/include/strings.h	/^extern int strncasecmp (__const char *__s1, __const char *__s2, size_t __n)$/;"	p	signature:(__const char *__s1, __const char *__s2, size_t __n)
+strncasecmp_l	/usr/include/string.h	/^extern int strncasecmp_l (__const char *__s1, __const char *__s2,$/;"	p	signature:(__const char *__s1, __const char *__s2, size_t __n, __locale_t __loc)
+strncasecmp_l	/usr/include/strings.h	/^extern int strncasecmp_l (__const char *__s1, __const char *__s2,$/;"	p	signature:(__const char *__s1, __const char *__s2, size_t __n, __locale_t __loc)
+strncat	/usr/include/string.h	/^extern char *strncat (char *__restrict __dest, __const char *__restrict __src,$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src, size_t __n)
+strncmp	/usr/include/string.h	/^extern int strncmp (__const char *__s1, __const char *__s2, size_t __n)$/;"	p	signature:(__const char *__s1, __const char *__s2, size_t __n)
+strncpy	/usr/include/string.h	/^extern char *strncpy (char *__restrict __dest,$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src, size_t __n)
+strndupa	/usr/include/string.h	197;"	d
+strnlen	/usr/include/string.h	/^extern size_t strnlen (__const char *__string, size_t __maxlen)$/;"	p	signature:(__const char *__string, size_t __maxlen)
+strpbrk	/usr/include/string.h	/^extern char *strpbrk (__const char *__s, __const char *__accept)$/;"	p	signature:(__const char *__s, __const char *__accept)
+strpbrk	/usr/include/string.h	/^strpbrk (__const char *__s, __const char *__accept) __THROW$/;"	f	signature:(__const char *__s, __const char *__accept)
+strpbrk	/usr/include/string.h	/^strpbrk (char *__s, __const char *__accept) __THROW$/;"	f	signature:(char *__s, __const char *__accept)
+strptime	/usr/include/time.h	/^extern char *strptime (__const char *__restrict __s,$/;"	p	signature:(__const char *__restrict __s, __const char *__restrict __fmt, struct tm *__tp)
+strptime_l	/usr/include/time.h	/^extern char *strptime_l (__const char *__restrict __s,$/;"	p	signature:(__const char *__restrict __s, __const char *__restrict __fmt, struct tm *__tp, __locale_t __loc)
+strrchr	/usr/include/string.h	/^extern char *strrchr (__const char *__s, int __c)$/;"	p	signature:(__const char *__s, int __c)
+strrchr	/usr/include/string.h	/^strrchr (__const char *__s, int __c) __THROW$/;"	f	signature:(__const char *__s, int __c)
+strrchr	/usr/include/string.h	/^strrchr (char *__s, int __c) __THROW$/;"	f	signature:(char *__s, int __c)
+strsep	/usr/include/string.h	/^extern char *strsep (char **__restrict __stringp,$/;"	p	signature:(char **__restrict __stringp, __const char *__restrict __delim)
+strsignal	/usr/include/string.h	/^extern char *strsignal (int __sig) __THROW;$/;"	p	signature:(int __sig)
+strspn	/usr/include/string.h	/^extern size_t strspn (__const char *__s, __const char *__accept)$/;"	p	signature:(__const char *__s, __const char *__accept)
+strstr	/usr/include/string.h	/^extern char *strstr (__const char *__haystack, __const char *__needle)$/;"	p	signature:(__const char *__haystack, __const char *__needle)
+strstr	/usr/include/string.h	/^strstr (__const char *__haystack, __const char *__needle) __THROW$/;"	f	signature:(__const char *__haystack, __const char *__needle)
+strstr	/usr/include/string.h	/^strstr (char *__haystack, __const char *__needle) __THROW$/;"	f	signature:(char *__haystack, __const char *__needle)
+strtok	/usr/include/string.h	/^extern char *strtok (char *__restrict __s, __const char *__restrict __delim)$/;"	p	signature:(char *__restrict __s, __const char *__restrict __delim)
+strtok_r	/usr/include/string.h	/^extern char *strtok_r (char *__restrict __s, __const char *__restrict __delim,$/;"	p	signature:(char *__restrict __s, __const char *__restrict __delim, char **__restrict __save_ptr)
+strverscmp	/usr/include/string.h	/^extern int strverscmp (__const char *__s1, __const char *__s2)$/;"	p	signature:(__const char *__s1, __const char *__s2)
+strxfrm	/usr/include/string.h	/^extern size_t strxfrm (char *__restrict __dest,$/;"	p	signature:(char *__restrict __dest, __const char *__restrict __src, size_t __n)
+strxfrm_l	/usr/include/string.h	/^extern size_t strxfrm_l (char *__dest, __const char *__src, size_t __n,$/;"	p	signature:(char *__dest, __const char *__src, size_t __n, __locale_t __l)
+swab	/usr/include/unistd.h	/^extern void swab (__const void *__restrict __from, void *__restrict __to,$/;"	p	signature:(__const void *__restrict __from, void *__restrict __to, ssize_t __n)
+sync	/usr/include/unistd.h	/^extern void sync (void) __THROW;$/;"	p	signature:(void)
+syscall	/usr/include/unistd.h	/^extern long int syscall (long int __sysno, ...) __THROW;$/;"	p	signature:(long int __sysno, ...)
+sysconf	/usr/include/unistd.h	/^extern long int sysconf (int __name) __THROW;$/;"	p	signature:(int __name)
+t_uscalar_t	/usr/include/stropts.h	/^typedef __t_uscalar_t t_uscalar_t;$/;"	t
+table	/usr/include/stringprep.h	/^    const Stringprep_table_element *table;$/;"	m	struct:Stringprep_table	access:public
+tables	/usr/include/stringprep.h	/^    const Stringprep_profile *tables;$/;"	m	struct:Stringprep_profiles	access:public
+tcgetpgrp	/usr/include/unistd.h	/^extern __pid_t tcgetpgrp (int __fd) __THROW;$/;"	p	signature:(int __fd)
+tcsetpgrp	/usr/include/unistd.h	/^extern int tcsetpgrp (int __fd, __pid_t __pgrp_id) __THROW;$/;"	p	signature:(int __fd, __pid_t __pgrp_id)
+time	/usr/include/time.h	/^extern time_t time (time_t *__timer) __THROW;$/;"	p	signature:(time_t *__timer)
+time_t	/usr/include/time.h	/^typedef __time_t time_t;$/;"	t
+timegm	/usr/include/time.h	/^extern time_t timegm (struct tm *__tp) __THROW;$/;"	p	signature:(struct tm *__tp)
+timelocal	/usr/include/time.h	/^extern time_t timelocal (struct tm *__tp) __THROW;$/;"	p	signature:(struct tm *__tp)
+timer_create	/usr/include/time.h	/^extern int timer_create (clockid_t __clock_id,$/;"	p	signature:(clockid_t __clock_id, struct sigevent *__restrict __evp, timer_t *__restrict __timerid)
+timer_delete	/usr/include/time.h	/^extern int timer_delete (timer_t __timerid) __THROW;$/;"	p	signature:(timer_t __timerid)
+timer_getoverrun	/usr/include/time.h	/^extern int timer_getoverrun (timer_t __timerid) __THROW;$/;"	p	signature:(timer_t __timerid)
+timer_gettime	/usr/include/time.h	/^extern int timer_gettime (timer_t __timerid, struct itimerspec *__value)$/;"	p	signature:(timer_t __timerid, struct itimerspec *__value)
+timer_settime	/usr/include/time.h	/^extern int timer_settime (timer_t __timerid, int __flags,$/;"	p	signature:(timer_t __timerid, int __flags, __const struct itimerspec *__restrict __value, struct itimerspec *__restrict __ovalue)
+timer_t	/usr/include/time.h	/^typedef __timer_t timer_t;$/;"	t
+timespec	/usr/include/time.h	/^struct timespec$/;"	s
+timespec::tv_nsec	/usr/include/time.h	/^    long int tv_nsec;		\/* Nanoseconds.  *\/$/;"	m	struct:timespec	access:public
+timespec::tv_sec	/usr/include/time.h	/^    __time_t tv_sec;		\/* Seconds.  *\/$/;"	m	struct:timespec	access:public
+tm	/usr/include/time.h	/^struct tm$/;"	s
+tm::__tm_gmtoff	/usr/include/time.h	/^  long int __tm_gmtoff;		\/* Seconds east of UTC.  *\/$/;"	m	struct:tm	access:public
+tm::__tm_zone	/usr/include/time.h	/^  __const char *__tm_zone;	\/* Timezone abbreviation.  *\/$/;"	m	struct:tm	access:public
+tm::tm_gmtoff	/usr/include/time.h	/^  long int tm_gmtoff;		\/* Seconds east of UTC.  *\/$/;"	m	struct:tm	access:public
+tm::tm_hour	/usr/include/time.h	/^  int tm_hour;			\/* Hours.	[0-23] *\/$/;"	m	struct:tm	access:public
+tm::tm_isdst	/usr/include/time.h	/^  int tm_isdst;			\/* DST.		[-1\/0\/1]*\/$/;"	m	struct:tm	access:public
+tm::tm_mday	/usr/include/time.h	/^  int tm_mday;			\/* Day.		[1-31] *\/$/;"	m	struct:tm	access:public
+tm::tm_min	/usr/include/time.h	/^  int tm_min;			\/* Minutes.	[0-59] *\/$/;"	m	struct:tm	access:public
+tm::tm_mon	/usr/include/time.h	/^  int tm_mon;			\/* Month.	[0-11] *\/$/;"	m	struct:tm	access:public
+tm::tm_sec	/usr/include/time.h	/^  int tm_sec;			\/* Seconds.	[0-60] (1 leap second) *\/$/;"	m	struct:tm	access:public
+tm::tm_wday	/usr/include/time.h	/^  int tm_wday;			\/* Day of week.	[0-6] *\/$/;"	m	struct:tm	access:public
+tm::tm_yday	/usr/include/time.h	/^  int tm_yday;			\/* Days in year.[0-365]	*\/$/;"	m	struct:tm	access:public
+tm::tm_year	/usr/include/time.h	/^  int tm_year;			\/* Year	- 1900.  *\/$/;"	m	struct:tm	access:public
+tm::tm_zone	/usr/include/time.h	/^  __const char *tm_zone;	\/* Timezone abbreviation.  *\/$/;"	m	struct:tm	access:public
+tm_gmtoff	/usr/include/time.h	/^  long int tm_gmtoff;		\/* Seconds east of UTC.  *\/$/;"	m	struct:tm	access:public
+tm_hour	/usr/include/time.h	/^  int tm_hour;			\/* Hours.	[0-23] *\/$/;"	m	struct:tm	access:public
+tm_isdst	/usr/include/time.h	/^  int tm_isdst;			\/* DST.		[-1\/0\/1]*\/$/;"	m	struct:tm	access:public
+tm_mday	/usr/include/time.h	/^  int tm_mday;			\/* Day.		[1-31] *\/$/;"	m	struct:tm	access:public
+tm_min	/usr/include/time.h	/^  int tm_min;			\/* Minutes.	[0-59] *\/$/;"	m	struct:tm	access:public
+tm_mon	/usr/include/time.h	/^  int tm_mon;			\/* Month.	[0-11] *\/$/;"	m	struct:tm	access:public
+tm_sec	/usr/include/time.h	/^  int tm_sec;			\/* Seconds.	[0-60] (1 leap second) *\/$/;"	m	struct:tm	access:public
+tm_wday	/usr/include/time.h	/^  int tm_wday;			\/* Day of week.	[0-6] *\/$/;"	m	struct:tm	access:public
+tm_yday	/usr/include/time.h	/^  int tm_yday;			\/* Days in year.[0-365]	*\/$/;"	m	struct:tm	access:public
+tm_year	/usr/include/time.h	/^  int tm_year;			\/* Year	- 1900.  *\/$/;"	m	struct:tm	access:public
+tm_zone	/usr/include/time.h	/^  __const char *tm_zone;	\/* Timezone abbreviation.  *\/$/;"	m	struct:tm	access:public
+truncate	/usr/include/unistd.h	1006;"	d
+ttyname	/usr/include/unistd.h	/^extern char *ttyname (int __fd) __THROW;$/;"	p	signature:(int __fd)
+ttyslot	/usr/include/unistd.h	/^extern int ttyslot (void) __THROW;$/;"	p	signature:(void)
+tv_nsec	/usr/include/time.h	/^    long int tv_nsec;		\/* Nanoseconds.  *\/$/;"	m	struct:timespec	access:public
+tv_sec	/usr/include/time.h	/^    __time_t tv_sec;		\/* Seconds.  *\/$/;"	m	struct:timespec	access:public
+tzset	/usr/include/time.h	/^extern void tzset (void) __THROW;$/;"	p	signature:(void)
+ualarm	/usr/include/unistd.h	/^extern __useconds_t ualarm (__useconds_t __value, __useconds_t __interval)$/;"	p	signature:(__useconds_t __value, __useconds_t __interval)
+uid_t	/usr/include/stropts.h	/^typedef __uid_t uid_t;$/;"	t
+uid_t	/usr/include/unistd.h	/^typedef __uid_t uid_t;$/;"	t
+unlink	/usr/include/unistd.h	/^extern int unlink (__const char *__name) __THROW __nonnull ((1));$/;"	p	signature:(__const char *__name)
+unlinkat	/usr/include/unistd.h	/^extern int unlinkat (int __fd, __const char *__name, int __flag)$/;"	p	signature:(int __fd, __const char *__name, int __flag)
+useconds_t	/usr/include/unistd.h	/^typedef __useconds_t useconds_t;$/;"	t
+usleep	/usr/include/unistd.h	/^extern int usleep (__useconds_t __useconds);$/;"	p	signature:(__useconds_t __useconds)
+vfork	/usr/include/unistd.h	/^extern __pid_t vfork (void) __THROW;$/;"	p	signature:(void)
+vhangup	/usr/include/unistd.h	/^extern int vhangup (void) __THROW;$/;"	p	signature:(void)
