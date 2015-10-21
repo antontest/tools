@@ -1,0 +1,10 @@
+#! /bin/bash
+# Name : bash_complete
+# Func : bash_complete 
+# Time : 2015-10-21 17:33:25
+
+test ! -d $TOOLS_PATH/shell/bash-completion/ && echo "directory bash-complete
+does not exist!" && exit 1
+
+sudo cp $TOOLS_PATH/shell/bash-completion/* /etc/bash_completion.d/ -uvf &&
+    source ~/.bashrc 

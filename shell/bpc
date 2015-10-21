@@ -13,8 +13,8 @@ if test "$1" = "-u" -o "$1" = "u" ; then
     test ! -d $CONF_PATH && exit 1
     # update vim , tmux amd emacs config
     cp -uvp $CONF_PATH/vim-conf/.vimrc ~/.vimrc 
-    cp -uvpr $CONF_PATH/vim-conf/.vim ~
-    cp -uvp $CONF_PATH/emacs-conf/.emacs ~/.emacs 
+    # cp -uvpr $CONF_PATH/vim-conf/.vim ~
+    # cp -uvp $CONF_PATH/emacs-conf/.emacs ~/.emacs 
     cp -uvp $CONF_PATH/tmux-conf/.tmux.conf ~/.tmux.conf 
 
     # update bash config
@@ -32,8 +32,8 @@ fi
 if test -d $CONF_PATH; then
     # backup vim and tmux config
     cp -uvp ~/.vimrc $CONF_PATH/vim-conf 
-    cp -uvpr ~/.vim $CONF_PATH/vim-conf 
     cp -uvp ~/.tmux.conf $CONF_PATH/tmux-conf 
+    #cp -uvpr ~/.vim $CONF_PATH/vim-conf 
     #tar -cvf usr-share-vim.tar /usr/share/vim/addons/ /usr/share/vim/vim72
     #tar -cvf etc-vim.tar /etc/vim
 

@@ -101,6 +101,7 @@ fi
 export PATH=/home/anton/tools/shell:$PATH
 export PATH=/home/anton/tools/shell/git:$PATH
 export PATH=/home/anton/tools/exec:$PATH
+export PATH=~/bin/clang/bin:$PATH
 
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
@@ -119,11 +120,15 @@ alias cp='cp -rf'
 
 # add default search path
 # 增加.a搜索路径
-export LIBRARY_PATH=$LIBRARY_PATH:~/tools/lib
+export LIBRARY_PATH=$LIBRARY_PATH:~/tools/lib:~/bin/clang/lib
 #增加.so搜索路径
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/tools/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/tools/lib:~/bin/clang/lib
 #增加GCC的include文件搜索路径
-export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tools/include 
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tools/include:~/bin/clang/include:/usr/include/ 
+# export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tools/include:~/bin/clang/include
 
 #增加cscope文件搜索路径
 #export CSCOPE_DB=./cscope.out;/usr/include/cscope.out;/home/anton/tools/include/cscope.out
+if [ -f /etc/bash_completion ] ; then
+    source /etc/bash_completion
+fi

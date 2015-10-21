@@ -24,6 +24,7 @@ case "$1" in
         ;;
     "del")
         sed -i "/$2/"d $ftp_conf_path 
+        ;;
     *)
         usage_print
         exit 1
