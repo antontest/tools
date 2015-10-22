@@ -2,6 +2,8 @@
 # Func : 
 # Time : 2015-10-13 13:18:33
 
+ftp_server_host_path=/home/anton/tools/conf/ftp-conf/.ftp-host-to-mac
+test ! -f $ftp_server_host_path && exit 1 
 
 have ftp-put && {
 _ftp-put()
@@ -9,17 +11,20 @@ _ftp-put()
     local cur prev opts
     cur=`_get_cword`
     prev=${COMP_WORDS[COMP_CWORD-1]}
-    opts=`sed '/:/s/\(.*\):.*/\1/gp' -n /home/anton/tools/conf/vsftpd-conf/ftp-tools/.vsftpd-conf.info `
+    opts=`awk -F' ' '{print $1}' $ftp_server_host_path`
 
     local IFS=$'\t\n'
     if [[ ${prev} == 'ftp-put' ]] ; then
         COMPREPLY=( $( compgen -W '$opts' -- "$cur" ) )
         return 0
+    else
+        COMPREPLY=( $( compgen -W '`find -maxdepth 1 -type f | sed "s/^\.\///g" 2>/dev/null`' -- "$cur" ) )
+        return 0
     fi
 
-    _expand || return 0
-    COMPREPLY=( $( compgen -f -X ".*" -- "$cur" ) \
-                $( compgen -d -- "$cur" ) )
+#    _expand || return 0
+#    COMPREPLY=( $( compgen -f -X ".*" -- "$cur" ) \
+#                $( compgen -d -- "$cur" ) )
 }
 
 complete -F _ftp-put $filenames ftp-put

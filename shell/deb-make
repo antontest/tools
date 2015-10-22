@@ -1,0 +1,208 @@
+#! /bin/bash
+is_opt (){                                                                           
+    opt="$1"
+    if test "${opt:0:1}" == "-" ; then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+# get parameters's value
+parser_args (){
+    while test $# -gt 0 ; do
+        arg="$1"
+         case $arg in
+            -sbp)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                SRC_BIN_PATH=$2
+                shift
+                ;;
+            -sb)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                while test -n "$2" -a `is_opt $2` -eq 0 ; do
+                    SRC_BIN+=$2" "
+                    shift
+                done
+                ;;
+            -slp)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                SRC_LIB_PATH=$2
+                shift
+                ;;
+            -sl)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                while test -n "$2" -a `is_opt $2` -eq 0 ; do
+                    SRC_LIB+=$2" "
+                    shift
+                done
+                ;;
+            -sip)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                SRC_INC_PATH=$2
+                shift
+                ;;
+            -si)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                while test -n "$2" -a `is_opt $2` -eq 0 ; do
+                    SRC_INC+=$2" "
+                    shift
+                done
+                ;;
+            -dp)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                DEB_FOLDER=$2
+                shift
+                ;;
+            -dv)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                DEB_VERSION=$2
+                shift
+                ;;
+            -dn)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                DEB_NAME=$2
+                shift
+                ;;
+            *)
+                echo "err parameter: $arg" && exit 1
+                ;;
+
+            esac
+        shift
+    done
+}
+
+# Parser parameters
+parser_args $@
+
+# Configure your paths and filenames
+#SRC_BIN_PATH=/home/anton/tools/exec
+#SRC_BIN=socket
+#SRC_LIB_PATH=/home/anton/tools/lib
+#SRC_LIB=libsocket_*.so
+#SRC_INC_PATH=/home/anton/tools/include
+#SRC_INC=*.h
+#DEB_FOLDER=/home/anton/deb/
+#DEB_VERSION=2.2
+#DEB_NAME=socket
+
+task_flag=0
+# Check bin path
+if test -n "$SRC_BIN_PATH"; then
+    if test ! -d $SRC_BIN_PATH ; then
+        echo "bin path $SRC_BIN_PATH does not exists!"
+        exit 1 
+    fi
+    task_flag=1
+fi
+
+# Check lib path
+if test -n "$SRC_LIB_PATH"; then
+    if test ! -d $SRC_LIB_PATH ; then
+        echo "lib path $SRC_LIB_PATH does not exists!"
+        exit 1 
+    fi
+    task_flag=1
+fi
+
+# Check inc path
+if test -n "$SRC_INC_PATH"; then
+    if test ! -d $SRC_INC_PATH ; then
+        echo "INC path $SRC_INC_PATH does not exists!"
+        exit 1 
+    fi
+    task_flag=1
+fi
+
+# Check whether has task
+if test $task_flag -ne 1 ; then
+    echo "No task need to do!"
+    exit 1
+fi
+
+# Check deb folder
+if test -z "$DEB_FOLDER"; then
+    echo "Please input deb folder!"
+    exit 1
+fi
+
+if test ! -d $DEB_FOLDER ; then
+    echo "deb folder $DEB_FOLDER does not exists!"
+    exit 1
+fi
+
+# Check deb version
+if test -z "$DEB_VERSION" ; then
+    echo "Please input deb version!"
+    exit 1
+fi
+
+# Check deb name
+if test -z "$DEB_NAME" ; then
+    echo "Please input deb name!"
+    exit 1
+fi
+
+# Deb folder name
+DEB_FOLDER_NAME=$DEB_FOLDER/$DEB_NAME-$DEB_VERSION
+
+# Create your scripts source dir
+mkdir $DEB_FOLDER_NAME
+
+# Copy your script to the source dir
+if test -n "$SRC_BIN_PATH" ; then
+    sudo cp -a $SRC_BIN_PATH/$SRC_BIN $DEB_FOLDER_NAME 
+fi
+if test -n "$SRC_LIB_PATH" ; then
+    cp $SRC_LIB_PATH/$SRC_LIB $DEB_FOLDER_NAME
+fi
+if test -n "$SRC_INC_PATH" ; then
+    cp $SRC_INC_PATH/$SRC_INC $DEB_FOLDER_NAME
+fi
+cd $DEB_FOLDER_NAME
+
+# Create the packaging skeleton (debian/*)
+dh_make -s --indep --createorig -e d198908@163.com
+
+# Remove make calls
+grep -v makefile debian/rules > debian/rules.new 
+sed -i '$s/$/& dh_shlibdeps --dpkg-shlibdeps-params=--ignore-missing-info/g' debian/rules.new
+mv debian/rules.new debian/rules 
+
+# debian/install must contain the list of scripts to install 
+# as well as the target directory
+if test -n "$SRC_BIN_PATH" ; then
+    echo $SRC_BIN usr/bin > debian/install
+fi
+if test -n "$SRC_LIB_PATH" ; then
+    echo $SRC_LIB usr/lib >> debian/install
+fi
+if test -n "$SRC_INC_PATH" ; then
+    echo $SRC_INC usr/include >> debian/install  
+fi
+
+# Remove the example files
+rm debian/*.ex
+
+# Build the package.
+# You  will get a lot of warnings and ../somescripts_0.1-1_i386.deb
+debuild
+
+# remove
+DEB_PACKAGE_NAME=${DEB_FOLDER}${DEB_NAME}_${DEB_VERSION}
+rm -rf $DEB_FOLDER_NAME
+rm -f ${DEB_PACKAGE_NAME}-1.diff.gz
+rm -f ${DEB_PACKAGE_NAME}-1.dsc
+rm -f ${DEB_PACKAGE_NAME}-1_i386.build 
+rm -f ${DEB_PACKAGE_NAME}-1_i386.changes
+rm -f ${DEB_PACKAGE_NAME}.orig.tar.gz

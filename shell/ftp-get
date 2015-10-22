@@ -3,21 +3,29 @@
 # Func : 
 # Time : 2015-10-13 11:17:02
 
-test $# -lt 3 && echo "Usage: ftp-get ftp_server_ip directroy file1 file2 ..." && exit 1
+test $# -lt 3 && echo "Usage: ftp-get ftp_server_name directroy file1 file2 ..." && exit 1
 
 # check whether is exit directroy
-ftp_server_ip=$1
+# check whether is exit directroy
+ftp_server_name=$1
+ftp_host_to_mac_pwd=$CONF_PATH/ftp-conf/.ftp-host-to-mac
+ftp_mac_to_ip=$CONF_PATH/ftp-conf/.ftp-mac-to-ip
+ftp_server_mac=`grep -i $ftp_server_name $ftp_host_to_mac_pwd | awk -F' ' '{ print $2 }' `
+test "$ftp_server_mac" = "" && echo "No such ftp server! check your ftp server host name!" && exit 1
+ftp_server_ip=`grep -i $ftp_server_mac $ftp_mac_to_ip | awk -F' ' '{ print $2 }'`
+test "$ftp_server_ip" = "" && echo "Get ftp server ip failed! Please update ftp server ip" && exit 1
 ftp_server_path=$2
 shift 2
 
 # get ftp server user and passwd
-ftp_info=`ftpinfo $ftp_server_ip`
-test $? -eq 1 -o "$ftp_info" = "" && echo "ftp server info read failed!" && exit 1
+# get ftp server user and passwd
+ftp_user_pwd=`grep -i "$ftp_server_name" $ftp_host_to_mac_pwd | awk -F' ' '{print $3 FS $4}'`
+test "$ftp_user_pwd" = "" && echo "ftp server info read failed!" && exit 1
 
 # download
 ftp -n<<!
 open $ftp_server_ip
-user $ftp_info
+user $ftp_user_pwd
 binary
 cd $ftp_server_path
 lcd ./
@@ -28,5 +36,5 @@ close
 bye
 !
 
-echo -e "download \033[0;35m$@\033[0m success!"
+#echo -e "download \033[0;35m$@\033[0m success!"
 exit 0

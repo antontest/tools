@@ -1,0 +1,60 @@
+#! /bin/bash
+# Name : ftp-tool
+# Func : 
+# Time : 2015-10-13 18:41:25
+
+function usage_print()
+{
+    echo "Usage: ftp-tool [command] [option]"
+    echo "[command]: add change del up_ip up_bash"
+    echo "      ftp-tool add    host_name     mac_address   user passwd"
+    echo "      ftp-tool change old_host_name new_host_name"
+    echo "      ftp-tool del    host_name"
+    echo "      ftp-tool up_ip"
+    echo "      ftp-tool up_bash"
+}
+
+function get_ip_by_mac()
+{
+    mac_conf_path=~/tools/conf/ftp-conf/.ftp-host-to-mac
+    mac_to_ip_path=~/tools/conf/ftp-conf/.ftp-mac-to-ip
+    # get gate_way ip address
+    gate_way_ip=`socket -g | sed "s/.*:* \([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\).*$/\1.0\/24/g"`
+    test "$gate_way_ip" = "" && exit 1
+
+    # get mac address from ftp config file
+    for mac in `awk -F' ' '{print $2 }' $mac_conf_path` ; do
+        grep_cond+=$mac"\\|"
+    done
+    grep_cond=${grep_cond:0:(${#grep_cond} - 2)}
+
+    # get_ip_by_mac
+    socket -u "$gate_way_ip" | grep -i "$grep_cond" | sed "s/\(.*\)\ *\[\(.*\)\]\ .*$/\2 \1/g" > $mac_to_ip_path 
+}
+
+test $# -lt 1 && usage_print && exit 1
+
+ftp_conf_path=$TOOLS_PATH/conf/other/.ftp-host-to-mac
+case "$1" in
+    "add") 
+        test $# -ne 5 && usage_print && exit 1
+        echo "$2 $3 $4 $5" >> $ftp_conf_path
+        ;;
+    "change")
+#        sed -i "/$2/s/$2/$3/g" $ftp_conf_path
+        ;;
+    "del")
+        sed -i "/$2/"d $ftp_conf_path 
+        ;;
+    "up_ip")
+        get_ip_by_mac 
+        ;;
+    "up_bash")
+        sudo cp -uvf $SHELL_PATH/bash-completion/* /etc/bash_completion.d/
+        source /etc/bash_completion
+        ;;
+    *)
+        usage_print
+        exit 1
+        ;;
+esac

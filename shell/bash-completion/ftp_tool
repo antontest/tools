@@ -1,0 +1,29 @@
+# Name : ftp-tool auto_complete
+# Func : 
+# Time : 2015-10-13 13:18:33
+
+have ftp-tool && {
+_ftp-tool()
+{
+    local cur prev opts
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    opts="add\nchange\ndel\nup_ip\nup_bash"
+    COMPREPLY=()
+
+    local IFS=$'\t\n'
+    if [[ ${prev} == 'ftp-tool' ]] ; then
+        COMPREPLY=( $( compgen -W '`echo -e $opts`' -- "$cur" ) )
+    elif [[ ${prev} == 'del' ]] ; then
+        ftp_host_to_mac=/home/anton/tools/conf/ftp-conf/.ftp-host-to-mac
+        test ! -f $ftp_host_to_mac && return 1
+        local opt 
+        opt=`awk -F' ' '{ print $1 }' $ftp_host_to_mac`
+        COMPREPLY=( $( compgen -W '$opt' -- "$cur" ) )
+    fi
+
+    return 0
+}
+
+complete -F _ftp-tool $filenames ftp-tool
+}

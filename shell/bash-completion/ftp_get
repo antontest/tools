@@ -2,6 +2,8 @@
 # Func : 
 # Time : 2015-10-13 13:18:33
 
+ftp_server_host_path=/home/anton/tools/conf/ftp-conf/.ftp-host-to-mac
+test ! -f $ftp_server_host_path && exit 1 
 
 have ftp-get && {
 _ftp-get()
@@ -9,7 +11,7 @@ _ftp-get()
     local cur prev opts
     cur=`_get_cword`
     prev=${COMP_WORDS[COMP_CWORD-1]}
-    opts=`sed '/:/s/\(.*\):.*/\1/gp' -n /home/anton/tools/conf/vsftpd-conf/ftp-tools/.vsftpd-conf.info `
+    opts=`awk -F' ' '{print $1}' $ftp_server_host_path`
 
     if [[ ${prev} == 'ftp-get' ]] ; then
         COMPREPLY=( $( compgen -W '$opts' -- "$cur" ) )
