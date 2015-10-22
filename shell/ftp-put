@@ -9,7 +9,7 @@ test $# -lt 2 && echo "Usage: ftp-put ftp_server_name file1 file2 ..." && exit 1
 ftp_server_name=$1
 ftp_host_to_mac_pwd=$CONF_PATH/ftp-conf/.ftp-host-to-mac
 ftp_mac_to_ip=$CONF_PATH/ftp-conf/.ftp-mac-to-ip
-ftp_server_mac=`grep -i $ftp_server_name $ftp_host_to_mac_pwd | awk -F' ' '{ print $2 }' `
+ftp_server_mac=`grep -i "$ftp_server_name\ " $ftp_host_to_mac_pwd | awk -F' ' '{ print $2 }' `
 test "$ftp_server_mac" = "" && echo "No such ftp server! check your ftp server host name!" && exit 1
 ftp_server_ip=`grep -i $ftp_server_mac $ftp_mac_to_ip | awk -F' ' '{ print $2 }'`
 test "$ftp_server_ip" = "" && echo "Get ftp server ip failed! Please update ftp server ip" && exit 1

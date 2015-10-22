@@ -1,9 +1,0 @@
-#! /bin/bash
-# Name : ftpinfo
-# Func : get ftp server user and passwd 
-# Time : 2015-10-13 11:42:13
-
-test $# -ne 1 && echo "Usage: ftpinfo ftpserver-ipaddress" && exit 1
-ftp_file_path=~/tools/conf/vsftpd-conf/ftp-tools/.vsftpd-conf.info
-test ! -f $ftp_file_path && echo "ftp info file is not existed!" && exit 1
-sed "/$1/Is/$1:\(.*\)/\1/gp" -n $ftp_file_path

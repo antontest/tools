@@ -1,3 +1,4 @@
-pc         68:f7:28:86:af:3d antonio 12345
-ubuntu-pro 08:00:27:b3:22:de anton   ad200115
-board      00:0e:8f:03:86:d0 ftpuser 9xjkvutapmj0dqoq
+pc           68:f7:28:86:af:3d antonio 12345
+board        00:0e:8f:03:86:d0 ftpuser 9xjkvutapmj0dqoq
+ubuntu-local 08:00:27:b3:22:de anton   ad200115
+pc-remote    44:37:e6:dd:ae:ef anton   12345
