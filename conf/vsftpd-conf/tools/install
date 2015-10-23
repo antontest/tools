@@ -3,6 +3,7 @@
 # Func : install vsftpd
 # Time : 2015-10-22 13:18:11
 
+sudo apt-get install vsftpd
 test ! -d ../etc/ && echo "vsftpd conf directroy does not exists!" && exit 1
 sudo cp -vrf ../etc/ /
 sudo sudo useradd -d /home/anton/ftp -M anton
