@@ -7,3 +7,4 @@ sudo apt-get install vsftpd
 test ! -d ../etc/ && echo "vsftpd conf directroy does not exists!" && exit 1
 sudo cp -vrf ../etc/ /
 sudo sudo useradd -d /home/anton/ftp -M anton
+sudo service vsftpd restart
