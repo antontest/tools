@@ -3,6 +3,24 @@
 # Func : exec cmake project like make, make clean 
 # Time : 2015-08-19 15:00:11
 
+deb_maker (){
+    if test ! -f ./CMakeLists.txt -o ! -f ./src/CMakeLists.txt ; then
+        echo "Build path is wrong!"
+        exit 1
+    fi
+    CURR_PATH=`pwd`
+    SRC_BIN_PATH=${CURR_PATH}/
+    SRC_LIB_PATH=$CURR_PATH/src/lib/
+    SRC_INC_PATH=$CURR_PATH/src/include/
+    SRC_BIN=`sed -n "/ADD_EXECUTABLE/Is/^.*(\(.*\)\ .*$/\1/gp" ./src/CMakeLists.txt`
+    SRC_LIB=lib*
+    SRC_INC=*.h
+    DEB_FOLDER=$CURR_PATH/build/${SRC_BIN}_deb
+    DEB_VERSION=1.0
+    DEB_NAME=${SRC_BIN//_/-}
+    deb-make -sbp $SRC_BIN_PATH -slp $SRC_LIB_PATH -sip $SRC_INC_PATH -sb $SRC_BIN -sl $SRC_LIB -si $SRC_INC -dp $DEB_FOLDER -dv $DEB_VERSION -dn $DEB_NAME
+}
+
 #if test $# -gt 2 ; then
 #    echo -e "\033[1;31mUsage: `basename $0` [c | r | e | d | x | u]\033[0m"
 #    echo -e "\033[1;31m       `basename $0` [clean | rebuild | del | exec | uninstall]\033[0m"
@@ -60,6 +78,8 @@ case "$cmd" in
         find -iname build | xargs rm -rfv {}
         #test -d build && rm -rf build && exit 0
         exit 0 ;;
+    "deb"|"-deb"|"--deb")
+        deb_maker ;;
     "-i"|"i"|"install"|"--install")
         test ! -d build && ($0 ; $0) || $0
         test -d build && cd build 

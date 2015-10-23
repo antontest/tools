@@ -8,6 +8,9 @@ is_opt (){
     fi
 }
 
+BIN_INSTALL_PATH=""
+LIB_INSTALL_PATH=""
+INC_INSTALL_PATH=""
 # get parameters's value
 parser_args (){
     while test $# -gt 0 ; do
@@ -16,7 +19,7 @@ parser_args (){
             -sbp)
                 test -z "$2" && exit 1
                 test `is_opt $2` -eq 1 && exit 1
-                SRC_BIN_PATH=$2
+                SRC_BIN_PATH=$2/
                 shift
                 ;;
             -sb)
@@ -30,7 +33,7 @@ parser_args (){
             -slp)
                 test -z "$2" && exit 1
                 test `is_opt $2` -eq 1 && exit 1
-                SRC_LIB_PATH=$2
+                SRC_LIB_PATH=$2/
                 shift
                 ;;
             -sl)
@@ -44,7 +47,7 @@ parser_args (){
             -sip)
                 test -z "$2" && exit 1
                 test `is_opt $2` -eq 1 && exit 1
-                SRC_INC_PATH=$2
+                SRC_INC_PATH=$2/
                 shift
                 ;;
             -si)
@@ -58,7 +61,7 @@ parser_args (){
             -dp)
                 test -z "$2" && exit 1
                 test `is_opt $2` -eq 1 && exit 1
-                DEB_FOLDER=$2
+                DEB_FOLDER=$2/
                 shift
                 ;;
             -dv)
@@ -71,6 +74,24 @@ parser_args (){
                 test -z "$2" && exit 1
                 test `is_opt $2` -eq 1 && exit 1
                 DEB_NAME=$2
+                shift
+                ;;
+            -bip)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                BIN_INSTALL_PATH=$2/
+                shift
+                ;;
+            -lip)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                LIB_INSTALL_PATH=$2/
+                shift
+                ;;
+            -iip)
+                test -z "$2" && exit 1
+                test `is_opt $2` -eq 1 && exit 1
+                INC_INSTALL_PATH=$2/
                 shift
                 ;;
             *)
@@ -136,9 +157,11 @@ if test -z "$DEB_FOLDER"; then
     exit 1
 fi
 
-if test ! -d $DEB_FOLDER ; then
+if test ! -d `dirname $DEB_FOLDER` ; then
     echo "deb folder $DEB_FOLDER does not exists!"
     exit 1
+else
+    mkdir $DEB_FOLDER
 fi
 
 # Check deb version
@@ -151,6 +174,32 @@ fi
 if test -z "$DEB_NAME" ; then
     echo "Please input deb name!"
     exit 1
+fi
+
+# Check install path 
+if test -z "$BIN_INSTALL_PATH" ; then
+    BIN_INSTALL_PATH=/usr/bin
+else
+    if test ! -d $BIN_INSTALL_PATH ; then
+        echo "bin install path: $BIN_INSTALL_PATH does not exists!"
+        exit 1
+    fi
+fi
+if test -z "$LIB_INSTALL_PATH" ; then
+    LIB_INSTALL_PATH=/usr/lib
+else
+    if test ! -d $LIB_INSTALL_PATH ; then
+        echo "lib install path: $LIB_INSTALL_PATH does not exists!"
+        exit 1
+    fi
+fi
+if test -z "$INC_INSTALL_PATH" ; then
+    INC_INSTALL_PATH=/usr/include
+else
+    if test ! -d $INC_INSTALL_PATH ; then
+        echo "inc install path: $INC_INSTALL_PATH does not exists!"
+        exit 1
+    fi
 fi
 
 # Deb folder name
@@ -182,13 +231,13 @@ mv debian/rules.new debian/rules
 # debian/install must contain the list of scripts to install 
 # as well as the target directory
 if test -n "$SRC_BIN_PATH" ; then
-    echo $SRC_BIN usr/bin > debian/install
+    echo $SRC_BIN $BIN_INSTALL_PATH > debian/install
 fi
 if test -n "$SRC_LIB_PATH" ; then
-    echo $SRC_LIB usr/lib >> debian/install
+    echo $SRC_LIB $LIB_INSTALL_PATH >> debian/install
 fi
 if test -n "$SRC_INC_PATH" ; then
-    echo $SRC_INC usr/include >> debian/install  
+    echo $SRC_INC $INC_INSTALL_PATH >> debian/install  
 fi
 
 # Remove the example files
@@ -200,9 +249,11 @@ debuild
 
 # remove
 DEB_PACKAGE_NAME=${DEB_FOLDER}${DEB_NAME}_${DEB_VERSION}
+set -x
 rm -rf $DEB_FOLDER_NAME
 rm -f ${DEB_PACKAGE_NAME}-1.diff.gz
 rm -f ${DEB_PACKAGE_NAME}-1.dsc
 rm -f ${DEB_PACKAGE_NAME}-1_i386.build 
 rm -f ${DEB_PACKAGE_NAME}-1_i386.changes
 rm -f ${DEB_PACKAGE_NAME}.orig.tar.gz
+set +x
