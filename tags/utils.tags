@@ -1,0 +1,114 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ALREADY_DONE	/home/anton/usr/include/utils/utils.h	/^	ALREADY_DONE,$/;"	e	language:C	enum:status_t
+ASSIGN	/home/anton/usr/include/utils/utils.h	182;"	d	language:C
+DESTROY_FUNCTION_IF	/home/anton/usr/include/utils/utils.h	106;"	d	language:C
+DESTROY_IF	/home/anton/usr/include/utils/utils.h	96;"	d	language:C
+DESTROY_ME	/home/anton/usr/include/utils/utils.h	/^	DESTROY_ME,$/;"	e	language:C	enum:status_t
+DESTROY_OFFSET_IF	/home/anton/usr/include/utils/utils.h	101;"	d	language:C
+ENUM	/home/anton/usr/include/utils/enum.h	90;"	d	language:C
+ENUM_BEGIN	/home/anton/usr/include/utils/enum.h	58;"	d	language:C
+ENUM_END	/home/anton/usr/include/utils/enum.h	77;"	d	language:C
+ENUM_NEXT	/home/anton/usr/include/utils/enum.h	69;"	d	language:C
+FAILED	/home/anton/usr/include/utils/utils.h	/^	FAILED,$/;"	e	language:C	enum:status_t
+FALSE	/home/anton/usr/include/utils/utils.h	20;"	d	language:C
+INIT	/home/anton/usr/include/utils/utils.h	134;"	d	language:C
+INVALID_ARG	/home/anton/usr/include/utils/utils.h	/^	INVALID_ARG,$/;"	e	language:C	enum:status_t
+INVALID_STATE	/home/anton/usr/include/utils/utils.h	/^	INVALID_STATE,$/;"	e	language:C	enum:status_t
+METHOD	/home/anton/usr/include/utils/utils.h	148;"	d	language:C
+METHOD2	/home/anton/usr/include/utils/utils.h	157;"	d	language:C
+NEED_MORE	/home/anton/usr/include/utils/utils.h	/^	NEED_MORE,$/;"	e	language:C	enum:status_t
+NOT_FOUND	/home/anton/usr/include/utils/utils.h	/^	NOT_FOUND,$/;"	e	language:C	enum:status_t
+NOT_SUPPORTED	/home/anton/usr/include/utils/utils.h	/^	NOT_SUPPORTED,$/;"	e	language:C	enum:status_t
+OUT_OF_RES	/home/anton/usr/include/utils/utils.h	/^	OUT_OF_RES,$/;"	e	language:C	enum:status_t
+PARSE_ERROR	/home/anton/usr/include/utils/utils.h	/^	PARSE_ERROR,$/;"	e	language:C	enum:status_t
+POS	/home/anton/usr/include/utils/utils.h	129;"	d	language:C
+SUCCESS	/home/anton/usr/include/utils/utils.h	/^	SUCCESS,$/;"	e	language:C	enum:status_t
+TRUE	/home/anton/usr/include/utils/utils.h	23;"	d	language:C
+VERIFY_ERROR	/home/anton/usr/include/utils/utils.h	/^	VERIFY_ERROR,$/;"	e	language:C	enum:status_t
+_Bool	/home/anton/usr/include/utils/utils.h	12;"	d	language:C
+__ENUM_H__	/home/anton/usr/include/utils/enum.h	8;"	d	language:C
+__LIBRARY_H__	/home/anton/usr/include/utils/library.h	2;"	d	language:C
+__LINKED_LIST_H_	/home/anton/usr/include/utils/linked_list.h	7;"	d	language:C
+__UTILS_H__	/home/anton/usr/include/utils/utils.h	2;"	d	language:C
+__bool_true_false_are_defined	/home/anton/usr/include/utils/utils.h	17;"	d	language:C
+bool	/home/anton/usr/include/utils/utils.h	14;"	d	language:C
+clone_offset	/home/anton/usr/include/utils/linked_list.h	/^	linked_list_t *(*clone_offset) (linked_list_t *this, size_t offset);$/;"	m	language:C	struct:linked_list_t	access:public
+countof	/home/anton/usr/include/utils/utils.h	172;"	d	language:C
+destroy	/home/anton/usr/include/utils/linked_list.h	/^	void (*destroy) (linked_list_t *this);$/;"	m	language:C	struct:linked_list_t	access:public
+destroy_function	/home/anton/usr/include/utils/linked_list.h	/^	void (*destroy_function) (linked_list_t *this, void (*)(void*));$/;"	m	language:C	struct:linked_list_t	access:public
+destroy_offset	/home/anton/usr/include/utils/linked_list.h	/^	void (*destroy_offset) (linked_list_t *this, size_t offset);$/;"	m	language:C	struct:linked_list_t	access:public
+enum_from_name	/home/anton/usr/include/utils/enum.h	/^int enum_from_name(enum_name_t *e, char *name);$/;"	p	language:C	signature:(enum_name_t *e, char *name)
+enum_name_t	/home/anton/usr/include/utils/enum.h	/^struct enum_name_t {$/;"	s	language:C
+enum_name_t	/home/anton/usr/include/utils/enum.h	/^typedef struct enum_name_t enum_name_t;$/;"	t	language:C	typeref:struct:enum_name_t
+enum_name_t::first	/home/anton/usr/include/utils/enum.h	/^	int first;$/;"	m	language:C	struct:enum_name_t	access:public
+enum_name_t::last	/home/anton/usr/include/utils/enum.h	/^	int last;$/;"	m	language:C	struct:enum_name_t	access:public
+enum_name_t::names	/home/anton/usr/include/utils/enum.h	/^	char *names[];$/;"	m	language:C	struct:enum_name_t	access:public
+enum_name_t::next	/home/anton/usr/include/utils/enum.h	/^	enum_name_t *next;$/;"	m	language:C	struct:enum_name_t	access:public
+enum_to_name	/home/anton/usr/include/utils/enum.h	/^char *enum_to_name(enum_name_t *e, int val);$/;"	p	language:C	signature:(enum_name_t *e, int val)
+false	/home/anton/usr/include/utils/utils.h	15;"	d	language:C
+find_first	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*find_first) (linked_list_t *this, linked_list_match_t match,$/;"	m	language:C	struct:linked_list_t	access:public
+first	/home/anton/usr/include/utils/enum.h	/^	int first;$/;"	m	language:C	struct:enum_name_t	access:public
+get_count	/home/anton/usr/include/utils/linked_list.h	/^	int (*get_count) (linked_list_t *this);$/;"	m	language:C	struct:linked_list_t	access:public
+get_first	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*get_first) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+get_last	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*get_last) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+htoun16	/home/anton/usr/include/utils/utils.h	/^inline void htoun16(void *network, unsigned short host);$/;"	p	language:C	signature:(void *network, unsigned short host)
+htoun32	/home/anton/usr/include/utils/utils.h	/^inline void htoun32(void *network, unsigned int host);$/;"	p	language:C	signature:(void *network, unsigned int host)
+htoun64	/home/anton/usr/include/utils/utils.h	/^inline void htoun64(void *network, unsigned long int  host);$/;"	p	language:C	signature:(void *network, unsigned long int host)
+ignore_result	/home/anton/usr/include/utils/utils.h	177;"	d	language:C
+insert_first	/home/anton/usr/include/utils/linked_list.h	/^	void (*insert_first) (linked_list_t *this, void *item);$/;"	m	language:C	struct:linked_list_t	access:public
+insert_last	/home/anton/usr/include/utils/linked_list.h	/^	void (*insert_last) (linked_list_t *this, void *item);$/;"	m	language:C	struct:linked_list_t	access:public
+invoke_function	/home/anton/usr/include/utils/linked_list.h	/^	void (*invoke_function) (linked_list_t *this, linked_list_invoke_t function, ...);$/;"	m	language:C	struct:linked_list_t	access:public
+invoke_offset	/home/anton/usr/include/utils/linked_list.h	/^	void (*invoke_offset) (linked_list_t *this, size_t offset, ...);$/;"	m	language:C	struct:linked_list_t	access:public
+last	/home/anton/usr/include/utils/enum.h	/^	int last;$/;"	m	language:C	struct:enum_name_t	access:public
+linked_list_create	/home/anton/usr/include/utils/linked_list.h	/^linked_list_t *linked_list_create(void);$/;"	p	language:C	signature:(void)
+linked_list_create_with_items	/home/anton/usr/include/utils/linked_list.h	/^linked_list_t *linked_list_create_with_items(void *first, ...);$/;"	p	language:C	signature:(void *first, ...)
+linked_list_invoke_t	/home/anton/usr/include/utils/linked_list.h	/^typedef void (*linked_list_invoke_t)(void *item, ...);$/;"	t	language:C
+linked_list_match_t	/home/anton/usr/include/utils/linked_list.h	/^typedef bool (*linked_list_match_t)(void *item, ...);$/;"	t	language:C
+linked_list_t	/home/anton/usr/include/utils/linked_list.h	/^struct linked_list_t {$/;"	s	language:C
+linked_list_t	/home/anton/usr/include/utils/linked_list.h	/^typedef struct linked_list_t linked_list_t;$/;"	t	language:C	typeref:struct:linked_list_t
+linked_list_t::clone_offset	/home/anton/usr/include/utils/linked_list.h	/^	linked_list_t *(*clone_offset) (linked_list_t *this, size_t offset);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::destroy	/home/anton/usr/include/utils/linked_list.h	/^	void (*destroy) (linked_list_t *this);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::destroy_function	/home/anton/usr/include/utils/linked_list.h	/^	void (*destroy_function) (linked_list_t *this, void (*)(void*));$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::destroy_offset	/home/anton/usr/include/utils/linked_list.h	/^	void (*destroy_offset) (linked_list_t *this, size_t offset);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::find_first	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*find_first) (linked_list_t *this, linked_list_match_t match,$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::get_count	/home/anton/usr/include/utils/linked_list.h	/^	int (*get_count) (linked_list_t *this);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::get_first	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*get_first) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::get_last	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*get_last) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::insert_first	/home/anton/usr/include/utils/linked_list.h	/^	void (*insert_first) (linked_list_t *this, void *item);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::insert_last	/home/anton/usr/include/utils/linked_list.h	/^	void (*insert_last) (linked_list_t *this, void *item);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::invoke_function	/home/anton/usr/include/utils/linked_list.h	/^	void (*invoke_function) (linked_list_t *this, linked_list_invoke_t function, ...);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::invoke_offset	/home/anton/usr/include/utils/linked_list.h	/^	void (*invoke_offset) (linked_list_t *this, size_t offset, ...);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::remove	/home/anton/usr/include/utils/linked_list.h	/^	int (*remove)(linked_list_t *this, void *item, bool (*compare)(void*,void*));$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::remove_first	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*remove_first) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+linked_list_t::remove_last	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*remove_last) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+malloc_thing	/home/anton/usr/include/utils/utils.h	167;"	d	language:C
+max	/home/anton/usr/include/utils/utils.h	112;"	d	language:C
+memeq	/home/anton/usr/include/utils/utils.h	/^inline bool memeq(const void *x, const void *y, unsigned int len);$/;"	p	language:C	signature:(const void *x, const void *y, unsigned int len)
+min	/home/anton/usr/include/utils/utils.h	121;"	d	language:C
+names	/home/anton/usr/include/utils/enum.h	/^	char *names[];$/;"	m	language:C	struct:enum_name_t	access:public
+next	/home/anton/usr/include/utils/enum.h	/^	enum_name_t *next;$/;"	m	language:C	struct:enum_name_t	access:public
+rand_num	/home/anton/usr/include/utils/utils.h	/^inline int rand_num(int min, int max);$/;"	p	language:C	signature:(int min, int max)
+remove	/home/anton/usr/include/utils/linked_list.h	/^	int (*remove)(linked_list_t *this, void *item, bool (*compare)(void*,void*));$/;"	m	language:C	struct:linked_list_t	access:public
+remove_first	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*remove_first) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+remove_last	/home/anton/usr/include/utils/linked_list.h	/^	status_t (*remove_last) (linked_list_t *this, void **item);$/;"	m	language:C	struct:linked_list_t	access:public
+round_down	/home/anton/usr/include/utils/utils.h	/^inline unsigned int round_down(unsigned int size, int alignement);$/;"	p	language:C	signature:(unsigned int size, int alignement)
+round_up	/home/anton/usr/include/utils/utils.h	/^inline unsigned int round_up(unsigned int size, int alignement);$/;"	p	language:C	signature:(unsigned int size, int alignement)
+status_t	/home/anton/usr/include/utils/utils.h	/^enum status_t {$/;"	g	language:C
+status_t	/home/anton/usr/include/utils/utils.h	/^typedef enum status_t status_t;$/;"	t	language:C	typeref:enum:status_t
+strcaseeq	/home/anton/usr/include/utils/utils.h	/^inline bool strcaseeq(const char *x, const char *y);$/;"	p	language:C	signature:(const char *x, const char *y)
+strdupnull	/home/anton/usr/include/utils/utils.h	/^inline char *strdupnull(const char *s);$/;"	p	language:C	signature:(const char *s)
+streq	/home/anton/usr/include/utils/utils.h	/^inline bool streq(const char *x, const char *y);$/;"	p	language:C	signature:(const char *x, const char *y)
+strncaseeq	/home/anton/usr/include/utils/utils.h	/^inline bool strncaseeq(const char *x, const char *y, unsigned int len);$/;"	p	language:C	signature:(const char *x, const char *y, unsigned int len)
+strneq	/home/anton/usr/include/utils/utils.h	/^inline bool strneq(const char *x, const char *y, unsigned int len);$/;"	p	language:C	signature:(const char *x, const char *y, unsigned int len)
+strpfx	/home/anton/usr/include/utils/utils.h	/^inline bool strpfx(const char *x, const char *prefix);$/;"	p	language:C	signature:(const char *x, const char *prefix)
+time_monotonic	/home/anton/usr/include/utils/utils.h	/^inline long time_monotonic(struct timeval *tv);$/;"	p	language:C	signature:(struct timeval *tv)
+timeval_add_ms	/home/anton/usr/include/utils/utils.h	/^inline void timeval_add_ms(struct timeval *tv, unsigned int ms);$/;"	p	language:C	signature:(struct timeval *tv, unsigned int ms)
+true	/home/anton/usr/include/utils/utils.h	16;"	d	language:C
+untoh16	/home/anton/usr/include/utils/utils.h	/^inline unsigned short untoh16(void *network);$/;"	p	language:C	signature:(void *network)
+untoh32	/home/anton/usr/include/utils/utils.h	/^inline unsigned int untoh32(void *network);$/;"	p	language:C	signature:(void *network)
+untoh64	/home/anton/usr/include/utils/utils.h	/^inline unsigned long int untoh64(void *network);$/;"	p	language:C	signature:(void *network)

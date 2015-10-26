@@ -1,0 +1,33 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+TIMER_DESTROYED	/home/anton/usr/include/timer.h	/^    TIMER_DESTROYED $/;"	e	language:C	enum:timer_state_t
+TIMER_PAUSED	/home/anton/usr/include/timer.h	/^    TIMER_PAUSED    ,$/;"	e	language:C	enum:timer_state_t
+TIMER_RUNNING	/home/anton/usr/include/timer.h	/^    TIMER_RUNNING   ,$/;"	e	language:C	enum:timer_state_t
+TIMER_STARTING	/home/anton/usr/include/timer.h	/^    TIMER_STARTING  = 100,$/;"	e	language:C	enum:timer_state_t
+__timer_H__	/home/anton/usr/include/timer.h	7;"	d	language:C
+destroy	/home/anton/usr/include/timer.h	/^    void (*destroy)(timer *this);$/;"	m	language:C	struct:timer	access:public
+get_runtimes	/home/anton/usr/include/timer.h	/^    unsigned int (*get_runtimes)(timer *this);$/;"	m	language:C	struct:timer	access:public
+get_state	/home/anton/usr/include/timer.h	/^    int (*get_state)(timer *this);$/;"	m	language:C	struct:timer	access:public
+get_state_str	/home/anton/usr/include/timer.h	/^    char *(*get_state_str)(timer *this);$/;"	m	language:C	struct:timer	access:public
+pause	/home/anton/usr/include/timer.h	/^    void (*pause)(timer *this);$/;"	m	language:C	struct:timer	access:public
+resume	/home/anton/usr/include/timer.h	/^    void (*resume)(timer *this);$/;"	m	language:C	struct:timer	access:public
+set_interval	/home/anton/usr/include/timer.h	/^    void (*set_interval)(timer *this, unsigned int interval);$/;"	m	language:C	struct:timer	access:public
+start	/home/anton/usr/include/timer.h	/^    void (*start)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer	/home/anton/usr/include/timer.h	/^struct timer {$/;"	s	language:C
+timer	/home/anton/usr/include/timer.h	/^typedef struct timer timer;$/;"	t	language:C	typeref:struct:timer
+timer::destroy	/home/anton/usr/include/timer.h	/^    void (*destroy)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer::get_runtimes	/home/anton/usr/include/timer.h	/^    unsigned int (*get_runtimes)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer::get_state	/home/anton/usr/include/timer.h	/^    int (*get_state)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer::get_state_str	/home/anton/usr/include/timer.h	/^    char *(*get_state_str)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer::pause	/home/anton/usr/include/timer.h	/^    void (*pause)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer::resume	/home/anton/usr/include/timer.h	/^    void (*resume)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer::set_interval	/home/anton/usr/include/timer.h	/^    void (*set_interval)(timer *this, unsigned int interval);$/;"	m	language:C	struct:timer	access:public
+timer::start	/home/anton/usr/include/timer.h	/^    void (*start)(timer *this);$/;"	m	language:C	struct:timer	access:public
+timer_main_t	/home/anton/usr/include/timer.h	/^typedef void (*timer_main_t)(void *arg);$/;"	t	language:C
+timer_start	/home/anton/usr/include/timer.h	/^timer *timer_start(timer_main_t main, void *arg, unsigned int timer_interval);$/;"	p	language:C	signature:(timer_main_t main, void *arg, unsigned int timer_interval)
+timer_state_t	/home/anton/usr/include/timer.h	/^typedef enum timer_state_t {$/;"	g	language:C
+timer_state_t	/home/anton/usr/include/timer.h	/^} timer_state_t;$/;"	t	language:C	typeref:enum:timer_state_t

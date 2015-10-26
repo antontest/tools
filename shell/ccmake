@@ -71,7 +71,8 @@ exit 1
 test -z "$mode" && mode=exec
 case "$mode" in
     "exec") cp -r $TOOLS_PATH/cmake/exec/ $name ;;
-    "lib"|"shared") cp -r $TOOLS_PATH/cmake/lib/ $name ;;
+    "lib") cp -r $TOOLS_PATH/cmake/lib/ $name ;;
+    "shared") cp -r /home/anton/tools/cmake/shared/ $name ;;
     *) echo -e "\033[1;31mMode must be exec,lib or share!\033[0m" ; exit 1 ;;
 esac
 
@@ -80,19 +81,27 @@ cd $name && scmake -p $name
 
 # modify lib dependence
 cd src/ && (scmake -e $name ; 
-sed -i "/target_link_lib.*/Is/(.*\ .*)$/($name\ ${name}_static)/g" CMakeLists.txt ;
 sed -i "/install\ *(\ *targets.*runtime/Is/targets\ .*runtime/TARGETS $name RUNTIME/Ig" CMakeLists.txt)
 
 test "$mode" = "lib" && ( 
 mkdir $name && echo "#include <$name.h>" > $name/${name}.c && cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
+sed -i "/target_link_lib.*/Is/(.*\ .*)$/($name\ ${name}_static)/g" CMakeLists.txt ;
 sed -i "/^set\ *(lib_src\ /Is/\ .*)$/\ $name\/$name.c)/Ig" CMakeLists.txt ;
 sed -i "/^add_library\ *(.*\ /Is/(.*_static\ /(${name}_static /Ig" CMakeLists.txt ;
 sed -i "/^set_target_properties.*/Is/(.*_static/(${name}_static/Ig" CMakeLists.txt ;
 sed -i "/^set_target_properties.*/Is/output_name\ .*)$/OUTPUT_NAME\ \"$name\")/Ig" CMakeLists.txt ;
 sed -i "/\ *install\ *(\ *targets main_.*archive/Is/targets\ .*archive/TARGETS ${name}_static ARCHIVE/Ig" CMakeLists.txt ;
 )
-# sed -i "/install\ *(\ *files\ *include.*/Is/\ include\/.*dest/\ include\/$name.h DEST/Ig" CMakeLists.txt ;
-# sed -i "/install\ *(\ *targets.*archive/Is/targets\ .*archive/TARGETS ${name}_static ARCHIVE/Ig" CMakeLists.txt ;
+
+test "$mode" = "shared" && ( 
+mkdir $name && echo "#include <$name.h>" > $name/${name}.c && cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
+sed -i "/target_link_lib.*/Is/(.*\ .*)$/($name\ ${name}_shared)/g" CMakeLists.txt ;
+sed -i "/^set\ *(lib_src\ /Is/\ .*)$/\ $name\/$name.c)/Ig" CMakeLists.txt ;
+sed -i "/^add_library\ *(.*\ /Is/(.*_shared\ /(${name}_shared /Ig" CMakeLists.txt ;
+sed -i "/^set_target_properties.*/Is/(.*_shared/(${name}_shared/Ig" CMakeLists.txt ;
+sed -i "/^set_target_properties.*/Is/output_name\ .*)$/OUTPUT_NAME\ \"$name\")/Ig" CMakeLists.txt ;
+sed -i "/^set_target_properties.*/Is/output_name\ .*)$/OUTPUT_NAME\ \"$name\")/Ig" CMakeLists.txt ;
+)
 
 cd ../..
 # make main source

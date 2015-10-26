@@ -1,0 +1,112 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+__BSEM_H__	/home/anton/usr/include/thread/bsem.h	7;"	d	language:C
+__COND_H__	/home/anton/usr/include/thread/cond.h	2;"	d	language:C
+__MUTEX_H__	/home/anton/usr/include/thread/mutex.h	2;"	d	language:C
+__RWLOCK_CONDVAR_H__	/home/anton/usr/include/thread/rwlock_cond.h	7;"	d	language:C
+__THREAD_H__	/home/anton/usr/include/thread/thread.h	2;"	d	language:C
+__THREAD_RWLOCK_H__	/home/anton/usr/include/thread/rwlock.h	7;"	d	language:C
+__THREAD_VALUE_H__	/home/anton/usr/include/thread/thread_value.h	7;"	d	language:C
+broadcast	/home/anton/usr/include/thread/cond.h	/^	void (*broadcast)(cond_t *this);$/;"	m	language:C	struct:cond_t	access:public
+broadcast	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*broadcast)(rwlock_cond_t *this);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+bsem_create	/home/anton/usr/include/thread/bsem.h	/^bsem_t *bsem_create(unsigned int value);$/;"	p	language:C	signature:(unsigned int value)
+bsem_destroy	/home/anton/usr/include/thread/bsem.h	/^void bsem_destroy(bsem_t *bsem);$/;"	p	language:C	signature:(bsem_t *bsem)
+bsem_t	/home/anton/usr/include/thread/bsem.h	/^struct bsem_t {$/;"	s	language:C
+bsem_t	/home/anton/usr/include/thread/bsem.h	/^typedef struct bsem_t bsem_t;$/;"	t	language:C	typeref:struct:bsem_t
+bsem_t::destroy	/home/anton/usr/include/thread/bsem.h	/^	void (*destroy)(bsem_t *this);$/;"	m	language:C	struct:bsem_t	access:public
+bsem_t::post	/home/anton/usr/include/thread/bsem.h	/^	void (*post)(bsem_t *this);$/;"	m	language:C	struct:bsem_t	access:public
+bsem_t::timed_wait	/home/anton/usr/include/thread/bsem.h	/^	bool (*timed_wait)(bsem_t *this, unsigned int timeout);$/;"	m	language:C	struct:bsem_t	access:public
+bsem_t::timed_wait_abs	/home/anton/usr/include/thread/bsem.h	/^	bool (*timed_wait_abs)(bsem_t *this, struct timeval tv);$/;"	m	language:C	struct:bsem_t	access:public
+bsem_t::wait	/home/anton/usr/include/thread/bsem.h	/^	void (*wait)(bsem_t *this);$/;"	m	language:C	struct:bsem_t	access:public
+cancel	/home/anton/usr/include/thread/thread.h	/^	void (*cancel)(thread_t *this);$/;"	m	language:C	struct:thread_t	access:public
+cond_create	/home/anton/usr/include/thread/cond.h	/^cond_t *cond_create();$/;"	p	language:C
+cond_destroy	/home/anton/usr/include/thread/cond.h	/^void cond_destroy(cond_t *cond);$/;"	p	language:C	signature:(cond_t *cond)
+cond_t	/home/anton/usr/include/thread/cond.h	/^struct cond_t {$/;"	s	language:C
+cond_t	/home/anton/usr/include/thread/cond.h	/^typedef struct cond_t cond_t;$/;"	t	language:C	typeref:struct:cond_t
+cond_t::broadcast	/home/anton/usr/include/thread/cond.h	/^	void (*broadcast)(cond_t *this);$/;"	m	language:C	struct:cond_t	access:public
+cond_t::destroy	/home/anton/usr/include/thread/cond.h	/^	void (*destroy)(cond_t *this);$/;"	m	language:C	struct:cond_t	access:public
+cond_t::signal	/home/anton/usr/include/thread/cond.h	/^	void (*signal)(cond_t *this);$/;"	m	language:C	struct:cond_t	access:public
+cond_t::timed_wait	/home/anton/usr/include/thread/cond.h	/^	bool (*timed_wait)(cond_t *this, mutex_t *mutex, unsigned int timeout);$/;"	m	language:C	struct:cond_t	access:public
+cond_t::timed_wait_abs	/home/anton/usr/include/thread/cond.h	/^	bool (*timed_wait_abs)(cond_t *this, mutex_t *mutex, struct timeval tv);$/;"	m	language:C	struct:cond_t	access:public
+cond_t::wait	/home/anton/usr/include/thread/cond.h	/^	void (*wait)(cond_t *this, mutex_t *mutex);$/;"	m	language:C	struct:cond_t	access:public
+destroy	/home/anton/usr/include/thread/bsem.h	/^	void (*destroy)(bsem_t *this);$/;"	m	language:C	struct:bsem_t	access:public
+destroy	/home/anton/usr/include/thread/cond.h	/^	void (*destroy)(cond_t *this);$/;"	m	language:C	struct:cond_t	access:public
+destroy	/home/anton/usr/include/thread/mutex.h	/^	void (*destroy)(mutex_t *this);$/;"	m	language:C	struct:mutex_t	access:public
+destroy	/home/anton/usr/include/thread/rwlock.h	/^	void (*destroy)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+destroy	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*destroy)(rwlock_cond_t *this);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+destroy	/home/anton/usr/include/thread/thread_value.h	/^	void (*destroy)(thread_value_t *this);$/;"	m	language:C	struct:thread_value_t	access:public
+detach	/home/anton/usr/include/thread/thread.h	/^	void (*detach)(thread_t *this);$/;"	m	language:C	struct:thread_t	access:public
+get	/home/anton/usr/include/thread/thread_value.h	/^	void *(*get)(thread_value_t *this);$/;"	m	language:C	struct:thread_value_t	access:public
+join	/home/anton/usr/include/thread/thread.h	/^	void *(*join)(thread_t *this);$/;"	m	language:C	struct:thread_t	access:public
+kill	/home/anton/usr/include/thread/thread.h	/^	void (*kill)(thread_t *this, int sig);$/;"	m	language:C	struct:thread_t	access:public
+lock	/home/anton/usr/include/thread/mutex.h	/^	void (*lock)(mutex_t *this);$/;"	m	language:C	struct:mutex_t	access:public
+mutex_create	/home/anton/usr/include/thread/mutex.h	/^mutex_t *mutex_create();$/;"	p	language:C
+mutex_destroy	/home/anton/usr/include/thread/mutex.h	/^void mutex_destroy(mutex_t *mutex);$/;"	p	language:C	signature:(mutex_t *mutex)
+mutex_t	/home/anton/usr/include/thread/mutex.h	/^struct mutex_t {$/;"	s	language:C
+mutex_t	/home/anton/usr/include/thread/mutex.h	/^typedef struct mutex_t mutex_t;$/;"	t	language:C	typeref:struct:mutex_t
+mutex_t::destroy	/home/anton/usr/include/thread/mutex.h	/^	void (*destroy)(mutex_t *this);$/;"	m	language:C	struct:mutex_t	access:public
+mutex_t::lock	/home/anton/usr/include/thread/mutex.h	/^	void (*lock)(mutex_t *this);$/;"	m	language:C	struct:mutex_t	access:public
+mutex_t::unlock	/home/anton/usr/include/thread/mutex.h	/^	void (*unlock)(mutex_t *this);$/;"	m	language:C	struct:mutex_t	access:public
+post	/home/anton/usr/include/thread/bsem.h	/^	void (*post)(bsem_t *this);$/;"	m	language:C	struct:bsem_t	access:public
+read_lock	/home/anton/usr/include/thread/rwlock.h	/^	void (*read_lock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+rwlock_cond_create	/home/anton/usr/include/thread/rwlock_cond.h	/^rwlock_cond_t *rwlock_cond_create();$/;"	p	language:C
+rwlock_cond_t	/home/anton/usr/include/thread/rwlock_cond.h	/^struct rwlock_cond_t {$/;"	s	language:C
+rwlock_cond_t	/home/anton/usr/include/thread/rwlock_cond.h	/^typedef struct rwlock_cond_t rwlock_cond_t;$/;"	t	language:C	typeref:struct:rwlock_cond_t
+rwlock_cond_t::broadcast	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*broadcast)(rwlock_cond_t *this);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+rwlock_cond_t::destroy	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*destroy)(rwlock_cond_t *this);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+rwlock_cond_t::signal	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*signal)(rwlock_cond_t *this);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+rwlock_cond_t::timed_wait	/home/anton/usr/include/thread/rwlock_cond.h	/^	bool (*timed_wait)(rwlock_cond_t *this, rwlock_t *lock, u_int timeout);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+rwlock_cond_t::timed_wait_abs	/home/anton/usr/include/thread/rwlock_cond.h	/^	bool (*timed_wait_abs)(rwlock_cond_t *this, rwlock_t *lock,$/;"	m	language:C	struct:rwlock_cond_t	access:public
+rwlock_cond_t::wait	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*wait)(rwlock_cond_t *this, rwlock_t *lock);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+rwlock_create	/home/anton/usr/include/thread/rwlock.h	/^rwlock_t *rwlock_create();$/;"	p	language:C
+rwlock_t	/home/anton/usr/include/thread/rwlock.h	/^struct rwlock_t {$/;"	s	language:C
+rwlock_t	/home/anton/usr/include/thread/rwlock.h	/^typedef struct rwlock_t rwlock_t;$/;"	t	language:C	typeref:struct:rwlock_t
+rwlock_t::destroy	/home/anton/usr/include/thread/rwlock.h	/^	void (*destroy)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+rwlock_t::read_lock	/home/anton/usr/include/thread/rwlock.h	/^	void (*read_lock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+rwlock_t::try_write_lock	/home/anton/usr/include/thread/rwlock.h	/^	bool (*try_write_lock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+rwlock_t::unlock	/home/anton/usr/include/thread/rwlock.h	/^	void (*unlock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+rwlock_t::write_lock	/home/anton/usr/include/thread/rwlock.h	/^	void (*write_lock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+set	/home/anton/usr/include/thread/thread_value.h	/^	void (*set)(thread_value_t *this, void *val);$/;"	m	language:C	struct:thread_value_t	access:public
+signal	/home/anton/usr/include/thread/cond.h	/^	void (*signal)(cond_t *this);$/;"	m	language:C	struct:cond_t	access:public
+signal	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*signal)(rwlock_cond_t *this);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+thread_cancelability	/home/anton/usr/include/thread/thread.h	/^bool thread_cancelability(bool enable);$/;"	p	language:C	signature:(bool enable)
+thread_cancellation_point	/home/anton/usr/include/thread/thread.h	/^void thread_cancellation_point();$/;"	p	language:C
+thread_cleanup_pop	/home/anton/usr/include/thread/thread.h	/^void thread_cleanup_pop(bool execute);$/;"	p	language:C	signature:(bool execute)
+thread_cleanup_push	/home/anton/usr/include/thread/thread.h	/^void thread_cleanup_push(thread_cleanup_t cleanup, void *arg);$/;"	p	language:C	signature:(thread_cleanup_t cleanup, void *arg)
+thread_cleanup_t	/home/anton/usr/include/thread/thread.h	/^typedef void (*thread_cleanup_t)(void *arg);$/;"	t	language:C
+thread_create	/home/anton/usr/include/thread/thread.h	/^thread_t *thread_create(thread_main_t main, void *arg);$/;"	p	language:C	signature:(thread_main_t main, void *arg)
+thread_current	/home/anton/usr/include/thread/thread.h	/^thread_t *thread_current();$/;"	p	language:C
+thread_current_id	/home/anton/usr/include/thread/thread.h	/^u_int thread_current_id();$/;"	p	language:C
+thread_exit	/home/anton/usr/include/thread/thread.h	/^void thread_exit(void *val);$/;"	p	language:C	signature:(void *val)
+thread_main_t	/home/anton/usr/include/thread/thread.h	/^typedef void *(*thread_main_t)(void *arg);$/;"	t	language:C
+thread_t	/home/anton/usr/include/thread/thread.h	/^struct thread_t {$/;"	s	language:C
+thread_t	/home/anton/usr/include/thread/thread.h	/^typedef struct thread_t thread_t;$/;"	t	language:C	typeref:struct:thread_t
+thread_t::cancel	/home/anton/usr/include/thread/thread.h	/^	void (*cancel)(thread_t *this);$/;"	m	language:C	struct:thread_t	access:public
+thread_t::detach	/home/anton/usr/include/thread/thread.h	/^	void (*detach)(thread_t *this);$/;"	m	language:C	struct:thread_t	access:public
+thread_t::join	/home/anton/usr/include/thread/thread.h	/^	void *(*join)(thread_t *this);$/;"	m	language:C	struct:thread_t	access:public
+thread_t::kill	/home/anton/usr/include/thread/thread.h	/^	void (*kill)(thread_t *this, int sig);$/;"	m	language:C	struct:thread_t	access:public
+thread_value_create	/home/anton/usr/include/thread/thread_value.h	/^thread_value_t *thread_value_create(thread_cleanup_t destructor);$/;"	p	language:C	signature:(thread_cleanup_t destructor)
+thread_value_t	/home/anton/usr/include/thread/thread_value.h	/^struct thread_value_t {$/;"	s	language:C
+thread_value_t	/home/anton/usr/include/thread/thread_value.h	/^typedef struct thread_value_t thread_value_t;$/;"	t	language:C	typeref:struct:thread_value_t
+thread_value_t::destroy	/home/anton/usr/include/thread/thread_value.h	/^	void (*destroy)(thread_value_t *this);$/;"	m	language:C	struct:thread_value_t	access:public
+thread_value_t::get	/home/anton/usr/include/thread/thread_value.h	/^	void *(*get)(thread_value_t *this);$/;"	m	language:C	struct:thread_value_t	access:public
+thread_value_t::set	/home/anton/usr/include/thread/thread_value.h	/^	void (*set)(thread_value_t *this, void *val);$/;"	m	language:C	struct:thread_value_t	access:public
+threads_deinit	/home/anton/usr/include/thread/thread.h	/^void threads_deinit();$/;"	p	language:C
+threads_init	/home/anton/usr/include/thread/thread.h	/^void threads_init();$/;"	p	language:C
+timed_wait	/home/anton/usr/include/thread/bsem.h	/^	bool (*timed_wait)(bsem_t *this, unsigned int timeout);$/;"	m	language:C	struct:bsem_t	access:public
+timed_wait	/home/anton/usr/include/thread/cond.h	/^	bool (*timed_wait)(cond_t *this, mutex_t *mutex, unsigned int timeout);$/;"	m	language:C	struct:cond_t	access:public
+timed_wait	/home/anton/usr/include/thread/rwlock_cond.h	/^	bool (*timed_wait)(rwlock_cond_t *this, rwlock_t *lock, u_int timeout);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+timed_wait_abs	/home/anton/usr/include/thread/bsem.h	/^	bool (*timed_wait_abs)(bsem_t *this, struct timeval tv);$/;"	m	language:C	struct:bsem_t	access:public
+timed_wait_abs	/home/anton/usr/include/thread/cond.h	/^	bool (*timed_wait_abs)(cond_t *this, mutex_t *mutex, struct timeval tv);$/;"	m	language:C	struct:cond_t	access:public
+timed_wait_abs	/home/anton/usr/include/thread/rwlock_cond.h	/^	bool (*timed_wait_abs)(rwlock_cond_t *this, rwlock_t *lock,$/;"	m	language:C	struct:rwlock_cond_t	access:public
+try_write_lock	/home/anton/usr/include/thread/rwlock.h	/^	bool (*try_write_lock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+unlock	/home/anton/usr/include/thread/mutex.h	/^	void (*unlock)(mutex_t *this);$/;"	m	language:C	struct:mutex_t	access:public
+unlock	/home/anton/usr/include/thread/rwlock.h	/^	void (*unlock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public
+wait	/home/anton/usr/include/thread/bsem.h	/^	void (*wait)(bsem_t *this);$/;"	m	language:C	struct:bsem_t	access:public
+wait	/home/anton/usr/include/thread/cond.h	/^	void (*wait)(cond_t *this, mutex_t *mutex);$/;"	m	language:C	struct:cond_t	access:public
+wait	/home/anton/usr/include/thread/rwlock_cond.h	/^	void (*wait)(rwlock_cond_t *this, rwlock_t *lock);$/;"	m	language:C	struct:rwlock_cond_t	access:public
+write_lock	/home/anton/usr/include/thread/rwlock.h	/^	void (*write_lock)(rwlock_t *this);$/;"	m	language:C	struct:rwlock_t	access:public

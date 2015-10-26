@@ -1,0 +1,28 @@
+# Name : ecmake auto complete
+# Func : 
+# Time : 2015-10-13 13:18:33
+
+have ecmake && {
+_ecmake()
+{
+    local cur prev opts
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    COMPREPLY=()
+
+    if [[ "$cur" = -* ]] ; then
+        COMPREPLY=( $( compgen -W '-c --clean -r --rebuild -d --delete -i --install
+        --deb -u --uninstall -e --exec -x -h --help' -- "$cur" ) )
+        return 0
+    fi
+ 
+    if [[ "$prev" = "ecmake" ]] ; then
+        COMPREPLY=( $( compgen -W 'clean rebuild delete deb install uninstall exec x help' -- "$cur" ) )
+        return 0
+    fi
+
+    return 0
+}
+
+complete -F _ecmake $filenames ecmake
+}

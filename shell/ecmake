@@ -51,13 +51,6 @@ if test $# -eq 0 ; then
      #if build is not existed, then create it
      test ! -d build && mkdir build
 
-     #if bin is existed, then exec it
-     #test -x $exec && 
-     #echo -e "\033[1;35m---------------------start---------------------\033[0m" &&
-     #$exec &&
-     #echo -e "\033[1;35m----------------------end----------------------\033[0m" &&
-     #exit 0
-
      #compile
      cd build && cmake .. && make && exit 0
      exit 1
@@ -73,10 +66,9 @@ case "$cmd" in
     "-r"|"r"|"rebuild"|"--rebuild")
         $0 c ; $0
         exit 0 ;;
-    "-d"|"d"|"del"|"--del")
+    "-d"|"d"|"delete"|"--delete")
         test -d build && cd build && make clean && cd ..
         find -iname build | xargs rm -rfv {}
-        #test -d build && rm -rf build && exit 0
         exit 0 ;;
     "deb"|"-deb"|"--deb")
         deb_maker ;;

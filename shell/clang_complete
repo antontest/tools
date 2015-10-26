@@ -5,6 +5,6 @@
 
 conf_name=.clang_complete
 include_path+="-I /usr/include/ \n"
-include_path+="-I ~/tools/include/"
+include_path+="-I ~/usr/include/"
 echo -e $include_path > $conf_name
 find -type d | sed 's/^/-I &/g' >> $conf_name
