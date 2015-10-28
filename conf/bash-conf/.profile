@@ -21,19 +21,3 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# tools path
-export TOOLS_PATH=/home/anton/tools
-export CMAKE_PATH=$TOOLS_PATH/cmake
-export EXEC_PATH=$TOOLS_PATH/exec
-export LIB_PATH=$TOOLS_PATH/lib
-export INCLUDE_PATH=$TOOLS_PATH/include
-export MAKEFILE_PATH=$TOOLS_PATH/makefile
-export SHELL_PATH=$TOOLS_PATH/shell/
-export C_SRC_TMP_PATH=$TOOLS_PATH/templates/c/src
-export C_HEAD_TMP_PATH=$TOOLS_PATH/templates/c/head
-export SHELL_TMP_PATH=$TOOLS_PATH/templates/shell
-export SHELL_FUNC_PATH=$TOOLS_PATH/templates/shell/func
-export CONF_PATH=$TOOLS_PATH/conf
-export TAGS_PATH=$TOOLS_PATH/include
-export CSCOPE_PATH=$TOOLS_PATH/include
-export EXEC_LD_PATH=$SHELL_PATH:$EXEC_PATH

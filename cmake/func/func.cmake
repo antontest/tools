@@ -12,6 +12,12 @@ function (get_lib_by_path path output)
     set(${output} ${opt} PARENT_SCOPE)
 endfunction()
 
+# get library name by path, like src/lib/libhello.a, gets hello
+function (get_share_lib_by_path path output)
+    string(REGEX REPLACE ".*lib\(.*\).so$" "\\1" opt ${path})
+    set(${output} ${opt} PARENT_SCOPE)
+endfunction()
+
 # get files recursely in the path
 function (find_files mode path output)
     file (GLOB_RECURSE files ${path}/*.${mode})
@@ -35,6 +41,16 @@ function (install_hfiles src_path install_path)
     endif()
 endfunction()
 
+# install share library
+function(install_shared_lib lib_name install_path)
+    INSTALL(TARGETS ${lib_name} LIBRARY DESTINATION ${install_path})
+endfunction(install_shared_lib)
+
+# install share library
+function(install_static_lib lib_name install_path)
+    INSTALL(TARGETS ${lib_name} ARCHIVE DESTINATION ${install_path})
+endfunction(install_static_lib)
+
 # install library
 function (install_lib src_path install_path)
     file (GLOB_RECURSE alib ${src_path}/*.a)
@@ -54,5 +70,43 @@ function (find_libs path output)
     set (alllib ${alib} ${solib})
     if (alllib)
         libname(${alllib} output)
+    endif()
+endfunction()
+
+# install library
+function (install_lib_file src_path install_path)
+    file (GLOB_RECURSE alib ${src_path}/*.a)
+    file (GLOB_RECURSE solib ${src_path}/*.so)
+    string(TOLOWER ${PROJECT_NAME} proj_name)
+
+    if (solib)
+        foreach (shared_lib_path ${solib})
+            get_share_lib_by_path(${shared_lib_path} lib_name)
+            if (${proj_name} STREQUAL ${lib_name})
+                set(lib_name ${lib_name}_shared)
+            endif()
+            set(shared_lib_name ${shared_lib_name} ${lib_name})
+        endforeach(shared_lib_path)
+
+        foreach (shared_lib ${shared_lib_name})
+            install_shared_lib(${shared_lib} ${install_path})
+        endforeach(shared_lib)
+    endif()
+
+    if (alib)
+        foreach (static_lib_path ${alib})
+            get_lib_by_path(${static_lib_path} lib_name)
+            message(STATUS "lib_path: ${static_lib_path}")
+            message(STATUS "lib_name: ${static_lib_name}")
+            if (${proj_name} STREQUAL ${lib_name})
+                set(lib_name ${lib_name}_static)
+            endif()
+            set(static_lib_name ${static_lib_name} ${lib_name})
+        endforeach(static_lib_path)
+
+        message(STATUS "libs: ${shared_lib_name}")
+        foreach(static_lib ${static_lib_name})
+            install_static_lib(${static_lib} ${install_path})
+        endforeach()
     endif()
 endfunction()

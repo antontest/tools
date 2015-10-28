@@ -98,10 +98,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=/home/anton/tools/shell:$PATH
-export PATH=/home/anton/tools/shell/git:$PATH
-export PATH=/home/anton/tools/exec:$PATH
-export PATH=~/bin/clang/bin:$PATH
 
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
@@ -118,17 +114,39 @@ alias ...='cd ../..'
 alias ls='ls -CF --color=auto'
 alias cp='cp -rf'
 
+
+# tools path
+export TOOLS_PATH=/home/anton/tools
+export USR_TOOLS_PATH=/home/anton/usr
+export CMAKE_PATH=$TOOLS_PATH/cmake
+export EXEC_PATH=$TOOLS_PATH/exec
+export LIB_PATH=$TOOLS_PATH/lib
+export INCLUDE_PATH=$USR_TOOLS_PATH/include
+export MAKEFILE_PATH=$TOOLS_PATH/makefile
+export SHELL_PATH=$TOOLS_PATH/shell/
+export C_SRC_TMP_PATH=$TOOLS_PATH/templates/c/src
+export C_HEAD_TMP_PATH=$TOOLS_PATH/templates/c/head
+export SHELL_TMP_PATH=$TOOLS_PATH/templates/shell
+export SHELL_FUNC_PATH=$TOOLS_PATH/templates/shell/func
+export CONF_PATH=$TOOLS_PATH/conf
+export TAGS_PATH=$USR_TOOLS_PATH/include
+export CSCOPE_PATH=$USR_TOOLS_PATH/include
+export EXEC_LD_PATH=$SHELL_PATH:$EXEC_PATH
+
+export PATH=/home/anton/tools/shell:$PATH
+export PATH=/home/anton/tools/shell/git:$PATH
+export PATH=/home/anton/tools/exec:$PATH
+export PATH=~/etc/clang/bin:$PATH
+
 # add default search path
 # 增加.a搜索路径
-export LIBRARY_PATH=$LIBRARY_PATH:~/tools/lib:~/bin/clang/lib
+export LIBRARY_PATH=$LIBRARY_PATH:~/usr/lib
+export LIBRARY_PATH=$LIBRARY_PATH:~/etc/clang/lib
 #增加.so搜索路径
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/tools/lib:~/bin/clang/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/usr/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/etc/clang/lib
 #增加GCC的include文件搜索路径
-export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tools/include:~/bin/clang/include:/usr/include/ 
-# export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/tools/include:~/bin/clang/include
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/usr/include
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/etc/clang/include
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/ 
 
-#增加cscope文件搜索路径
-#export CSCOPE_DB=./cscope.out;/usr/include/cscope.out;/home/anton/tools/include/cscope.out
-if [ -f /etc/bash_completion ] ; then
-    source /etc/bash_completion
-fi
