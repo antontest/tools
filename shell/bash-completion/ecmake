@@ -12,12 +12,12 @@ _ecmake()
 
     if [[ "$cur" = -* ]] ; then
         COMPREPLY=( $( compgen -W '-c --clean -r --rebuild -d --delete -i --install
-        --deb -u --uninstall -e --exec -x -h --help' -- "$cur" ) )
+        --deb -u --uninstall -e --exec -x --clang -h --help' -- "$cur" ) )
         return 0
     fi
  
     if [[ "$prev" = "ecmake" ]] ; then
-        COMPREPLY=( $( compgen -W 'clean rebuild delete deb install uninstall exec x help' -- "$cur" ) )
+        COMPREPLY=( $( compgen -W 'clean rebuild delete deb install uninstall exec x clang help' -- "$cur" ) )
         return 0
     fi
 

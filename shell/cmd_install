@@ -90,7 +90,6 @@ if test $install_flag -eq 1 ; then
     install_path="\/usr\/bin\/"
     for path in $ln_path
     do
-        #files=`find $path -maxdepth 1 -type f | grep -v cmd_install | xargs -I{} basename {} | sed "s/^.*$/test ! -e $install_path& \&\& echo &1 || echo &0"`
         path_tmp=${path//\//\\\/}
         
         for file in `find $path -maxdepth 1 -type f | grep -i -v cmd_install`

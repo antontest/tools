@@ -84,7 +84,11 @@ cd src/ && (scmake -e $name ;
 sed -i "/install\ *(\ *targets.*runtime/Is/targets\ .*runtime/TARGETS $name RUNTIME/Ig" CMakeLists.txt)
 
 test "$mode" = "lib" && ( 
-mkdir $name && echo "#include <$name.h>" > $name/${name}.c && cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
+mkdir $name && echo "#include <$name.h>" > $name/${name}.c
+test ! -d include && mkdir include
+test ! -d lib && mkdir lib
+test ! -d extra_lib && mkdir extra_lib
+cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
 sed -i "/target_link_lib.*/Is/(.*\ .*)$/($name\ ${name}_static)/g" CMakeLists.txt ;
 sed -i "/^set\ *(lib_src\ /Is/\ .*)$/\ $name\/$name.c)/Ig" CMakeLists.txt ;
 sed -i "/^add_library\ *(.*\ /Is/(.*_static\ /(${name}_static /Ig" CMakeLists.txt ;
@@ -94,7 +98,11 @@ sed -i "/\ *install\ *(\ *targets main_.*archive/Is/targets\ .*archive/TARGETS $
 )
 
 test "$mode" = "shared" && ( 
-mkdir $name && echo "#include <$name.h>" > $name/${name}.c && cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
+mkdir $name && echo "#include <$name.h>" > $name/${name}.c 
+test ! -d include && mkdir include
+test ! -d lib && mkdir lib
+test ! -d extra_lib && mkdir extra_lib
+cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
 sed -i "/target_link_lib.*/Is/(.*\ .*)$/($name\ ${name}_shared)/g" CMakeLists.txt ;
 sed -i "/^set\ *(lib_src\ /Is/\ .*)$/\ $name\/$name.c)/Ig" CMakeLists.txt ;
 sed -i "/^add_library\ *(.*\ /Is/(.*_shared\ /(${name}_shared /Ig" CMakeLists.txt ;

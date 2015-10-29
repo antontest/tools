@@ -72,6 +72,12 @@ case "$cmd" in
         exit 0 ;;
     "deb"|"-deb"|"--deb")
         deb_maker ;;
+    "clang"|"--clang")
+        #if build is not existed, then create it
+        test ! -d build && mkdir build
+
+        #compile
+        cd build && cmake .. -DCC=clang && make && exit 0 ;;
     "-i"|"i"|"install"|"--install")
         test ! -d build && ($0 ; $0) || $0
         test -d build && cd build 
