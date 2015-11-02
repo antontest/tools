@@ -82,6 +82,7 @@ cd $name && scmake -p $name
 # modify lib dependence
 cd src/ && (scmake -e $name ; 
 sed -i "/install\ *(\ *targets.*runtime/Is/targets\ .*runtime/TARGETS $name RUNTIME/Ig" CMakeLists.txt)
+sed -i "/TARGET_LINK_LIBRARIES\ *(main/Is/main\ /$name\ /Ig" CMakeLists.txt
 
 test "$mode" = "lib" && ( 
 mkdir $name && echo "#include <$name.h>" > $name/${name}.c

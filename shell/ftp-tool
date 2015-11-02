@@ -16,8 +16,8 @@ function usage_print()
 
 function get_ip_by_mac()
 {
-    mac_conf_path=~/tools/conf/ftp-conf/.ftp-host-to-mac
-    mac_to_ip_path=~/tools/conf/ftp-conf/.ftp-mac-to-ip
+    mac_conf_path=~/.ftp-host-to-mac
+    mac_to_ip_path=~/.ftp-mac-to-ip
     # get gate_way ip address
     gate_way_ip=`socket -g | sed "s/.*:* \([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\).*$/\1.0\/24/g"`
     test "$gate_way_ip" = "" && exit 1
