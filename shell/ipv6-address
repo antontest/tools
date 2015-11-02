@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : ipv6-address
+# Func : fix ipv6 address
+# Time : 2015-11-02 09:10:52
+
+sudo ip -6 addr add 2001:888:db8:1::a/64 dev eth0
