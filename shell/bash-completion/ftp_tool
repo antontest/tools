@@ -8,18 +8,24 @@ _ftp-tool()
     local cur prev opts
     cur=`_get_cword`
     prev=${COMP_WORDS[COMP_CWORD-1]}
-    opts="add\nchange\ndel\nup_ip\nup_bash"
+    opts="add\nchange\ndel\nup_ip\nup_bash\nshow"
     COMPREPLY=()
+    ftp_host_to_mac=/home/anton/.ftp-host-to-mac
 
     local IFS=$'\t\n'
     if [[ ${prev} == 'ftp-tool' ]] ; then
         COMPREPLY=( $( compgen -W '`echo -e $opts`' -- "$cur" ) )
     elif [[ ${prev} == 'del' ]] ; then
-        ftp_host_to_mac=/home/anton/tools/conf/ftp-conf/.ftp-host-to-mac
         test ! -f $ftp_host_to_mac && return 1
         local opt 
         opt=`awk -F' ' '{ print $1 }' $ftp_host_to_mac`
         COMPREPLY=( $( compgen -W '$opt' -- "$cur" ) )
+    elif [[ ${prev} == 'show' ]] ; then
+        show_opts="ip\n"
+        COMPREPLY=( $( compgen -W '`echo -e $show_opts`' -- "$cur" ) )
+    elif [[ ${prev} == 'ip' ]] ; then
+        ip_opts=`awk -F' ' '{ print $1 }' $ftp_host_to_mac`
+        COMPREPLY=( $( compgen -W '$ip_opts' -- "$cur" ) )
     fi
 
     return 0

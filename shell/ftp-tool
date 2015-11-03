@@ -6,18 +6,19 @@
 function usage_print()
 {
     echo "Usage: ftp-tool [command] [option]"
-    echo "[command]: add change del up_ip up_bash"
+    echo "[command]: add change del up_ip up_bash show"
     echo "      ftp-tool add    host_name     mac_address   user passwd"
     echo "      ftp-tool change old_host_name new_host_name"
     echo "      ftp-tool del    host_name"
+    echo "      ftp-tool show   ip host_name"
     echo "      ftp-tool up_ip"
     echo "      ftp-tool up_bash"
 }
 
+mac_conf_path=~/.ftp-host-to-mac
+mac_to_ip_path=~/.ftp-mac-to-ip
 function get_ip_by_mac()
 {
-    mac_conf_path=~/.ftp-host-to-mac
-    mac_to_ip_path=~/.ftp-mac-to-ip
     # get gate_way ip address
     gate_way_ip=`socket -g | sed "s/.*:* \([0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\).*$/\1.0\/24/g"`
     test "$gate_way_ip" = "" && exit 1
@@ -52,6 +53,26 @@ case "$1" in
     "up_bash")
         sudo cp -uvf $SHELL_PATH/bash-completion/* /etc/bash_completion.d/
         source /etc/bash_completion
+        ;;
+    "show")
+        if test "$2" = "ip" -a "$3" != "all" -a -n "$3" ; then
+            grep -i "$3\ " $mac_conf_path | awk -F" " '{ print $2 }' | sed "s/^/"$3" &/g"
+        fi
+        if test "$2" = "ip" -a "$3" = "all" -a -n "$3" ; then
+            host_names=`awk -F' ' '{ print $1 }' $mac_conf_path`
+            if test -n "$host_names" ; then
+                for ftp_host_name in $host_names ; do
+                    host_str=`grep -i "$ftp_host_name\ " $mac_conf_path`
+                    test -z "$host_str" && continue
+                    host_mac=`echo $host_str | awk -F" " '{ print $2 }'`
+                    test -z "$host_mac" && continue
+                    host_ip_ret=`grep -i "$host_mac" $mac_to_ip_path`
+                    test -z "$host_ip_ret" && continue
+                    results+=`echo $host_ip_ret | awk -F' ' '{ print $2 }' | sed "s/^/$ftp_host_name &/g"`"\n"
+                done
+            fi
+            echo -e "$results"
+        fi
         ;;
     *)
         usage_print

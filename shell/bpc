@@ -13,9 +13,9 @@ if test "$1" = "-u" -o "$1" = "u" ; then
     test ! -d $CONF_PATH && exit 1
     # update vim , tmux amd emacs config
     cp -uvp $CONF_PATH/vim-conf/.vimrc ~/.vimrc 
+    cp -uvp $CONF_PATH/tmux-conf/.tmux.conf ~/.tmux.conf 
     # cp -uvpr $CONF_PATH/vim-conf/.vim ~
     # cp -uvp $CONF_PATH/emacs-conf/.emacs ~/.emacs 
-    cp -uvp $CONF_PATH/tmux-conf/.tmux.conf ~/.tmux.conf 
 
     # update bash config
     cp -uvp $CONF_PATH/bash-conf/.profile ~/.profile 
@@ -25,7 +25,8 @@ if test "$1" = "-u" -o "$1" = "u" ; then
     # update shared library config and others
     cp -uvp $CONF_PATH/other/protocols /etc/protocols 
     cp -uvp $CONF_PATH/other/ld.so.conf /etc/ld.so.conf 
-
+    sudo ldconfig
+    exit 0
 fi
 
 # backup config
