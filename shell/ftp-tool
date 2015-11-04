@@ -7,16 +7,17 @@ function usage_print()
 {
     echo "Usage: ftp-tool [command] [option]"
     echo "[command]: add change del up_ip up_bash show"
-    echo "      ftp-tool add    host_name     mac_address   user passwd"
-    echo "      ftp-tool change old_host_name new_host_name"
+    echo "      ftp-tool add    host_name mac_address   user passwd"
+    echo "      ftp-tool change host_name old_host_name new_host_name"
     echo "      ftp-tool del    host_name"
     echo "      ftp-tool show   ip host_name"
     echo "      ftp-tool up_ip"
     echo "      ftp-tool up_bash"
 }
 
-mac_conf_path=~/.ftp-host-to-mac
+host_to_mac_path=~/.ftp-host-to-mac
 mac_to_ip_path=~/.ftp-mac-to-ip
+host_to_ip_path=~/.ftp-host-to-ip
 function get_ip_by_mac()
 {
     # get gate_way ip address
@@ -24,13 +25,28 @@ function get_ip_by_mac()
     test "$gate_way_ip" = "" && exit 1
 
     # get mac address from ftp config file
-    for mac in `awk -F' ' '{print $2 }' $mac_conf_path` ; do
+    for mac in `awk -F' ' '{print $2 }' $host_to_mac_path` ; do
         grep_cond+=$mac"\\|"
     done
     grep_cond=${grep_cond:0:(${#grep_cond} - 2)}
 
     # get_ip_by_mac
     socket -u "$gate_way_ip" | grep -i "$grep_cond" | sed "s/\(.*\)\ *\[\(.*\)\]\ .*$/\2 \1/g" > $mac_to_ip_path 
+
+    # update host to ip file
+    host_names=`awk -F' ' '{ print $1 }' $host_to_mac_path`
+    host_macs=`awk -F' ' '{ print $2 }' $host_to_mac_path`
+    for name in $host_names ; do
+        ret_str=`grep -i "$name\ " $host_to_mac_path`
+        test -z "$ret_str" && continue
+        mac=`echo $ret_str | awk -F' ' '{ print $2 }'`
+        test -z "$mac" && continue
+        ret_str=`grep -i "$mac\ " $mac_to_ip_path`
+        test -z "$ret_str" && continue
+        ip=`echo $ret_str | awk -F' ' '{ print $2 }'`
+        results+="$name $ip\n"
+    done
+    echo -e $results | sed "$"d > $host_to_ip_path
 }
 
 test $# -lt 1 && usage_print && exit 1
@@ -39,10 +55,17 @@ ftp_conf_path=$TOOLS_PATH/conf/other/.ftp-host-to-mac
 case "$1" in
     "add") 
         test $# -ne 5 && usage_print && exit 1
-        echo "$2 $3 $4 $5" >> $ftp_conf_path
+        echo "$2 $3 $4 $5" >> $host_to_mac_path
         ;;
     "change")
-#        sed -i "/$2/s/$2/$3/g" $ftp_conf_path
+        case "$2" in
+            "name")
+                test $# -lt 4 && echo "Invalid agruement" && exit 1
+                echo "change name: $3"
+                sed -i "/$3\ /s/$3\ /$4\ /g" $host_to_mac_path
+            ;;
+
+        esac
         ;;
     "del")
         sed -i "/$2/"d $ftp_conf_path 
@@ -52,26 +75,15 @@ case "$1" in
         ;;
     "up_bash")
         sudo cp -uvf $SHELL_PATH/bash-completion/* /etc/bash_completion.d/
-        source /etc/bash_completion
+        source ~/.bashrc
         ;;
     "show")
-        if test "$2" = "ip" -a "$3" != "all" -a -n "$3" ; then
-            grep -i "$3\ " $mac_conf_path | awk -F" " '{ print $2 }' | sed "s/^/"$3" &/g"
-        fi
-        if test "$2" = "ip" -a "$3" = "all" -a -n "$3" ; then
-            host_names=`awk -F' ' '{ print $1 }' $mac_conf_path`
-            if test -n "$host_names" ; then
-                for ftp_host_name in $host_names ; do
-                    host_str=`grep -i "$ftp_host_name\ " $mac_conf_path`
-                    test -z "$host_str" && continue
-                    host_mac=`echo $host_str | awk -F" " '{ print $2 }'`
-                    test -z "$host_mac" && continue
-                    host_ip_ret=`grep -i "$host_mac" $mac_to_ip_path`
-                    test -z "$host_ip_ret" && continue
-                    results+=`echo $host_ip_ret | awk -F' ' '{ print $2 }' | sed "s/^/$ftp_host_name &/g"`"\n"
-                done
+        if test "$2" = "ip" -a -n "$3" ; then
+            if test "$3" != "all" ; then
+                grep -i "$3\ " $host_to_ip_path
+            else
+                cat $host_to_ip_path
             fi
-            echo -e "$results"
         fi
         ;;
     *)
