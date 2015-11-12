@@ -3,6 +3,8 @@
 # Time : 2015-10-13 13:18:33
 
 ftp_server_host_path=/home/anton/tools/conf/ftp-conf/.ftp-host-to-mac
+ftp_host_to_ip=/home/anton/.ftp-host-to-ip
+ftp_host_to_mac=/home/anton/.ftp-host-to-mac
 test ! -f $ftp_server_host_path && exit 1 
 
 have ftp-get && {
@@ -11,13 +13,39 @@ _ftp-get()
     local cur prev opts
     cur=`_get_cword`
     prev=${COMP_WORDS[COMP_CWORD-1]}
-    opts=`awk -F' ' '{print $1}' $ftp_server_host_path`
 
     if [[ ${prev} == 'ftp-get' ]] ; then
+        opts=`awk -F' ' '{print $1}' $ftp_host_to_ip`
         COMPREPLY=( $( compgen -W '$opts' -- "$cur" ) )
         return 0
+    fi
+    
+    _expand || return 0
+    _split_longopt
+    if [[ ${COMP_CWORD} == 2 ]] ; then
+        ftp_server_ip=`grep -i "${prev}\ " $ftp_host_to_ip | awk -F' ' '{print $2}'`
+        user=`grep -i "${prev}\ " $ftp_host_to_mac | awk -F' ' '{print $3}'`
+        passwd=`grep -i "${prev}\ " $ftp_host_to_mac | awk -F' ' '{print $4}'`
+        if test -z "$cur" ; then
+            cur_path="./"
+        else
+            cur_path=$cur
+        fi
+        opts=`ftp_client -s "$ftp_server_ip" -p 21 -u "$user" -w "$passwd" -l $cur_path | grep "^d" | tr -d '\b\r' | awk -F' ' '{print $9}' | sed "s/^.*$/&\//g"`
+        COMPREPLY=( $( compgen -W '$opts' -- "$cur" ) )
+        #compgen -W '$opts' -- "$cur"
+        return 0
     else
-        COMPREPLY=( $( compgen -W '`ls`' -- "$cur" ) )
+        prev_path=""
+        prev=${COMP_WORDS[COMP_CWORD-1]}
+        num=2
+        while test $num -lt ${COMP_CWORD}; do
+            prev_path+=${COMP_WORDS[$num]}"/"
+            let num=num+1
+        done
+
+        opts=`ftp_client -s "$ftp_server_ip" -p 21 -u "$user" -w "$passwd" -l "$prev_path" | tr -d '\b\r' | awk -F' ' '{print $9}'`
+        COMPREPLY=( $( compgen -W '$opts' -- "$cur" ) )
         return 0
     fi
 }
