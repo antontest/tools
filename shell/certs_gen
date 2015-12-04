@@ -1,0 +1,435 @@
+#! /bin/bash
+# Name : certs_gen
+# Func : generate ipsec certificate
+# Time : 2015-12-03 13:09:37
+
+# \brief printf usage of shell script
+# \param $@ [in] paramters from cmd line
+# \return 0, if succ
+#        -1, if fail
+function print_usage()
+{
+    echo -e "\e[1;31m#-------------------Shell Usage------------------#"
+    echo "Usage  : $(basename $0) [options] script-name"
+    echo "Options: "
+    echo "     -h,--help    Show usage of shell"
+    echo "     --ca         Include CA basicConstraint, default: no"
+    echo "     --cadn       Generate CA certificate with this subject dn"
+    echo "     --cakey      Generate certificate with this CA private key"
+    echo "     --cacert     Generate certificate with this CA certificate"
+    echo "     --dn         Generate certificate with subject dn"
+    echo "     --name       Certificate name"
+    echo "     --outform    Encoding of generated cert, default: der"
+    echo "     --lifetime   Certificate lifetime"
+    echo "     --digest     Generate certificate digest for signature creation"
+    echo "     --req        Generate certificate request"
+    echo "     --private    Generate private key"
+    echo "     --package    Package certificates, key and ipsec configuations"
+    echo -e "#-------------------Shell Usage-------------------#\e[0m"
+}
+
+# \brief get paramters from cmd line
+# \param $@ [in] paramters from cmd line
+# \return 0, if succ
+#        -1, if fail
+function parser_args()
+{
+    for ((i = 1; i <= $#; i++)); do
+        case "${!i}" in
+            -h|--help) print_usage $@; shift ;;
+            --ca) ca=1 ;;
+            --cadn)
+                ((start=i+1))
+                for ((ii = $start; ii <= $#; ii++)); do
+                    opt=${!ii}
+                    test "${opt:0:1}" = "-" && i=$ii && break 
+                    ca_dn+=$opt
+
+                    ((j=ii+1))
+                    opt=${!j}
+                    test -z "$opt" -o "${opt:0:1}" = "-" && i=$ii && break 
+                    ca_dn+=" "
+                done
+                test -z "$ca_dn" && echo "Option ${!i} need a paramter!" && exit 1
+                ca_dn=${ca_dn//|/ }
+                ;;
+            --caname)
+                ((i=i+1))
+                ca_name=${!i} ; 
+                test -z "$ca_name" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --cakey) 
+                ((i=i+1))
+                ca_private_key=${!i}
+                test -z "$ca_private_key" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --cacert) 
+                ((i=i+1))
+                ca_cert=${!i}; 
+                test -z "$ca_cert" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --dn)
+                ((start=i+1))
+                for ((ii = $start; ii <= $#; ii++)); do
+                    opt=${!ii}
+                    test "${opt:0:1}" = "-" && i=$ii && break 
+                    dn+=$opt
+
+                    ((j=ii+1))
+                    opt=${!j}
+                    test -z "$opt" -o "${opt:0:1}" = "-" && i=$ii && break 
+                    dn+=" "
+                done
+                test -z "$dn" && echo "Option ${!i} need a paramter!" && exit 1
+                dn=${dn//|/ }
+                ;;
+            -o|--outform) 
+                ((i=i+1))
+                outform=${!i}; 
+                test -z "$outform" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            -l|--lifetime) 
+                ((i=i+1))
+                lifetime=${!i}; 
+                test -z "$lifetime" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            -n|--name) 
+                ((i=i+1))
+                name=${!i}; 
+                test -z "$name" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            -f|--file) 
+                ((i=i+1))
+                file=${!i}; 
+                test -z "$ca_cert" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --delete)
+                delete_flag=1 
+                ((start=i+1))
+                for ((ii = $start; ii <= $#; ii++)); do
+                    opt=${!ii}
+                    test "${opt:0:1}" = "-" && i=$ii && break 
+                    dn+=$opt
+
+                    ((j=ii+1))
+                    opt=${!j}
+                    test -z "$opt" -o "${opt:0:1}" = "-" && i=$ii && break 
+                    dn+=" "
+                done
+                test -z "$dn" && echo "Option ${!i} need a paramter!" && exit 1
+                dn=${dn//|/ }
+                ;;
+            --private)
+                gen_private_key=1 
+                ((i=i+1))
+                name=${!i}; 
+                test -z "$name" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --type)
+                ((i=i+1))
+                type=${!i}; 
+                test -z "$$type" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --req)
+                gen_req=1 
+                ((start=i+1))
+                for ((ii = $start; ii <= $#; ii++)); do
+                    opt=${!ii}
+                    test "${opt:0:1}" = "-" && i=$ii && break 
+                    dn+=$opt
+
+                    ((j=ii+1))
+                    opt=${!j}
+                    test -z "$opt" -o "${opt:0:1}" = "-" && i=$ii && break 
+                    dn+=" "
+                done
+                test -z "$dn" && echo "Option ${!i} need a paramter!" && exit 1
+                dn=${dn//|/ }
+                ;;
+            --package)
+                package_certs=1
+                ((i=i+1))
+                name=${!i}; 
+                test -z "$name" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --) shift ; break ;;
+            *) echo "${!i} Internal error!" ; exit 1 ;;
+        esac
+    done
+
+    return 0
+}
+
+get_value (){
+    test $# -lt 1 && echo "" && return 0
+    sed -n "s/$1[=:]//p" $file
+}
+
+get_para_from_conf (){
+    ca_name=`get_value caname`
+    ca_dn=`get_value cadn`
+    test -n "$ca_dn" && ca_dn=${ca_dn//\"/}
+    ca_cert=`get_value cacert`
+    ca_private_key=`get_value cakey`
+    lifetime=`get_value lifetime`
+    outform=`get_value outform`
+    cert_dn=`get_value certdn`
+    test -n "$cert_dn" && cert_dn=${cert_dn//\"/}
+    cert_name=`get_value certname`
+    digest=`get_value digest`
+}
+
+certs_gen_path=~/.ipsec_certs
+package_path=$certs_gen_path/package
+ipsec_ca_save_file=$certs_gen_path/.ipsec_ca_gen
+ipsec_certs_save_file=$certs_gen_path/.ipsec_certs_gen
+ipsec_sample_dn_file=$certs_gen_path/.ipsec_sample_dn
+parser_args $@
+
+test -z "$delete_flag" && delete_flag=0
+if test $delete_flag -eq 1 ; then
+    if test "$dn" = "all" ; then
+        rm -f $ipsec_ca_save_file
+        rm -f $ipsec_certs_save_file
+        rm -rf $certs_gen_path/ca/*
+        rm -rf $certs_gen_path/certs/*
+
+        echo "Delete all ipsec certificates, keys and configuations!" && exit 0
+    fi
+
+    test ! -e $ipsec_sample_dn_file && exit 1
+    delete_result=`grep "$dn" $ipsec_ca_save_file $ipsec_certs_save_file`
+    test -z "$delete_result" && exit 1
+    delete_path=`echo $delete_result | awk -F':' '{ print $3 }'`
+    delete_file=`echo $delete_result | awk -F':' '{ print $1 }'`
+    test -z "$delete_path" -o ! -e $delete_path && exit 1
+    
+    sed -i "/$dn/"d $delete_file
+    rm -rf $delete_path
+    echo "Delete \"dn\" successfully!"
+    exit 0
+fi
+
+if test -n "$file" ; then
+    get_para_from_conf
+fi
+
+default_outform=pem 
+default_lifetime=730
+default_ca_dn="C=CN, O=Sercomm, CN=cn@strongswan.org"
+default_ca_name="sc"
+default_certs_name="test"
+default_certs_dn="C=CN, O=Sercomm, CN=$default_certs_name"
+default_digest=sha512
+default_type=rsa
+default_package_name="ipsec"
+test -z "$ca" && ca=0
+test -z "$outform" && outform=$default_outform 
+test -z "$lifetime" && lifetime=$default_lifetime
+test -z "$gen_private_key" && gen_private_key=0
+test -z "$gen_req" && gen_req=0
+test -z "$type" && type=$default_type
+test -z "$package_certs" && package_certs=0
+test ! -d $certs_gen_path && mkdir -p $certs_gen_path
+
+if test $gen_private_key -eq 1 ; then
+    ipsec pki --gen --type $type --size 2048 --outform $outform > ./${name}_private_key.pem
+    exit 0
+fi
+
+if test $gen_req -eq 1 ; then
+    name=`echo $dn | sed "s/.*CN=\(.*\)$/\1/g" | sed "s/\ /_/g"`
+    req_private_key=${name}_private_key.pem
+    req_pem=${name}_req.pem
+    ipsec pki --gen --type $type --size 2048 --outform $outform > ./$req_private_key
+    ipsec pki --req --in $req_private_key --type $type --dn "$dn" --outform $outform > ./$req_pem
+
+    req_pem_size=`ls -l $req_pem | awk -F' ' '{ print $5 }'`
+    test $req_pem_size -lt 1 && rm -f $req_private_key $req_pem &&  echo "Generate req \"$dn\" failed!" && exit 1
+    echo "Generate req \"$dn\" successfully!"
+    exit 0
+fi
+
+if test $ca -eq 1 ; then
+    ##
+    # init variable
+    ##
+    test -z "$dn" && test -z "$ca_dn" && dn=$default_ca_dn
+    test -z "$dn" && test -n "$ca_dn" && dn=$ca_dn
+    test -z "$name" && test -z "$ca_name" && name=$default_ca_name
+    test -z "$name" && test -n "$ca_name" && name=$ca_name
+
+    ##
+    # ca directory
+    ##
+    ca_dir=`echo $dn | sed "s/[,\ =]\{1,\}/_/g"`
+    ca_path=${certs_gen_path}/ca/$ca_dir
+    test -d $ca_path && echo "CA \"$dn\" already created!" && exit 1
+    test ! -d ${certs_gen_path}/ca && mkdir ${certs_gen_path}/ca
+    mkdir $ca_path
+    
+    ##
+    # ca private key and Certificate name
+    ##
+    ca_private_key=$ca_path/${name}_private_key.pem
+    ca_cert=$ca_path/${name}_cert.pem
+    ipsec pki --gen --type $type --size 2048 --outform $outform > $ca_private_key
+    ca_private_key_size=`ls -l $ca_private_key | awk -F' ' '{ print $5 }'`
+    test $ca_private_key_size -lt 1 && rm -rf $ca_path && echo "Generate CA \"$dn\" private key failed!" && exit 1
+
+    ##
+    # generate ca Certificate
+    ##
+    ipsec pki --self --lifetime $lifetime --in $ca_private_key --dn "$dn" --ca --outform $outform > $ca_cert
+    ca_cert_size=`ls -l $ca_cert | awk -F' ' '{ print $5 }'`
+    test $ca_cert_size -lt 1 && rm -rf $ca_path &&  echo "Generate CA \"$dn\" failed!" && exit 1
+    echo "Generate CA \"$dn\" successfully!"
+
+    ##
+    # write file 
+    ##
+    is_ca_already_exist_in_file=`test -e $ipsec_ca_save_file && grep "$dn" $ipsec_ca_save_file` 
+    test -z "$is_ca_already_exist_in_file" && echo "$dn:$ca_path" >> $ipsec_ca_save_file
+    exit 0
+fi
+
+##
+# init variable
+##
+test -z "$dn" && test -z "$ca_dn" && dn=$default_certs_dn
+test -z "$dn" && test -n "$ca_dn" && dn=$ca_dn
+test -z "$name" && name=`echo $dn | sed "s/.*CN=\(.*\)[\$@#\'\"+=,:|\\\!~?]\{1,\}.*$/\1/g" | tr '[A-Z]' '[a-z]' | sed "s/\ /_/g"`
+
+if test $package_certs -eq 1; then
+    certs_path=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $2 }' | sed 1p -n`
+    test -n "$certs_path" && test ! -e "$certs_path" && echo "Certificates path \"$certs_path\" does not exist!" && exit 1
+    package_certs_already_exist=1
+fi
+
+##
+# find ca private ket and Certificate
+##
+ca_flag=1
+test -z "$package_certs_already_exist" && package_certs_already_exist=0
+if test -z "$ca_private_key" -a -z "$ca_cert" ; then
+    if test $package_certs_already_exist -eq 1 ; then
+        ca_private_key=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $5 }' | sed 1p -n`
+        test -z "$ca_private_key" && echo "Cannot get ca private key path!" && exit 1
+
+        ca_cert=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $6 }' | sed 1p -n`
+        test -z "$ca_cert" && echo "Cannot get ca certificate path!" && exit 1
+    else
+        ##
+        # get ca directory
+        ##
+        test -z "$ca_dn" && ca_dn=$default_ca_dn
+        ca_dir=`echo $ca_dn | sed "s/[,\ =]\{1,\}/_/g"`
+        test ! -e ${certs_gen_path}/ca/$ca_dir && echo "CA \"$ca_dn\" does not exist!" && exit 1
+
+        ca_private_key=`find $certs_gen_path/ca/$ca_dir -maxdepth 1 -name *private_key.pem`
+        ca_cert=`find $certs_gen_path/ca/$ca_dir -maxdepth 1 -name *cert.pem`
+    fi
+    ca_flag=0
+fi
+test ! -e "$ca_private_key" && echo "Could not find \"$ca_private_key\"!" && exit 1
+test ! -e "$ca_cert" && echo "Could not find \"$ca_cert\"!" && exit 1
+
+##
+# create Certificate directory
+##
+certs_dir=`echo $dn | sed "s/[,\ =]\{1,\}/_/g"`
+if test $ca_flag -eq 0 ; then
+    if test $package_certs_already_exist -eq 0 ; then
+        certs_path=${certs_gen_path}/ca/$ca_dir/$certs_dir
+    fi
+else
+    test ! -d ${certs_gen_path}/certs && mkdir ${certs_gen_path}/certs
+    certs_path=${certs_gen_path}/certs/$certs_dir
+fi
+
+##
+# check whether package
+##
+if test $package_certs_already_exist -eq 1 ; then
+    cert_private_key=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $3 }' | sed 1p -n`
+    test -z "$cert_private_key" && echo "Cannot get certificate private key name!" && exit 1
+    cert_private_key=$certs_path/$cert_private_key
+    test ! -e "$cert_private_key" && echo "Cannot find certificate private key \"$cert_private_key\"!" && exit 1
+
+    cert=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $4 }' | sed 1p -n`
+    test -z "$cert" && echo "Cannot get certificate name!" && exit 1
+    cert=$certs_path/$cert
+    test ! -e "$cert" && echo "Cannot find certificate!" && exit 1
+
+    if test ! -e $package_path ; then
+        $package_path && mkdir $package_path/ipsec.d 
+        cd $package_path/ipsec.d
+        cp $IPSEC_PATHH/conf/ipsec.* .
+        mkdir aacerts acerts cacerts certs crls ocspcerts private reqs
+    fi
+
+    rm -f $package_path/ipsec.d/cacerts/*
+    rm -f $package_path/ipsec.d/certs/*
+    rm -f $package_path/ipsec.d/private/*
+    cp $ca_cert $package_path/ipsec.d/cacerts/
+    cp $cert $package_path/ipsec.d/certs/
+    cp $cert_private_key $package_path/ipsec.d/private/
+
+    tar_path=`pwd`
+    cd $package_path/
+    tar -cf $tar_path/${name}.tar ipsec.conf ipsec.secrets ipsec.d
+    test $? -eq 0 && echo "Package Certificate \"$dn\" successfully!" && exit 0
+    exit 1
+    
+    exit 0
+fi
+
+##
+# check whether already exist
+##
+test -d $certs_path && echo "Certificate with subjec \"$dn\" already created!" && exit 1
+mkdir -p $certs_path
+
+##
+# generate certificate private key
+##
+certs_private_key=$certs_path/${name}_private_key.pem
+certs_public_key=$certs_path/${name}_public_key.pem
+certs_cert=$certs_path/${name}_cert.pem
+ipsec pki --gen --type $type --size 2048 --outform $outform > $certs_private_key
+certs_private_key_size=`ls -l $certs_private_key | awk -F' ' '{ print $5 }'`
+test $certs_private_key_size -lt 1 && rm -rf $certs_path && echo "Generate certificate \"$dn\" failed!" && exit 1
+
+##
+# generate certificate public key and certificate
+##
+ipsec pki --pub --in $certs_private_key --outform $outform > $certs_public_key
+ipsec pki --issue --lifetime $lifetime --in $certs_public_key --digest sha512 \
+          --cacert $ca_cert --cakey $ca_private_key \
+          --dn "$dn" \
+          --outform $outform > $certs_cert 
+certs_cert_size=`ls -l $certs_cert | awk -F' ' '{ print $5 }'`
+test $certs_cert_size -lt 1 && rm -rf $certs_path &&  echo "Generate certificate \"$dn\" failed!" && exit 1
+echo "Generate certificate \"$dn\" successfully!" 
+
+##
+# write file 
+##
+is_certs_already_exist_in_file=`test -e $ipsec_certs_save_file && grep "$dn" $ipsec_certs_save_file` 
+test -z "$is_certs_already_exist_in_file" && echo "$dn:$certs_path:${name}_private_key.pem:${name}_cert.pem:$ca_private_key:$ca_cert" >> $ipsec_certs_save_file
+
+if test $package_certs -eq 1 ; then
+    rm -f $package_path/ipsec.d/cacerts/*
+    rm -f $package_path/ipsec.d/certs/*
+    rm -f $package_path/ipsec.d/private/*
+    cp $ca_cert $package_path/ipsec.d/cacerts/
+    cp $certs_cert $package_path/ipsec.d/certs/
+    cp $certs_private_key $package_path/ipsec.d/private/
+
+    tar_path=`pwd`
+    cd $package_path/
+    tar -cf $tar_path/${name}.tar ipsec.conf ipsec.secrets ipsec.d
+    test $? -eq 0 && echo "Package Certificate \"$dn\" successfully!" && exit 0
+    exit 1
+fi
+exit 0
