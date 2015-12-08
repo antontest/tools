@@ -1,0 +1,44 @@
+#! /bin/bash
+# Name : ipsec-tools
+# Func : ipsec tools 
+# Time : 2015-12-07 09:23:08
+
+get_para() {
+    ((n=i+1))
+    para=${!n}
+    test -z "$para" -o "${para:0:1}" = "-" && echo ""
+    echo $para && exit $n
+}
+
+check_para (){
+    test -z "$2" && echo "Option [$1] need parameter!" && exit 1 
+}
+
+get_args (){
+    for ((i = 1; i <= $#; i++)); do
+        ((j=i+1))
+        case "${!i}" in
+            --showcert)
+                showcert=1
+                cert=`get_para $@`
+                i=$?
+                check_para "showcert" $cert
+                ;;
+            --inform)
+                inform=`get_para $@`
+                i=$?
+                check_para "inform" $inform
+                ;;
+            --) break ;;
+            *) echo "${!i} Internal error!" ; exit 1 ;;
+        esac
+    done
+}
+
+get_args $@
+test -z "$inform" && inform=pem
+test -z "$showcert" && showcert=0
+
+if test $showcert -eq 1; then
+    openssl x509 -inform $inform -noout -text -in $cert && exit 0
+fi

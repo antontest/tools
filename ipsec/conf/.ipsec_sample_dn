@@ -1,0 +1,4 @@
+C=CN, O=Sercomm, CN=Root CA
+C=CN, O=Sercomm, CN=cn@strongswan.org
+C=CN, O=Sercomm, CN=lte
+C=CN, O=Sercomm, CN=test

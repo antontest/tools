@@ -1,0 +1,70 @@
+config setup
+	    strictcrlpolicy=yes
+
+ca msg
+        cacert=OperatorCA.pem
+    	ocspuri=http://172.21.34.121:8080/ejbca/publicweb/status/ocsp
+    	auto=add
+
+conn %default
+        ikelifetime=60h
+        lifetime=20h
+        keyingtries=1
+        keyexchange=ikev2
+        ike=aes128-sha1-modp1024
+        esp=aes128-sha1-modp1024
+        rekey=yes
+
+conn psk
+        left=%any
+        leftauth=psk
+        leftid=lte@strongswan.org
+        leftsourceip=%config
+        right=172.21.34.22
+        rightid=cn@strongswan.org
+        rightauth=psk
+        auto=add
+
+conn cert
+    	left=%any
+    	leftid="C=CN, O=Sercomm, CN=lte"
+    	leftsourceip=%config
+    	leftcert=sc_ipsec_client_cert.pem
+    	right=172.21.34.22
+    	rightid="C=CN, O=Sercomm, CN=cn@strongswan.org"
+    	rightsubnet=172.21.34.0/24
+    	auto=add
+    	dpdaction=clear
+
+conn psk-cert
+    	left=%any
+    	leftauth=psk
+    	leftid=lte@strongswan.org
+    	leftsourceip=%config
+    	right=172.21.34.22
+    	rightid="C=CN, O=Sercomm, CN=cn@strongswan.org"
+    	rightsubnet=172.21.34.0/24
+    	auto=add
+    	dpdaction=clear
+
+conn ocsp
+    	left=%any
+    	leftid=lte@strongswan.org
+    	leftcert=sc_ipsec_client_cert.pem
+    	right=172.21.34.22
+    	rightid=cn@strongswan.org
+    	#rightsubnet=10.1.0.0/16
+    	auto=add
+
+conn aka
+    	left=%any
+    	leftid=lte@strongswan.org
+    	leftauth=eap-aka
+    	leftsourceip=%config
+    	right=172.21.34.22
+    	rightid=cn@strongswan.org
+    	rightauth=psk
+    	#rightsubnet=172.20.0.0/16
+    	auto=add
+    	dpdaction=clear
+

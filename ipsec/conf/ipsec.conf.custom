@@ -1,0 +1,22 @@
+config setup
+
+conn %default
+        ikelifetime=60h
+        lifetime=20h
+        keyingtries=1
+        keyexchange=ikev2
+        ike=aes128-sha1-modp1024
+        esp=aes128-sha1-modp1024
+        rekey=yes
+
+conn cert
+    	left=%any
+    	leftid="C=CN, O=Sercomm, CN=lte"
+    	leftsourceip=%config
+    	leftcert=sc_ipsec_client_cert.pem
+    	right=172.21.34.22
+    	rightid="C=CN, O=Sercomm, CN=cn@strongswan.org"
+    	rightsubnet=172.21.34.0/24
+    	auto=add
+    	dpdaction=clear
+
