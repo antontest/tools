@@ -33,8 +33,8 @@ _certs_gen()
         return 0
     elif [[ "$prev" = "--dn" ]] ; then
         test ! -e $sample_dn_file && return 0
-        local dn=`awk -F':' '{ print $1 }' $sample_dn_file | sed "s/\ /|/g"`
-        local certs_dn=`awk -F':' '{ print $2 }' $certs_save_file | sed "s/\ /|/g"`
+        local dn=`test -e $sample_dn_file && (awk -F':' '{ print $1 }' $sample_dn_file | sed "s/\ /|/g")`
+        local certs_dn=`test -e $certs_save_file && (awk -F':' '{ print $2 }' $certs_save_file | sed "s/\ /|/g")`
         test -z "$dn" -a -z "$certs_dn" && return 0
         COMPREPLY=( $( compgen -W '$dn $certs_dn' -- "$cur" ) )
         return 0
