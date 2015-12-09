@@ -195,6 +195,16 @@ get_para_from_conf (){
     digest=`get_value digest`
 }
 
+get_subject_from_cert() {
+    test ! -e $1 && echo ""
+    ipsec pki --print --in $certs_cert | grep "subject" | sed "s/.*:\ *\"*\(.*\)\"$/\1/g"
+}
+
+get_issuer_from_cert() {
+    test ! -e $1 && echo ""
+    ipsec pki --print --in $certs_cert | grep "issuer" | sed "s/.*:\ *\"*\(.*\)\"$/\1/g"
+}
+
 certs_package (){
     if test ! -e $package_path ; then
         mkdir $package_path && mkdir $package_path/ipsec.d 
@@ -350,15 +360,8 @@ certs_dealing() {
     if test -n "$certs_cert" -a -n "$certs_private_key"; then
         certs_already_exist=0
         if test -e $certs_cert -a -e $certs_private_key ; then
-            dn=`ipsec pki --print --in $certs_cert | grep "subject" | sed "s/.*:\ *\(.*\)\"$/\1/g"`
+            dn=`ipsec pki --print --in $certs_cert | grep "subject" | sed "s/.*:\ *\"*\(.*\)\"$/\1/g"`
             certs_dir=`echo $dn | sed "s/[,\ =]\{1,\}/_/g"`
-            certs_path=$certs_gen_path/ca/$ca_dir/$certs_dir
-            
-            if test ! -e $certs_path ; then
-                mkdir -p $certs_path
-                cp -f $certs_private_key $certs_path
-                cp -f $certs_cert $certs_path
-            fi
             certs_already_exist=2
         fi
     else
@@ -413,20 +416,18 @@ ca_dealing() {
         ca_already_exist=0
 
         if test $certs_already_exist -eq 2 ; then
-            certs_ca_dn=`ipsec pki --print --in $ca_cert | grep "issuer" | sed "s/.*:\ *\(.*\)\"$/\1/g"`
-            certs_ca_dir=`echo $ca_dn | sed "s/[,\ =]\{1,\}/_/g"`
-            certs_ca_path=$certs_gen_path/ca/$ca_dir
+            certs_ca_dn=`ipsec pki --print --in $certs_cert | grep "issuer" | sed "s/.*:\ *\"*\(.*\)\"$/\1/g"`
+            certs_ca_dir=`echo $certs_ca_dn | sed "s/[,\ =]\{1,\}/_/g"`
+            certs_ca_path=$certs_gen_path/ca/$certs_ca_dir
             if test -e $certs_ca_path ; then
                 ca_cert=`find $certs_ca_path -maxdepth 1 -type f | grep ".*cert.pem"`
                 ca_private_key=`find $certs_ca_path  -maxdepth 1 -type f | grep ".*private_key.pem"`
-                ca_path=`dirname $certs_ca_cert`
-                ca_dir=`basename $certs_ca_path`
+                ca_path=`dirname $ca_cert`
+                ca_dir=`basename $ca_path`
             else
                 certs_ca_dn=""
             fi
         fi
-        test -z "$ca_dn" -a -n "$certs_ca_dn" && ca_dn=$certs_ca_dn
-        test -z "$ca_dn" && echo "No ca cert and private key!" && exit 1
 
         if test $certs_already_exist -eq 1; then
             ca_dn=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $1 }' | sed 1p -n`
@@ -529,56 +530,50 @@ if test $ca -eq 1 ; then
 fi
 
 ##
-# init variable
-##
-test -z "$dn" && test -z "$ca_dn" && dn=$default_certs_dn
-test -z "$dn" && test -n "$ca_dn" && dn=$ca_dn
-if test -z "$name"; then
-    name=`echo "$dn" | sed "s/.*CN\ *=\ *\(.*\)$/\1/g"`
-    test -z "$name" && echo "Certificate name cannot be null!" && exit 1
-    name=${name//[\$@#\'\"+=,:|\\\!~?]*/}
-    test -z "$name" && echo "Certificate name cannot be null!" && exit 1
-    name=`echo $name | tr 'A-Z' 'a-z' | sed "s/\ /_/g"`
-    test -z "$name" && echo "Certificate name cannot be null!" && exit 1
-fi
-
-##
 # ca dealing
 ##
 certs_dealing
 ca_dealing 
 
 ##
+# init variable
+##
+test -z "$dn" && test -z "$ca_dn" && dn=$default_certs_dn
+test -z "$dn" && test -n "$ca_dn" && dn=$ca_dn
+if test -n "$dn" -a -z "$name"; then
+    name=`echo "$dn" | sed "s/.*CN\ *=\ *\(.*\)$/\1/g"`
+    test -z "$name" && echo "Certificate name cannot be null!" && exit 1
+    name=${name//[\$\@\'\"+=,:|\\\!~?]*/}
+    test -z "$name" && echo "Certificate name cannot be null!" && exit 1
+    name=`echo $name | tr 'A-Z' 'a-z' | sed "s/\ /_/g"`
+    test -z "$name" && echo "Certificate name cannot be null!" && exit 1
+fi
+
+##
 # check whether package
 ##
 test -z "$dn" -a -z "$certs_cert" -a -z "$certs_private_key" && echo "Input parameters error!" && exit 1
 if test $certs_already_exist -ne 0 ; then
-    certs_cert=$certs_gen_path/ca/$ca_dir/$certs_dir
-fi
-if test $package_certs -eq 1 ; then
-    if test -z "$certs_cert" ; then
-        certs_cert=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $5 }' | sed 1p -n`
-        test -z "$certs_cert" && echo "Cannot get certificate name!" && exit 1
-        certs_cert=$certs_path/$certs_cert
-        test ! -e "$certs_cert" && echo "Cannot find certificate!" && exit 1
-    else
-        dn=`ipsec pki --print --in $ca_cert | grep "subject" | sed "s/.*:\ *\(.*\)\"$/\1/g"`
-        certs_dir=`echo $dn | sed "s/[,\ =]\{1,\}/_/g"`
-        certs_path=$certs_gen_path/ca/$ca_dir/$certs_dir
+    certs_path=$certs_gen_path/ca/$ca_dir/$certs_dir
+
+    if test $certs_already_exist -eq 2 ; then
         if test ! -e $certs_path ; then
-            mkdir $certs_path
-            cp -f $certs_private_key $certs_path
-            cp -f $certs_cert $certs_path
+            mkdir -p $certs_path
+            cp $certs_cert $certs_private_key $certs_path
         fi
-    fi
 
-    if test -z "$certs_private_key" ; then
-        certs_private_key=`grep "$dn" $ipsec_certs_save_file | awk -F':' '{ print $4 }' | sed 1p -n`
-        test -z "$certs_private_key" && echo "Cannot get certificate private key name!" && exit 1
-        certs_private_key=$certs_path/$certs_private_key
-        test ! -e "$certs_private_key" && echo "Cannot find certificate private key \"$certs_private_key\"!" && exit 1
+        ##
+        # write file 
+        ##
+        is_certs_already_exist_in_file=`test -e $ipsec_certs_save_file && grep "$dn" $ipsec_certs_save_file` 
+        test -z "$is_certs_already_exist_in_file" && echo "$ca_dn:$dn:$certs_path:${name}_private_key.pem:${name}_cert.pem" >> $ipsec_certs_save_file
+    else
+        certs_cert=$certs_path/${name}_cert.pem
+        certs_private_key=$certs_path/${name}_private_key.pem
     fi
+fi
 
+if test $package_certs -eq 1 -a $certs_already_exist -gt 0 ; then
     certs_package
     exit 1
 fi
@@ -586,7 +581,6 @@ fi
 ##
 # check whether already exist
 ##
-test $package_certs -eq 1 && echo "Package certificates \"$dn\" failed!" && exist 1
 test $certs_already_exist -gt 0 && echo "Certificate with subject \"$dn\" already created!" && exit 1
 certs_path=$certs_gen_path/ca/$ca_dir/$certs_dir
 test -d $certs_path && echo "Certificate with subject \"$dn\" already created!" && exit 1

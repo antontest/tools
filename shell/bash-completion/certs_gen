@@ -15,7 +15,7 @@ _certs_gen()
 
     if [[ "$cur" = -* ]] ; then
         COMPREPLY=( $( compgen -W '--ca --cadn --cakey --cacert --dn -l --lifetime --server --client --custom
-        -n --name -f --file -o --outform --delete --private --req --type --package -h --help' -- "$cur" ) )
+        -n --name -f --file -o --outform --delete --private --req --type --package --cert --key -h --help' -- "$cur" ) )
         return 0
     fi
  
@@ -34,8 +34,9 @@ _certs_gen()
     elif [[ "$prev" = "--dn" ]] ; then
         test ! -e $sample_dn_file && return 0
         local dn=`awk -F':' '{ print $1 }' $sample_dn_file | sed "s/\ /|/g"`
-        test -z "$dn" && return 0
-        COMPREPLY=( $( compgen -W '$dn' -- "$cur" ) )
+        local certs_dn=`awk -F':' '{ print $2 }' $certs_save_file | sed "s/\ /|/g"`
+        test -z "$dn" -a -z "$certs_dn" && return 0
+        COMPREPLY=( $( compgen -W '$dn $certs_dn' -- "$cur" ) )
         return 0
     elif [[ "$prev" = "--req" ]] ; then
         test ! -e $sample_dn_file && return 0
@@ -51,6 +52,9 @@ _certs_gen()
         return 0
     fi
 
+    _expand || return 0
+    COMPREPLY=( $( compgen -f -X ".*" -- "$cur" ) \
+        $( compgen -d -- "$cur" ) )
     return 0
 }
 
