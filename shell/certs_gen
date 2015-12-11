@@ -24,7 +24,10 @@ function print_usage()
     echo "     --digest     Generate certificate digest for signature creation"
     echo "     --req        Generate certificate request"
     echo "     --private    Generate private key"
+    echo "     --pub        Generate public key"
     echo "     --package    Package certificates, key and ipsec configuations"
+    echo "     --cert       Certificate"
+    echo "     --key        Private key of certificate"
     echo -e "#-------------------Shell Usage-------------------#\e[0m"
 }
 
@@ -122,8 +125,14 @@ function parser_args()
             --private)
                 gen_private_key=1 
                 ((i=i+1))
-                name=${!i}; 
-                test -z "$name" && echo "Option ${!i} need a paramter!" && exit 1
+                private_key=${!i}; 
+                test -z "$private_key" && echo "Option ${!i} need a paramter!" && exit 1
+                ;;
+            --pub)
+                gen_public_key=1 
+                ((i=i+1))
+                public_key=${!i}; 
+                test -z "$public_key" && echo "Option ${!i} need a paramter!" && exit 1
                 ;;
             --type)
                 ((i=i+1))
@@ -469,6 +478,26 @@ ca_dealing() {
     test ! -e "$ca_cert" && echo "CA certificate \"$ca_cert\" does not exist!" && exit 1
 }
 
+gen_private() {
+    private_key=$1
+    ipsec pki --gen --type $type --size 2048 --outform $outform > ./${private_key}_private_key.pem
+}
+
+gen_public() {
+    if test $# -lt 2; then
+        private_key=""
+        public_key=$1
+    else
+        private_key=$1
+        public_key=$2
+    fi
+    if test -z "$private_key" -o ! -e "$private_key" ; then
+        gen_private $public_key
+        private_key=${public_key}_private_key.pem
+    fi
+    ipsec pki --pub --in $private_key --outform $outform > ${public_key}_public_key.pem
+}
+
 certs_gen_path=~/.ipsec_certs
 package_path=$certs_gen_path/package
 ipsec_ca_save_file=$certs_gen_path/.ipsec_ca_gen
@@ -499,6 +528,7 @@ test -z "$ca" && ca=0
 test -z "$outform" && outform=$default_outform 
 test -z "$lifetime" && lifetime=$default_lifetime
 test -z "$gen_private_key" && gen_private_key=0
+test -z "$gen_public_key" && gen_public_key=0
 test -z "$gen_req" && gen_req=0
 test -z "$type" && type=$default_type
 test -z "$package_certs" && package_certs=0
@@ -509,7 +539,12 @@ test ! -d $certs_gen_path && mkdir -p $certs_gen_path
 test ! -e $ipsec_sample_dn_file && cp -f /home/anton/tools/ipsec/conf/.ipsec_sample_dn $ipsec_sample_dn_file
 
 if test $gen_private_key -eq 1 ; then
-    ipsec pki --gen --type $type --size 2048 --outform $outform > ./${name}_private_key.pem
+    gen_private $private_key
+    exit 0
+fi
+
+if test $gen_public_key -eq 1 ; then
+    gen_public $private_key $public_key
     exit 0
 fi
 
