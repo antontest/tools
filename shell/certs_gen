@@ -353,7 +353,7 @@ gen_ca() {
 }
 
 gen_req() {
-    name=`echo $dn | sed "s/.*CN=\(.*\)$/\1/g" | sed "s/\ /_/g"`
+    name=`echo $dn | sed "s/.*CN=//g" | sed "s/,.*//g" | sed "s/\ /_/g"`
     req_private_key=${name}_private_key.pem
     req_pem=${name}_req.pem
     ipsec pki --gen --type $type --size 2048 --outform $outform > ./$req_private_key
@@ -401,10 +401,23 @@ ca_dealing() {
     ##
     # find ca private ket and Certificate
     ##
-    if test -n "$ca_private_key" -a -n "$ca_cert" ; then
+    if test $package_certs -eq 1 -a -n "$ca_cert" ; then
+        ca_dn=`ipsec pki --print --in $ca_cert | grep "subject" | sed "s/.*:\ *\"*\(.*\)\"$/\1/g"`
+        ca_dir=`echo $ca_dn | sed "s/[,\ =]\{1,\}/_/g"`
+        ca_path=$certs_gen_path/ca/$ca_dir
+        if test ! -e $ca_path ; then
+            mkdir -p $ca_path
+            cp -f $ca_cert $ca_path
+        fi
+
+        ca_cert_tmp=`basename $ca_cert`
+        ca_cert=$ca_path/$ca_cert_tmp
+        ca_private_key=$ca_cert
+        ca_already_exist=1
+    elif test -n "$ca_private_key" -a -n "$ca_cert" ; then
         if test -e $ca_cert -a -e $ca_private_key ; then
             test ! -e $ca_cert && echo "ca cert [$ca_cert] does not exist!" && exit 1
-            ca_dn=`ipsec pki --print --in $ca_cert | grep "subject" | sed "s/.*:\ *\(.*\)\"$/\1/g"`
+            ca_dn=`ipsec pki --print --in $ca_cert | grep "subject" | sed "s/.*:\ *\"*\(.*\)\"$/\1/g"`
             ca_dir=`echo $ca_dn | sed "s/[,\ =]\{1,\}/_/g"`
             ca_path=$certs_gen_path/ca/$ca_dir
             if test ! -e $ca_path ; then
@@ -413,7 +426,7 @@ ca_dealing() {
                 cp -f $ca_cert $ca_path
             fi
 
-            ca_private_key_tmp=`basename $ca_private_key`
+            ca_private_key_tmp=`test -n "$ca_private_key" && basename $ca_private_key`
             ca_cert_tmp=`basename $ca_cert`
             ca_private_key=$ca_path/$ca_private_key_tmp
             ca_cert=$ca_path/$ca_cert_tmp
@@ -474,7 +487,7 @@ ca_dealing() {
         fi
     fi
 
-    test ! -e "$ca_private_key" && echo "CA private key \"$ca_private_key\" does not exist!" && exit 1
+    test $package_certs -eq 0 -a ! -e "$ca_private_key" && echo "CA private key \"$ca_private_key\" does not exist!" && exit 1
     test ! -e "$ca_cert" && echo "CA certificate \"$ca_cert\" does not exist!" && exit 1
 }
 
@@ -576,7 +589,8 @@ ca_dealing
 test -z "$dn" && test -z "$ca_dn" && dn=$default_certs_dn
 test -z "$dn" && test -n "$ca_dn" && dn=$ca_dn
 if test -n "$dn" -a -z "$name"; then
-    name=`echo "$dn" | sed "s/.*CN\ *=\ *\(.*\)$/\1/g"`
+    #name=`echo "$dn" | sed "s/.*CN\ *=\ *\(.*\)$/\1/g"`
+    name=`echo "$dn" | sed "s/.*CN\ *=\ *//g | sed "s/,.*//g"`
     test -z "$name" && echo "Certificate name cannot be null!" && exit 1
     name=${name//[\$\@\'\"+=,:|\\\!~?]*/}
     test -z "$name" && echo "Certificate name cannot be null!" && exit 1
