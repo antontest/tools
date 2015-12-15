@@ -80,9 +80,10 @@ esac
 cd $name && scmake -p $name
 
 # modify lib dependence
-cd src/ && (scmake -e $name ; 
-sed -i "/install\ *(\ *targets.*runtime/Is/targets\ .*runtime/TARGETS $name RUNTIME/Ig" CMakeLists.txt)
-sed -i "/TARGET_LINK_LIBRARIES\ *(main/Is/main\ /$name\ /Ig" CMakeLists.txt
+cd src/ && (
+sed -i "/ADD_EXECUTABLE\ *(main/Is/main/${name}/Ig" CMakeLists.txt
+sed -i "/install\ *(\ *targets.*runtime/Is/targets\ .*runtime/TARGETS ${name}_bin RUNTIME/Ig" CMakeLists.txt)
+sed -i "/TARGET_LINK_LIBRARIES\ *(main/Is/main/${name}/Ig" CMakeLists.txt
 
 test "$mode" = "lib" && ( 
 mkdir $name && echo "#include <$name.h>" > $name/${name}.c
@@ -90,12 +91,9 @@ test ! -d include && mkdir include
 test ! -d lib && mkdir lib
 test ! -d extra_lib && mkdir extra_lib
 cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
-sed -i "/target_link_lib.*/Is/(.*\ .*)$/($name\ ${name}_static)/g" CMakeLists.txt ;
 sed -i "/^set\ *(lib_src\ /Is/\ .*)$/\ $name\/$name.c)/Ig" CMakeLists.txt ;
-sed -i "/^add_library\ *(.*\ /Is/(.*_static\ /(${name}_static /Ig" CMakeLists.txt ;
-sed -i "/^set_target_properties.*/Is/(.*_static/(${name}_static/Ig" CMakeLists.txt ;
-sed -i "/^set_target_properties.*/Is/output_name\ .*)$/OUTPUT_NAME\ \"$name\")/Ig" CMakeLists.txt ;
-sed -i "/\ *install\ *(\ *targets main_.*archive/Is/targets\ .*archive/TARGETS ${name}_static ARCHIVE/Ig" CMakeLists.txt ;
+sed -i "/^add_library\ *(.*\ /Is/main/${name}/Ig" CMakeLists.txt ;
+sed -i "/^set_target_properties.*/Is/main/${name}/Ig" CMakeLists.txt ;
 )
 
 test "$mode" = "shared" && ( 
@@ -104,12 +102,9 @@ test ! -d include && mkdir include
 test ! -d lib && mkdir lib
 test ! -d extra_lib && mkdir extra_lib
 cp $C_HEAD_TMP_PATH/usual.h include/${name}.h
-sed -i "/target_link_lib.*/Is/(.*\ .*)$/($name\ ${name}_shared)/g" CMakeLists.txt ;
 sed -i "/^set\ *(lib_src\ /Is/\ .*)$/\ $name\/$name.c)/Ig" CMakeLists.txt ;
-sed -i "/^add_library\ *(.*\ /Is/(.*_shared\ /(${name}_shared /Ig" CMakeLists.txt ;
-sed -i "/^set_target_properties.*/Is/(.*_shared/(${name}_shared/Ig" CMakeLists.txt ;
-sed -i "/^set_target_properties.*/Is/output_name\ .*)$/OUTPUT_NAME\ \"$name\")/Ig" CMakeLists.txt ;
-sed -i "/^set_target_properties.*/Is/output_name\ .*)$/OUTPUT_NAME\ \"$name\")/Ig" CMakeLists.txt ;
+sed -i "/^add_library\ *(.*\ /Is/main/${name}/Ig" CMakeLists.txt ;
+sed -i "/^set_target_properties.*/Is/main/${name}/Ig" CMakeLists.txt ;
 )
 
 cd ../..

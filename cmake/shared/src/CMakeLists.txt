@@ -18,15 +18,15 @@ SET(LIB_SRC lib.c)
 
 # lib generation
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/src/lib)
-ADD_LIBRARY(main_shared SHARED ${LIB_SRC})
+ADD_LIBRARY(main SHARED ${LIB_SRC})
 
 # generat exec
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
-ADD_EXECUTABLE(main ${CSRC})
+ADD_EXECUTABLE(main_bin ${CSRC})
 
 # link library
-SET_TARGET_PROPERTIES(main_shared PROPERTIES OUTPUT_NAME "main")
-TARGET_LINK_LIBRARIES(main main_shared)
+SET_TARGET_PROPERTIES(main_bin PROPERTIES OUTPUT_NAME "main")
+TARGET_LINK_LIBRARIES(main_bin main)
 
 # -------------- INSTALL -------------- #
 # install path setting
@@ -40,4 +40,4 @@ install_hfiles(include include)
 install_lib(lib lib)
 
 # install target
-INSTALL(TARGETS main RUNTIME DESTINATION bin)
+INSTALL(TARGETS main_bin RUNTIME DESTINATION bin)

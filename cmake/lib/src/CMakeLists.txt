@@ -18,15 +18,15 @@ SET(LIB_SRC lib.c)
 
 # lib generation
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/src/lib)
-ADD_LIBRARY(main_static STATIC ${LIB_SRC})
+ADD_LIBRARY(main STATIC ${LIB_SRC})
 
 # generat exec
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
-ADD_EXECUTABLE(main ${CSRC})
+ADD_EXECUTABLE(main_bin ${CSRC})
 
 # link library
-SET_TARGET_PROPERTIES(main_static PROPERTIES OUTPUT_NAME "main")
-TARGET_LINK_LIBRARIES(main main_static)
+SET_TARGET_PROPERTIES(main_bin PROPERTIES OUTPUT_NAME "main")
+TARGET_LINK_LIBRARIES(main_bin main)
 
 # -------------- INSTALL -------------- #
 # install path setting
