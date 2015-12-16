@@ -171,6 +171,12 @@ function parser_args()
                 certs_private_key=${!i}; 
                 test -z "$certs_private_key" && echo "Option ${!i} need a paramter!" && exit 1
                 ;;
+            --ocsp)
+                ((i=i+1))
+                ocspuri=${!i}; 
+                test -z "$ocspuri" && echo "Option ${!i} need a paramter!" && exit 1
+                ocspuri="--ocsp $ocspuri"
+                ;;
             --client)
                 client_flag=1 ;;
             --server)
@@ -280,7 +286,6 @@ ca_certs_delete() {
     test ! -e $ipsec_ca_save_file -a ! -e $ipsec_certs_save_file && exit 1
     delete_result=`grep "$dn" $ipsec_ca_save_file`
     if test -z "$delete_result" ; then
-        test -z "$ca_dn" && echo "Give CA dn!" && exit 1
         delete_result=`grep "$dn" $ipsec_certs_save_file`
         test -z "$delete_result" && echo "No need to delete!" && exit 1
         delete_certs=1
@@ -297,7 +302,8 @@ ca_certs_delete() {
         delete_path=`echo $delete_result | awk -F':' '{ print $3 }'`
         delete_file=$ipsec_certs_save_file
     fi
-    test -z "$delete_path" -o ! -e $delete_path && exit 1
+    test -z "$delete_path" -o ! -e $delete_path &&  echo "Certificate does not
+    exist!" && exit 1
     
     if test $delete_ca -eq 1 ; then
         sed -i "/$dn/"d $delete_file
@@ -590,7 +596,7 @@ test -z "$dn" && test -z "$ca_dn" && dn=$default_certs_dn
 test -z "$dn" && test -n "$ca_dn" && dn=$ca_dn
 if test -n "$dn" -a -z "$name"; then
     #name=`echo "$dn" | sed "s/.*CN\ *=\ *\(.*\)$/\1/g"`
-    name=`echo "$dn" | sed "s/.*CN\ *=\ *//g | sed "s/,.*//g"`
+    name=`echo "$dn" | sed "s/.*CN\ *=\ *//g" | sed "s/,.*//g"`
     test -z "$name" && echo "Certificate name cannot be null!" && exit 1
     name=${name//[\$\@\'\"+=,:|\\\!~?]*/}
     test -z "$name" && echo "Certificate name cannot be null!" && exit 1
@@ -651,7 +657,7 @@ test $certs_private_key_size -lt 1 && rm -rf $certs_path && echo "Generate certi
 ipsec pki --pub --in $certs_private_key --outform $outform > $certs_public_key
 ipsec pki --issue --lifetime $lifetime --in $certs_public_key --digest sha512 \
           --cacert $ca_cert --cakey $ca_private_key \
-          --dn "$dn" \
+          --dn "$dn" $ocspuri \
           --outform $outform > $certs_cert 
 certs_cert_size=`ls -l $certs_cert | awk -F' ' '{ print $5 }'`
 test $certs_cert_size -lt 1 && rm -rf $certs_path &&  echo "Generate certificate \"$dn\" failed!" && exit 1

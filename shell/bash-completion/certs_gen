@@ -15,7 +15,7 @@ _certs_gen()
 
     if [[ "$cur" = -* ]] ; then
         COMPREPLY=( $( compgen -W '--ca --cadn --cakey --cacert --dn -l --lifetime --server --client --custom
-        -n --name -f --file -o --outform --delete --private --req --type --package --cert --key -h --help' -- "$cur" ) )
+        -n --name -f --file -o --outform --delete --private --pub --ocsp --req --type --package --cert --key -h --help' -- "$cur" ) )
         return 0
     fi
  

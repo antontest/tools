@@ -24,6 +24,27 @@ get_args (){
                 i=$?
                 check_para "showcert" $cert
                 ;;
+            --in)
+                cert=`get_para $@`
+                i=$?
+                check_para "in" $cert
+                ;;
+            --printcert)
+                printcert=1
+                cert=`get_para $@`
+                i=$?
+                check_para "printcert" $cert
+                ;;
+            --get-issuer)
+                get_issuer=1 ;;
+            --get-subject)
+                get_subject=1 ;;
+            --get-serial)
+                get_serial=1 ;;
+            --get-ocsp)
+                get_ocsp=1 ;;
+            --get-validity)
+                get_validity=1 ;;
             --inform)
                 inform=`get_para $@`
                 i=$?
@@ -38,7 +59,42 @@ get_args (){
 get_args $@
 test -z "$inform" && inform=pem
 test -z "$showcert" && showcert=0
+test -z "$printcert" && printcert=0
+test -z "$get_issuer" && get_issuer=0
+test -z "$get_subject" && get_subject=0
+test -z "$get_serial" && get_serial=0
+test -z "$get_ocsp" && get_ocsp=0
+test -z "$get_validity" && get_validity=0
+
+test -z "$cert" && echo "Please input certs!" && exit 1
+test ! -e $cert && echo "Certificate \"$cert\" does not exist!" && exit 1
 
 if test $showcert -eq 1; then
     openssl x509 -inform $inform -noout -text -in $cert && exit 0
+fi
+
+if test $printcert -eq 1; then
+    ipsec pki --print --in $cert
+fi
+
+if test $get_issuer -eq 1 ; then
+    ipsec pki --print --in $cert  | grep issuer | sed "s/^.*:\ *//g" | sed "s/\"//g"
+fi
+
+if test $get_subject -eq 1 ; then
+    ipsec pki --print --in $cert  | grep subject | sed "s/^.*:\ *//g" | sed "s/\"//g"
+fi
+
+if test $get_serial -eq 1 ; then
+    ipsec pki --print --in $cert  | grep serial | sed "s/^serial:\ *//g" | sed "s/\"//g"
+fi
+
+if test $get_ocsp -eq 1 ; then
+    ipsec pki --print --in $cert  | grep OCSP | sed "s/^OCSP URIs:\ *//g" | sed "s/\"//g"
+fi
+
+if test $get_validity -eq 1 ; then
+    start_num=`ipsec pki --print --in $cert  | grep -n validity | sed "s/\(^[0-9]*\):.*$/\1/g"`
+    let end_num=start_num+1
+    ipsec pki --print --in $cert | sed "$start_num,${end_num}"p -n | sed "s/^validity:\ *//g" | sed "s/^\ *//g" 
 fi
