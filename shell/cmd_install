@@ -95,7 +95,7 @@ if test $install_flag -eq 1 ; then
         for file in `find $path -maxdepth 1 -type f | grep -i -v cmd_install`
         do
             test ! -e /usr/bin/`basename $file` && 
-            sudo ln -v -s $file /usr/bin/ 
+            #sudo ln -v -s $file /usr/bin/ 
         done
 
         #find $path -maxdepth 1 -type f \

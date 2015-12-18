@@ -83,12 +83,12 @@ case "$cmd" in
         test -d build && cd build 
         test $# -eq 2 && cmake .. -DCMAKE_INSTALL_PREFIX=$2
         make install
-        files=`cat install_manifest.txt | grep -v ".*\.h\|.*\.a\|.*\.so"`
-        test -n "$files" && cmd_install -i $files
+        #files=`cat install_manifest.txt | grep -v ".*\.h\|.*\.a\|.*\.so"`
+        #test -n "$files" && cmd_install -i $files
         exit 0 ;;
     "-u"|"u"|"uninstall"|"uninstall")
         files=`cat build/install_manifest.txt | grep -v ".*\.h\|.*\.a\|.*\.so"`
-        test -n "$files" && cmd_install -u $files 
+        #test -n "$files" && cmd_install -u $files 
         test -r build/install_manifest.txt && (cat build/install_manifest.txt | xargs rm -v) && exit 0
         exit 1 ;;
     "-h"|"h"|"help"|"--help")
