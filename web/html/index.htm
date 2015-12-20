@@ -6,162 +6,50 @@
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
     <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
-    
+    <link rel="stylesheet" type="text/css" href="css/login.css">
     <style>
-        .fll{float: left;}
-        .flr{float: right;}
-        body{
-            background: #fffffc;
-        }
-        .login{
-            /*position: absolute;*/
-            /*top: 40%;*/
-            /*left: 50%;*/
-            /*margin-top:  -150px;*/
-            /*margin-left: -140px;*/
-            margin: 150px auto;
-            width: 280px;
-            height: 300px;
-            overflow: hidden;
-            /*background: #333;*/
-        }
- 
-        .loginbox{
-            font-family: 'Segoe UI', 'Microsoft Yahei', Arial, Simsun, sans-serif, "ËÎÌו";
-            font-size: 14px;
-            padding:20px 25px 0 25px;
-        }
-        .loginboxtag{
-            height: 30px;
-            line-height: 30px;
-            padding-left: 2px;
-            color: #555;
-            cursor: default;
-            user-select: none; -moz-user-select: none;  -webkit-user-select: none;  -ms-user-select: none;
-        }
-        .loginboxinput{
-            height: 50px;
-        }
-        input[type="text"], input[type="password"], textarea{ 
-            padding-left: 27px;
-            color: #0e8c3c;
-            outline: 0px;
-            height: 30px;
-            width: 200px;
-            border: 1px solid #ccc;
-            /*border-radius: 3px;*/
-            transition: all .2s;-webkit-transition: all .2s;-moz-transition: all .2s;
-        }
- 
-        input[type="text"] {
-            background: url(img/iconman.png) no-repeat #f8faf8;
-        }
-        input[type="password"] {
-            background: url(img/iconlock.png) no-repeat #f8faf8;
-        }
-        input[type="text"]:focus, input[type="password"]:focus, textarea:focus { 
-            border: 1px solid #c8c8c8;
-            background-color: #f3f7f3;
-            /*box-shadow:inset 0 0 3px rgba(40,140,210,1);*/
-            /*background-color: #444;*/
-        }
- 
-        .loginboxbtn{
-            overflow: auto;zoom: 1;
-            height: 40px;
-            padding-top: 10px;
- 
-        }
-        input[type="checkbox"]{
-            margin: 0;
-            margin-right: 10px;
-        }
-        .loginboxbtn .rem{
-            font-size: 12px;
-            padding-top: 15px;
-            user-select: none; -moz-user-select: none;  -webkit-user-select: none;  -ms-user-select: none;
-        }
-        .loginboxbtn .rem span label{
-            /*display: inline-block;
-            margin-top: -5px;*/
-            color: #555;
-            position: relative;
-            top: -2px;
-            cursor: default;
-        }
-        .btn{
-            display: inline-block;
-            width: 80px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            /*background: #0e9c4c;*/
-            background: #46Ae00;
-            color: #fff;
-            /*border-radius: 5px;*/
-            box-shadow: 0 0 1px rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: all .1s;-webkit-transition: all .1s;-moz-transition: all .1s;
-            user-select: none; -moz-user-select: none;  -webkit-user-select: none;  -ms-user-select: none;
-        }
-        .btn:hover{
-            /*background: #0e8c3c;*/
-            background: #339b00;
-        }
-        .btn:active{
-            /*background: #0e7c2c;*/
-            background: #288f00;
-        }
     </style>
     
-    <script language="JavaScript" src="mfunc.js"></script>
+    <script language="JavaScript" src="js/mfunc.js"></script>
     <script type="text/javascript">
     <!-- Start Script
-		function toVision() {
-			var chkHiddenObj = GetObjByID("h_rem");
-			if (chkHiddenObj == null) return false;
-			var chkObj = GetObjByID("rem");
-			if (chkObj == null) return false;
-			if (chkObj.checked == true) {
-				chkHiddenObj.value = "1";
-				//alert("checked");
-			} else {
-				chkHiddenObj.value = "0";
-				//alert("dischecked");
-			}
-		}
         function CheckIt() {
-            if (GetValueByID("Username").length < 1) {
+            if (GetValueByID("username").length < 1) {
                 alert("Please input User Name!");
                 return false;
             }
-            if (GetValueByID("Password").length < 1) {
+            if (GetValueByID("password").length < 1) {
                 alert("Please input PassWord!");
                 return false;
             }
-			toVision();
-            //if (GetCheckBoxStateByID("rem")) alert("Remember");
-            //else alert("DisRemember");
+			dataToHidden();
             
             return true;
         }
+		
     // End Script -->
     </script>
 </head>
+
 <body>
 <div class="login">
 <div class="angel">
 <div class="loginbox">
-    <FORM ACTION="cgi_bin/login.cgi" method="POST">
+    <FORM ACTION="setup.cgi" method="POST">
         <div class="loginboxtag">User Name</div>
-        <div class="loginboxinput"><INPUT type="text" NAME="Username" ID="Username" SIZE="5"></div>
+        <div class="loginboxinput"><INPUT type="text" NAME="username" ID="username" SIZE="5"></div>
          
         <div class="loginboxtag">PassWord</div>
-        <div class="loginboxinput"><INPUT type="password"  NAME="Password" id="Password" SIZE="5"></div>
+        <div class="loginboxinput"><INPUT type="password"  NAME="password" id="password" SIZE="5"></div>
         <div class="loginboxbtn">
             <div class="fll rem"><input id="rem" name="rem" type="checkbox" value="rem"><span><label for="rem">Remember</label></span></div>
-            <INPUT TYPE="SUBMIT" VALUE="Login" onClick="CheckIt();" class="flr btn">
+            <input TYPE="SUBMIT" id="Login" VALUE="Login" onClick="return CheckIt();" class="flr btn">
         </div>
+        
+		<input type="hidden" name="h_rem"value="@h_rem#">
+        <input type="hidden" name="todo" value="save">
+        <input type="hidden" name="next_file" value="ftp.htm">
+        <input type="hidden" name="this_file" value="index.htm">
     </FORM>
 </div>
 </div>

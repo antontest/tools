@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : start_mini_httpd
+# Func : 
+# Time : 2015-12-17 20:55:49
+
+mini_httpd  -C /home/anton/web/mini.conf -T UTF-8

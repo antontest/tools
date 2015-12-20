@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<title>Test</title>
+<head>
+    <META  http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+    <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <style>
+    </style>
+    
+    <script language="JavaScript" src="js/mfunc.js"></script>
+    <script type="text/javascript">
+    <!-- Start Script
+	function form_init() {
+		dataToVision();
+	}
+
+    // End Script -->
+    </script>
+</head>
+
+<body onload="form_init();">
+<div class="login">
+<div class="angel">
+<div class="loginbox">
+    <FORM ACTION="test.cgi" method="POST">
+        <div class="loginboxtag">User Name</div>
+        <div class="loginboxinput">
+                <select id="ipsec_mode" onchange="show(this.value)" name="ipsec_mode" value="ipsec_mode" style="width:90px;" title="IPsec模式选择，当前支持PSK, EAP-AKA, CERT和CUSTOM等四种模式">
+                    <option id= "psk" name="psk" value="psk">PSK</option>
+                    <option id= "aka" name="aka" value="aka">EAP-AKA</option>
+                    <option id= "certificate" name="certificate" value="certificate">CERT</option>
+                    <option id= "custom" name="custom" value="custom">CUSTOM</option>
+                </select>
+		</div>
+         
+        <div class="loginboxtag">PassWord</div>
+        <div class="loginboxinput"><INPUT type="password"  NAME="password" id="password" SIZE="5" value="@password#"></div>
+        <div class="loginboxbtn">
+            <div class="fll rem"><input id="rem" name="rem" type="checkbox" value="rem"><span><label for="rem">Remember</label></span></div>
+            <input TYPE="SUBMIT" id="save" VALUE="save" onClick="" class="flr btn">
+        </div>
+        
+		<input type="hidden" name="h_ipsec_mode" value="@h_ipsec_mode#">
+		<input type="hidden" name="h_rem" id="h_rem" value="@h_rem#">
+        <input type="hidden" name="todo" value="save">
+        <input type="hidden" name="next_file" value="test.htm">
+    </FORM>
+</div>
+</div>
+</div>
+</body>
+</html>
