@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<title>Test</title>
+<title>Download</title>
 <head>
     <META  http-equiv="Content-Type" content="text/html; charset=utf-8">
     <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
     <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
-    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <link rel="stylesheet" type="text/css" href="css/ftp.css">
     <style>
     </style>
     
@@ -21,15 +21,30 @@
     </script>
 </head>
 
+<div class="container">
 <body onload="form_init();">
-<div class="login">
-<div class="angel">
-<div class="loginbox">
+    <div class="header">
+        <div class="logo">download/
+        value=@ftp_dir#
+        下的索引</div>
+    </div>
+    
+
     <FORM ACTION="setup.cgi" method="POST">
-        value=@ftp_content#
+    <div class="content">
+    <div class="content-Left">
+        <p>File Name</p>
+        value=@ftp_file_name#
+    </div>
+    <div class="content-Main">
+        <p>File Size</p>
+        value=@ftp_file_size#
+    </div>
+    </div>
     </FORM>
-</div>
-</div>
-</div>
+
+
+
 </body>
+</div>
 </html>
