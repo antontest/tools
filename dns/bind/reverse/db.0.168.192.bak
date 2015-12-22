@@ -1,0 +1,11 @@
+$TTL    604800 
+@       IN          SOA   www.anton.com.  root.anton.com. (
+1       ; Serial
+604800 ; Refresh
+86400 ; Retry
+2419200 ; Expire
+) ; Negative Cache TTL
+;
+@   IN NS www.anton.com.
+122    IN PTR bbs.anton.com.
+193    IN PTR xp.anton.com.
