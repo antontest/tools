@@ -1,0 +1,11 @@
+$TTL 604800
+@ IN SOA www.hp6515b.com. root.hp6515b.com. (
+        1 ; Serial
+        604800 ; Refresh
+        86400 ; Retry
+        2419200 ; Expire
+        604800 ) ; Negative Cache TTL;
+@ IN  NS www.hp6515b.com.
+www IN  A 192.168.1.122
+bbs IN  CNAME www
+xp.hp6515b.com.   IN A 192.168.1.193
