@@ -13,5 +13,5 @@ zone "anton.com" {
 
 zone "0.168.192.in-addr.arpa" {
     type master;
-    file "/var/cache/bind/reverse/db.0.168.192";
+    file "/var/cache/bind/reverse/db.ip";
 };
