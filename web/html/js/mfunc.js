@@ -100,3 +100,47 @@ function dataToVision() {
 	inputTOVision();
 	selectTOVision();
 }
+
+function sleep(d){
+  for(var t = Date.now();Date.now() - t <= d;);
+}
+
+function add_hidden_iframe() {
+	var h_frame = document.getElementById("h_frame");
+	if (h_frame) return h_frame;
+	
+	var h_div = document.createElement("DIV");
+	h_div.id = "h_frame_div";
+	h_div.name = "h_frame_div";
+	h_div.innerHTML= "<iframe id=\"h_frame\" name=\"h_frame\" width=\"1px\" height=\"1px\" style=\"display:none\"></iframe>";
+	document.body.appendChild(h_div);
+}
+
+function add_hidden_todo_input(form_id) {
+	if (document.getElementById("h_todo_div")) return true;
+	var form = document.getElementById(form_id);
+	if (form == null) return null;
+	
+	var h_div = document.createElement("DIV");
+	h_div.id = "h_todo_div";
+	h_div.name = "h_todo_div";
+	h_div.innerHTML= "<input id=\"todo\" name=\"todo\" width=\"1px\" height=\"1px\" style=\"display:none\" \>";
+	form.appendChild(h_div);
+	
+	return true;
+}
+
+function html_btn_cgi(from_id, todo_value) {
+	if (from_id == '') return false;
+	var formObj = document.getElementById(from_id);
+	if (formObj == null) return false;
+	formObj.target = "h_frame";
+	add_hidden_iframe();
+	
+	var todoObj = document.getElementById("todo");
+	if (todoObj == null) return false;
+	todoObj.value = todo_value;
+	
+	formObj.submit();
+
+}
