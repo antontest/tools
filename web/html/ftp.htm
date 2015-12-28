@@ -15,6 +15,7 @@
     <!-- Start Script
 	function form_init() {
 		dataToVision();
+		add_event_to_href();
 	}
 
     // End Script -->
@@ -26,16 +27,17 @@
     <div class="header">
         <div class="logo">download/@ftp_dir#下的索引</div>
     </div>
-    
+	
+	<hr class="line" />
 
     <FORM ACTION="setup.cgi" method="POST">
     <div class="content">
-    <div class="content-Left">
-        <p>File Name</p>
+    <div class="content-href">
+        <div class="column_name" >File Name</div><br>
         @ftp_file_name#
     </div>
-    <div class="content-Main">
-        <p>File Size</p>
+    <div class="content-size">
+        <div class="column_name" >File Size</div><br>
         @ftp_file_size#
     </div>
     </div>

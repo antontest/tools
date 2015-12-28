@@ -1,28 +1,25 @@
-    <HTML>  
-    <HEAD>  
-    <TITLE>upload</TITLE>  
-    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="TEXT/HTML;CHARSER=UTF-8">  
-    <link rel="stylesheet" type="text/css" href="css/main.css">  
-    <script type="text/javascript">  
-    function upload_file(){  
-    if( document.getElementById('FILE1').value == '' ){  
-    alert("ÇëÑ¡ÔñÎÄ¼þ£¡");  
-    return false;  
+<HTML>  
+<HEAD>  
+<TITLE>upload</TITLE>  
+<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="TEXT/HTML;CHARSER=UTF-8">  
+<link rel="stylesheet" type="text/css" href="css/main.css">  
+<script language="JavaScript" src="js/mfunc.js"></script>
+<script type="text/javascript">  
+    function upload_file() {  
+		html_btn_cgi("upload_form", "save");
+		return true;
     }  
-      
-    document.getElementById('uploadInfo').innerHTML = '' ;  
-    document.getElementById('uploadInfo').innerHTML = '<img src="images/wait.gif"><br>upload¡­¡­' ;  
-      
-    document.getElementById('form1').submit();  
-    }  
-    </script>   
-    </HEAD>  
-    <BODY BGCOLOR="#FFFFFF">  
-    <FORM METHOD="POST" id="form1" name="form1" ENCTYPE="multipart/form-data" ACTION="upload.cgi">  
-    file<INPUT TYPE="FILE" NAME="FILE1" id="FILE1" class="btn"><INPUT TYPE="button" onclick="upload_file()" VALUE="upload" class="btn"><br>  
-    <center>  
-    <div id="uploadInfo"></div>  
-    </center>  
-    </FORM>  
-    </BODY>  
-    </HTML>  
+</script>   
+	
+</HEAD>  
+<BODY BGCOLOR="#FFFFFF">  
+<FORM METHOD="POST" id="upload_form" name="upload_form" ENCTYPE="multipart/form-data" ACTION="upload.cgi" >  
+	file<INPUT TYPE="FILE" NAME="FILE1" id="FILE1" class="btn">
+	<INPUT TYPE="button" name="upload" VALUE="upload" class="btn" onclick="upload_file();"><br>  
+	<input type="hidden" name="todo" id="todo" value="save">
+    <input type="hidden" name="next_file" value="upload.htm">
+    <input type="hidden" name="this_file" value="upload.htm">
+</FORM>  
+
+</BODY>  
+</HTML>  
