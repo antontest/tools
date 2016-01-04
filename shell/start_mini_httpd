@@ -1,6 +1,0 @@
-#! /bin/bash
-# Name : start_mini_httpd
-# Func : 
-# Time : 2015-12-18 08:50:20
-
-sudo mini_httpd  -C /home/anton/web/mini.conf -c *.cgi 

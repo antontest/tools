@@ -270,7 +270,6 @@ certs_package (){
 
     tar -cf $tar_path/${name}.tar ipsec.conf ipsec.secrets ipsec.d
     test $? -eq 0 && echo "Package Certificate \"$dn\" successfully!" && exit 0
-    
 }
 
 ca_certs_delete() {
@@ -336,8 +335,8 @@ gen_ca() {
     ##
     # ca private key and Certificate name
     ##
-    ca_private_key=$ca_path/${name}_private_key.pem
-    ca_cert=$ca_path/${name}_cert.pem
+    ca_private_key=$ca_path/${name}_private_key.$outform
+    ca_cert=$ca_path/${name}_cert.$outform
     ipsec pki --gen --type $type --size 2048 --outform $outform > $ca_private_key
     ca_private_key_size=`ls -l $ca_private_key | awk -F' ' '{ print $5 }'`
     test $ca_private_key_size -lt 1 && rm -rf $ca_path && echo "Generate CA \"$dn\" private key failed!" && exit 1
@@ -360,8 +359,8 @@ gen_ca() {
 
 gen_req() {
     name=`echo $dn | sed "s/.*CN=//g" | sed "s/,.*//g" | sed "s/\ /_/g"`
-    req_private_key=${name}_private_key.pem
-    req_pem=${name}_req.pem
+    req_private_key=${name}_private_key.$outform
+    req_pem=${name}_req.$outform
     ipsec pki --gen --type $type --size 2048 --outform $outform > ./$req_private_key
     ipsec pki --req --in $req_private_key --type $type --dn "$dn" --outform $outform > ./$req_pem
 
@@ -448,8 +447,8 @@ ca_dealing() {
             certs_ca_dir=`echo $certs_ca_dn | sed "s/[,\ =]\{1,\}/_/g"`
             certs_ca_path=$certs_gen_path/ca/$certs_ca_dir
             if test -e $certs_ca_path ; then
-                ca_cert=`find $certs_ca_path -maxdepth 1 -type f | grep ".*cert.pem"`
-                ca_private_key=`find $certs_ca_path  -maxdepth 1 -type f | grep ".*private_key.pem"`
+                ca_cert=`find $certs_ca_path -maxdepth 1 -type f | grep ".*cert.$outform"`
+                ca_private_key=`find $certs_ca_path  -maxdepth 1 -type f | grep ".*private_key.$outform"`
                 ca_path=`dirname $ca_cert`
                 ca_dir=`basename $ca_path`
             else
@@ -481,8 +480,8 @@ ca_dealing() {
             ca_path=$certs_gen_path/ca/$ca_dir
 
             if test -e $ca_path ; then
-                ca_cert=`find $ca_path -maxdepth 1 -type f | grep ".*cert.pem"`
-                ca_private_key=`find $ca_path -maxdepth 1 -type f | grep ".*private_key.pem"`
+                ca_cert=`find $ca_path -maxdepth 1 -type f | grep ".*cert.$outform"`
+                ca_private_key=`find $ca_path -maxdepth 1 -type f | grep ".*private_key.$outform"`
                 test -z "$ca_cert" && echo "Could not find ca certificate!" && exit 1
                 test -z "$ca_private_key" && echo "Could not find ca private key!" && exit 1
                 ca_path=`dirname $ca_cert`
@@ -499,7 +498,7 @@ ca_dealing() {
 
 gen_private() {
     private_key=$1
-    ipsec pki --gen --type $type --size 2048 --outform $outform > ./${private_key}_private_key.pem
+    ipsec pki --gen --type $type --size 2048 --outform $outform > ./${private_key}_private_key.$outform
 }
 
 gen_public() {
@@ -512,9 +511,9 @@ gen_public() {
     fi
     if test -z "$private_key" -o ! -e "$private_key" ; then
         gen_private $public_key
-        private_key=${public_key}_private_key.pem
+        private_key=${public_key}_private_key.$outform
     fi
-    ipsec pki --pub --in $private_key --outform $outform > ${public_key}_public_key.pem
+    ipsec pki --pub --in $private_key --outform $outform > ${public_key}_public_key.$outform
 }
 
 certs_gen_path=~/.ipsec_certs
@@ -555,6 +554,8 @@ test -z "$server_flag" && server_flag=0
 test -z "$client_flag" && client_flag=1
 test -z "$custom_flag" && custom_flag=0
 test ! -d $certs_gen_path && mkdir -p $certs_gen_path 
+test ! -e $ipsec_ca_save_file && touch $ipsec_ca_save_file
+test ! -e $ipsec_certs_save_file && touch $ipsec_certs_save_file
 test ! -e $ipsec_sample_dn_file && cp -f /home/anton/tools/ipsec/conf/.ipsec_sample_dn $ipsec_sample_dn_file
 
 if test $gen_private_key -eq 1 ; then
@@ -621,10 +622,10 @@ if test $certs_already_exist -ne 0 ; then
         # write file 
         ##
         is_certs_already_exist_in_file=`test -e $ipsec_certs_save_file && grep "$dn" $ipsec_certs_save_file` 
-        test -z "$is_certs_already_exist_in_file" && echo "$ca_dn:$dn:$certs_path:${name}_private_key.pem:${name}_cert.pem" >> $ipsec_certs_save_file
+        test -z "$is_certs_already_exist_in_file" && echo "$ca_dn:$dn:$certs_path:${name}_private_key.$outform:${name}_cert.$outform" >> $ipsec_certs_save_file
     else
-        certs_cert=$certs_path/${name}_cert.pem
-        certs_private_key=$certs_path/${name}_private_key.pem
+        certs_cert=$certs_path/${name}_cert.$outform
+        certs_private_key=$certs_path/${name}_private_key.$outform
     fi
 fi
 
@@ -644,9 +645,9 @@ mkdir -p $certs_path
 ##
 # generate certificate private key
 ##
-certs_private_key=$certs_path/${name}_private_key.pem
-certs_public_key=$certs_path/${name}_public_key.pem
-certs_cert=$certs_path/${name}_cert.pem
+certs_private_key=$certs_path/${name}_private_key.$outform
+certs_public_key=$certs_path/${name}_public_key.$outform
+certs_cert=$certs_path/${name}_cert.$outform
 ipsec pki --gen --type $type --size 2048 --outform $outform > $certs_private_key
 certs_private_key_size=`ls -l $certs_private_key | awk -F' ' '{ print $5 }'`
 test $certs_private_key_size -lt 1 && rm -rf $certs_path && echo "Generate certificate \"$dn\" failed!" && exit 1
@@ -667,7 +668,7 @@ echo "Generate certificate \"$dn\" successfully!"
 # write file 
 ##
 is_certs_already_exist_in_file=`test -e $ipsec_certs_save_file && grep "$dn" $ipsec_certs_save_file` 
-test -z "$is_certs_already_exist_in_file" && echo "$ca_dn:$dn:$certs_path:${name}_private_key.pem:${name}_cert.pem" >> $ipsec_certs_save_file
+test -z "$is_certs_already_exist_in_file" && echo "$ca_dn:$dn:$certs_path:${name}_private_key.$outform:${name}_cert.$outform" >> $ipsec_certs_save_file
 
 if test $package_certs -eq 1 ; then
     certs_package

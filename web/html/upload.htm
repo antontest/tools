@@ -14,6 +14,7 @@
 </HEAD>  
 <BODY BGCOLOR="#FFFFFF">  
 <FORM METHOD="POST" id="upload_form" name="upload_form" ENCTYPE="multipart/form-data" ACTION="upload.cgi" >  
+    <input type="hidden" name="next_path" value="upload.htm">
 	file<INPUT TYPE="FILE" NAME="FILE1" id="FILE1" class="btn">
 	<INPUT TYPE="button" name="upload" VALUE="upload" class="btn" onclick="upload_file();"><br>  
 	<input type="hidden" name="todo" id="todo" value="save">

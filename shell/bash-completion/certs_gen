@@ -49,7 +49,7 @@ _certs_gen()
         COMPREPLY=( $( compgen -W '$dn' -- "$cur" ) )
         return 0
     elif [[ "$prev" = "--outform" ]] ; then
-        COMPREPLY=( $( compgen -W 'pem' -- "$cur" ) )
+        COMPREPLY=( $( compgen -W 'pem der' -- "$cur" ) )
         return 0
     elif [[ "$prev" = "--type" ]] ; then
         COMPREPLY=( $( compgen -W 'rsa' -- "$cur" ) )
