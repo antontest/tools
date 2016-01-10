@@ -1,0 +1,62 @@
+# Name : ecmake auto complete
+# Func : 
+# Time : 2015-10-13 13:18:33
+
+have certs_gen && {
+_certs_gen()
+{
+    local cur prev opts ca_save_file certs_save_file
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    COMPREPLY=()
+    ca_save_file="/home/anton/.ipsec_certs/.ipsec_ca_gen"
+    certs_save_file="/home/anton/.ipsec_certs/.ipsec_certs_gen"
+    sample_dn_file="/home/anton/.ipsec_certs/.ipsec_sample_dn"
+
+    if [[ "$cur" = -* ]] ; then
+        COMPREPLY=( $( compgen -W '--ca --cadn --cakey --cacert --dn -l --lifetime --server --client --custom
+        -n --name -f --file -o --outform --delete --private --req --type --package --cert --key -h --help' -- "$cur" ) )
+        return 0
+    fi
+ 
+    if [[ "$prev" = "--cadn" ]] ; then
+        test ! -e $ca_save_file && return 0
+        local ca_dn=`awk -F':' '{ print $1 }' $ca_save_file | sed "s/\ /|/g"`
+        test -z "$ca_dn" && return 0
+        COMPREPLY=( $( compgen -W '$ca_dn' -- "$cur" ) )
+        return 0
+    elif [[ "$prev" = "--delete" ]] ; then
+        test ! -e $ca_save_file -a ! -e $certs_save_file && return 0
+        local cas_dn=`awk -F':' '{ print $1 }' $ca_save_file | sed "s/\ /|/g"`
+        local certs_dn+=`awk -F':' '{ print $2 }' $certs_save_file | sed "s/\ /|/g"`
+        COMPREPLY=( $( compgen -W '$cas_dn $certs_dn all' -- "$cur" ) )
+        return 0
+    elif [[ "$prev" = "--dn" ]] ; then
+        test ! -e $sample_dn_file && return 0
+        local dn=`test -e $sample_dn_file && (awk -F':' '{ print $1 }' $sample_dn_file | sed "s/\ /|/g")`
+        local certs_dn=`test -e $certs_save_file && (awk -F':' '{ print $2 }' $certs_save_file | sed "s/\ /|/g")`
+        test -z "$dn" -a -z "$certs_dn" && return 0
+        COMPREPLY=( $( compgen -W '$dn $certs_dn' -- "$cur" ) )
+        return 0
+    elif [[ "$prev" = "--req" ]] ; then
+        test ! -e $sample_dn_file && return 0
+        local dn=`awk -F':' '{ print $1 }' $sample_dn_file | sed "s/\ /|/g"`
+        test -z "$dn" && return 0
+        COMPREPLY=( $( compgen -W '$dn' -- "$cur" ) )
+        return 0
+    elif [[ "$prev" = "--outform" ]] ; then
+        COMPREPLY=( $( compgen -W 'pem' -- "$cur" ) )
+        return 0
+    elif [[ "$prev" = "--type" ]] ; then
+        COMPREPLY=( $( compgen -W 'rsa' -- "$cur" ) )
+        return 0
+    fi
+
+    _expand || return 0
+    COMPREPLY=( $( compgen -f -X ".*" -- "$cur" ) \
+        $( compgen -d -- "$cur" ) )
+    return 0
+}
+
+complete -F _certs_gen $filenames certs_gen
+}

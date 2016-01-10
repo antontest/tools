@@ -1,0 +1,27 @@
+# Name : ecmake auto complete
+# Func : 
+# Time : 2015-10-13 13:18:33
+
+have ccmake && {
+_ccmake()
+{
+    local cur prev opts
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    COMPREPLY=()
+
+    if [[ "$cur" = -* ]] ; then
+        COMPREPLY=( $( compgen -W '-a --args -m --mode -h --help' -- "$cur" ) )
+        return 0
+    fi
+ 
+    if [[ "$prev" = "-m" || "$prev" = "--mode" ]] ; then
+        COMPREPLY=( $( compgen -W ' exec lib shared' -- "$cur" ) )
+        return 0
+    fi
+
+    return 0
+}
+
+complete -F _ccmake $filenames ccmake
+}

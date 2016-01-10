@@ -1,0 +1,25 @@
+# Name : ftp-tool auto_complete
+# Func : 
+# Time : 2015-10-13 13:18:33
+
+have deb-make && {
+_deb-make()
+{
+    local cur prev opts
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    COMPREPLY=()
+
+    if [[ "$cur" = -* ]] ; then
+        COMPREPLY=( $( compgen -W '-sbp -slp -sip -sb -sl -si -dp -dv -dn -bip -lip -iip' -- "$cur" ) )
+    fi
+
+#    if [[ "$prev" = -*p ]] ; then
+#        COMPREPLY=( $( compgen -W '`find -maxdepth 1 -type d`' -- "$cur" ) )
+#    fi
+ 
+    return 0
+}
+
+complete -F _deb-make $filenames deb-make
+}
