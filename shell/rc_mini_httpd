@@ -1,0 +1,26 @@
+#! /bin/bash
+# Name : rc_mini_httpd
+# Func : 
+# Time : 2015-12-18 08:50:20
+
+show_usage() {
+    echo "Usage: rc_mini_httpd start|restart|stop"
+}
+
+test "$1" != "start" -a "$1" != "restart" -a "$1" != "stop" && show_usage &&
+    exit 1
+
+case "$1" in
+    "start")
+        mini_httpd  -C /home/anton/web/mini.conf -c *.cgi 
+        ;;
+    "stop")
+        killall mini_httpd > /dev/null
+        ;;
+    "restart")
+        killall mini_httpd > /dev/null
+        sleep 1
+        mini_httpd  -C /home/anton/web/mini.conf -c *.cgi 
+        ;;
+
+esac

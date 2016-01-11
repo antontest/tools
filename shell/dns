@@ -1,0 +1,13 @@
+#! /bin/bash
+# Name : dns
+# Func : 
+# Time : 2016-01-04 08:54:43
+
+show_usage() {
+    echo "Usage: dns start|restart|stop" 
+}
+
+test $# -lt 1 && show_usage && exit 1
+test "$1" != "start" -a "$1" != "restart" -a "$1" != "stop" && show_usage &&
+    exit 1
+sudo service bind9 $1
