@@ -1,0 +1,19 @@
+#! /bin/bash
+# Name : add_user_to_ejbca
+# Func : add user to ejbca server
+# Time : 2016-01-11 15:28:43
+
+if test $# -lt 2; then
+    echo "Usage: add_user_to_ejbca <user> <password>"
+    exit 1
+fi
+
+user=$1
+password=$2
+
+cd /home/ejbca/ejbca_4_0_10/bin 
+./ejbca.sh ra adduser $user $password "C=CN,O=Sercomm,CN=$user" null VendorCA null 1 USERGENERATED
+./ejbca.sh ra setclearpwd $user $password 
+./ejbca.sh admins addadmin "Temporary Super Administrator Group" VendorCA WITHCOMMONNAME EQUALCASE "$user"
+./ejbca.sh admins addadmin "Temporary Super Administrator Group" OperatorCA WITHCOMMONNAME EQUALCASE "$user"
+exit 0
