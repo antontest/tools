@@ -1,0 +1,37 @@
+#! /bin/bash
+# Name : gen_cert_key_from_$p12_file
+# Func : parser certs and key from superadmin 
+# Time : 2016-01-11 13:23:41
+
+if test $# -lt 1 ; then
+    echo "Usage: gen_cert_key_from_p12 $p12_file [p12_file]" 
+    exit 1
+fi
+
+gen_ca() {
+    openssl pkcs12 -in $p12_file -cacerts -out ssl.ca.crt.pem -nodes -nokeys -passin pass:$password
+}
+
+gen_cert() {
+    openssl pkcs12 -in $p12_file -clcerts -out ssl.cli.crt.pem -nodes -nokeys -passin pass:$password
+}
+
+gen_cert_key() {
+    openssl pkcs12 -in $p12_file -nocerts -out ssl.cli.key.pem -nodes -passin pass:$password
+}
+
+has_ipsec=`type ipsec`
+if test -z "$has_ipsec"; then
+    echo "No ipsec in system!"
+    exit 1
+fi
+
+p12_file=$1
+password=ejbca
+
+gen_ca 1>&/dev/null
+test `echo $?` -eq 0 && echo "gen ca cert succ" || echo "gen ca cert failed"
+gen_cert 1>&/dev/null
+test `echo $?` -eq 0 && echo "gen cert succ" || echo "gen cert failed"
+gen_cert_key 1>&/dev/null
+test `echo $?` -eq 0 && echo "gen cert key succ" || echo "gen cert key failed"
