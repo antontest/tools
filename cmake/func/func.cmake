@@ -121,7 +121,6 @@ function (pre_install target)
     if ( PRE_INSTALL  )
         add_custom_command(TARGET ${target}
             POST_BUILD
-            #COMMAND pre-install "${PROJECT_SOURCE_DIR}"
             COMMAND make "install"
             COMMENT "This command will be executed before build target ${target}"
             )
