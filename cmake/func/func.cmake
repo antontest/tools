@@ -1,5 +1,10 @@
 CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
 
+# cmake echo
+function(cmake_echo content)
+    message(STATUS "${content}")
+endfunction(cmake_echo)
+
 # get basename, like class/libclass.so -- class
 function (libname path output)
     string(REGEX REPLACE ".*lib\(.*\)\\.\(.*$\)" "\\1" opt ${path})
@@ -117,14 +122,14 @@ function (install_lib_file src_path install_path)
 endfunction()
 
 # install after build
-function (pre_install target)
-    if ( PRE_INSTALL  )
+function (build_install target)
+    if ( BUILD_INSTALL )
         add_custom_command(TARGET ${target}
             POST_BUILD
             COMMAND make "install"
             COMMENT "This command will be executed before build target ${target}"
-            )
-    endif( PRE_INSTALL  )
+        )
+    endif( BUILD_INSTALL  )
 endfunction()
 
 function(add_dep target dep)
