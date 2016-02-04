@@ -132,6 +132,12 @@ function (build_install target)
     endif( BUILD_INSTALL  )
 endfunction()
 
+# add target dependency
 function(add_dep target dep)
     ADD_DEPENDENCIES(${target} ${dep})
 endfunction(add_dep)
+
+# change cmake lib or bin output name
+function(change_out_name  ori_name new_name)
+    SET_TARGET_PROPERTIES(${ori_name} PROPERTIES OUTPUT_NAME "${new_name}")
+endfunction(change_out_name )
