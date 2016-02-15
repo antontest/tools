@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : dir-size
+# Func : 
+# Time : 2016-02-15 15:39:01
+
+du -h --max-depth=1 $*
