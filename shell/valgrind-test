@@ -1,0 +1,7 @@
+#! /bin/bash
+# Name : valgrind-test
+# Func : valgrind test 
+# Time : 2016-02-22 09:32:28
+
+test $# -lt 1 && echo "Usage: valgrind-test executable-bin"
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes $1
