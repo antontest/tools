@@ -141,3 +141,8 @@ endfunction(add_dep)
 function(change_out_name  ori_name new_name)
     SET_TARGET_PROPERTIES(${ori_name} PROPERTIES OUTPUT_NAME "${new_name}")
 endfunction(change_out_name )
+
+# opensource install
+function(opens_install target src_dir install_path)
+    execute_process(COMMAND opensource_install "${src_dir}" "${install_path}")
+endfunction(opens_install)

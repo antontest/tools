@@ -3,7 +3,7 @@
 # Func : 
 # Time : 2015-08-11 17:45:59
 
-src=$(find -iname "*.c" -o -iname "*.h" -o -iname "Makefile" -o -iname "CMakeLists.txt")
+src=$(find -iname "*.c" -o -iname "*.x" -o -iname "*.h" -o -iname "Makefile" -o -iname "CMakeLists.txt" -o -iname "*.vim" -o -iname "*.cpp" -o -iname "*.py")
 
 if test -z "$src" ; then
     exit 1
