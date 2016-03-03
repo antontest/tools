@@ -3,6 +3,7 @@
 # Func : 
 # Time : 2016-03-01 11:35:43
 
+test ! -d $1 && exit 1
 test -e $2/lib/libcunit.a && exit 0
 test ! -e $1/Makefile && ./configure --prefix=$2
 cd $1
