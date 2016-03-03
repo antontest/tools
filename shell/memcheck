@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : memcheck
+# Func : 
+# Time : 2016-03-03 14:46:50
+
+valgrind --tool=memcheck --leak-check=yes --show-reachable=yes $1
