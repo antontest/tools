@@ -1,0 +1,25 @@
+# Name : ftp_client auto complete
+# Func : 
+# Time : 2015-10-13 13:18:33
+
+have ftp_client && {
+_ftp_client()
+{
+    local cur prev opts ca_save_file certs_save_file
+    cur=`_get_cword`
+    prev=${COMP_WORDS[COMP_CWORD-1]}
+    COMPREPLY=()
+
+    if [[ "$cur" = -* ]] ; then
+        COMPREPLY=( $( compgen -W '--s --server -p --port -u --user -w -passwd -l --list -z --size -d --download -o --upload -h --help' -- "$cur" ) )
+        return 0
+    fi
+
+    _expand || return 0
+    COMPREPLY=( $( compgen -f -X ".*" -- "$cur" ) \
+        $( compgen -d -- "$cur" ) )
+    return 0
+}
+
+complete -F _ftp_client $filenames ftp_client
+}

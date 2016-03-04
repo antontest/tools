@@ -1,0 +1,7 @@
+#! /bin/bash
+# Name : add_vip_route
+# Func : add virtual ip address and router 
+# Time : 2016-01-19 16:29:10
+
+ip addr add 13.13.13.1/24 dev eth0
+ip route add 13.13.13.0/24 via 22.22.22.22

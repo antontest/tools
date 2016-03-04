@@ -1,0 +1,8 @@
+#! /bin/bash
+# Name : send_to_broad
+# Func : send file to broad ftp server
+# Time : 2016-03-04 11:23:21
+
+for file in "$@" ; do
+    ftp_client -f ~/.broad_ftp.info -o . $file
+done
