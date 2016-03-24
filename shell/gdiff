@@ -3,6 +3,12 @@
 # Func : 
 # Time : 2015-09-30 20:33:27
 
+#git difftool --tool=vimdiff --no-prompt
+#git config --global merge.tool diffconflicts
+#git config --global mergetool.diffconflicts.cmd 'diffconflicts vim $BASE $LOCAL $REMOTE $MERGED'
+#git config --global mergetool.diffconflicts.trustExitCode true
+#git config --global mergetool.keepBackup false
+#git config --global merge.tool vimdiff
 git config --global diff.tool vimdiff  
 git config --global difftool.prompt false  
 git config --global alias.d difftool

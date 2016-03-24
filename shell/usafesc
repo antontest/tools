@@ -1,0 +1,7 @@
+#! /bin/bash
+# Name : usafesc
+# Func : 
+# Time : 2016-03-22 09:19:46
+
+echo "Close the safety cabin!"
+sudo umount -t ecryptfs /mnt/documents

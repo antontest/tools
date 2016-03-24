@@ -1,0 +1,9 @@
+#! /bin/bash
+# Name : safesc
+# Func : start safe dir 
+# Time : 2016-03-22 09:16:25
+# 脚本适用于ubuntu环境，请提前安装ecryptfs-utils
+
+echo "Start the safety cabin!"
+sudo mount -t ecryptfs /home/anton/documents /mnt/documents -o ecryptfs_cipher=aes -o ecryptfs_key_bytes=32 -o no_sig_cache -o ecryptfs_passthrough=n -o ecryptfs_enable_filename_crypto=y -o ecryptfs_fnek_sig=650d6b379f030cd1 -o passphrase_passwd=antonlee.2013
+#no_sig_cache不考虑密码签名，ecryptfs_enable_filename_crypto加密文件名，ecryptfs_passthrough正常显示非加密文件（操作隐患）

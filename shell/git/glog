@@ -3,4 +3,4 @@
 # Func : 
 # Time : 2015-09-10 11:35:32
 
-git log
+git log --pretty=format:"[%h] %ae, %ar: %s" --stat 
