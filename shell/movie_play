@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : play
+# Func : play movie 
+# Time : 2016-04-03 18:23:02
+
+mplayer -fs $@
