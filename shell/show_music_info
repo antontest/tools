@@ -1,0 +1,14 @@
+#! /bin/bash
+# Name : show_music_info
+# Func : 
+# Time : 2016-04-07 22:09:26
+
+status=`playerctl status` 
+if test $? -eq 0 ; then
+    if test "$status" = "Playing" ; then
+        symbol=
+    else
+        symbol=
+    fi
+    echo "$symbol `playerctl metadata artist` - `playerctl metadata title`"
+fi
