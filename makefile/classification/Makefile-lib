@@ -77,6 +77,8 @@ $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
 	$(LINK)
 	-$(shell test ! -L $(LN_TO_INC) && ln -sf $(LN_FROM_INC) $(LN_TO_INC))
 	-$(shell test ! -L $(LN_TO_TARGET) && ln -sf $(LN_FROM_TARGET) $(LN_TO_TARGET))
+include $(CDEF)
+include $(CPPDEF)
 
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)
@@ -97,6 +99,5 @@ cleanall : clean
 # Install lib or share
 install:
 	-install -p -D -m 0444 $(TARGET) $(USR_LIB_PATH)/$(TARGET)
-
-include $(CDEF)
-include $(CPPDEF)
+uninstall:
+	-$(RM) -f $(USR_LIB_PATH)/$(TARGET)
