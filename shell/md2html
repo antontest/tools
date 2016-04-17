@@ -4,5 +4,5 @@
 # Time : 2016-04-17 16:51:26
 
 cp $TOOLS_PATH/markdown/template.html1 `pwd`/$2 -f 
-pandoc -t html -f markdown $1 >> `pwd`/$2
+pandoc --toc -t html -f markdown --mathjax --highlight-style=pygments --reference-links $1 | sed "s/<table>/<table class=\"tbl\">/g" >> `pwd`/$2
 cat $TOOLS_PATH/markdown/template.html2 >> `pwd`/$2

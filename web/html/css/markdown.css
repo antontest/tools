@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    min-width: 1020px;
+    min-width: 1080px;
     font: Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
     color: #333;
     background-color: #fff;
@@ -41,10 +41,36 @@ blockquote {
 }
 
 .markdown-group h2 {
-
     padding-bottom: 0.3em;
     font-size: 1.75em;
     line-height: 1.225;
-    border-bottom: 1px solid #eee;
-
+    border-bottom: 1px solid #aaa;
 }
+
+.markdown-group h3 {
+    padding-bottom: 0.3em;
+    line-height: 1.225;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.markdown-group h4,h5,h6 {
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.markdown-group img {
+    width:auto;
+    height:auto;
+}
+
+code > span.kw { color: #FF0000; font-weight: bold; }
+code > span.dt { color: #006000; }
+code > span.dv { color: #40a070; }
+code > span.bn { color: #40a070; }
+code > span.fl { color: #40a070; }
+code > span.ch { color: #FF00FF; }
+code > span.st { color: #FF0000; }
+code > span.co { color: #60a0b0; font-style: italic; }
+code > span.ot { color: #007020; }
+code > span.al { color: #ff0000; font-weight: bold; }
+code > span.fu { color: #06287e; }
+code > span.er { color: #ff0000; font-weight: bold; }
