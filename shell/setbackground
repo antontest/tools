@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : setbackground
+# Func : 
+# Time : 2016-04-16 14:08:31
+
+feh --bg-scale $@

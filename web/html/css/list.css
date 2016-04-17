@@ -1,0 +1,53 @@
+.rank_list
+{
+    line-height: 14px;
+    margin: auto;
+    padding-top: 5px;
+}
+.rank_list li
+{
+    height: 14px;
+    margin-bottom: 8px;
+    width: 290px;
+    padding-left: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+.rank_list em
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #B1E0F4;
+    color: #6298CC;
+    font-style: normal;
+    font-size: 10px;
+    font-family: Arial;
+    background: #E6F0FD;
+    text-align: center;
+    line-height: 12px;
+    overflow: hidden;
+}
+.rank_list span
+{
+    position: absolute;
+    width: 60px;
+    color: #B7B7B7;
+    text-align: right;
+    height: 14px;
+    background: #fff;
+    left: 110px;
+}
+#movie_rank .rank_list span
+{
+    position: absolute;
+    width: 40px;
+    color: #B7B7B7;
+    text-align: right;
+    height: 14px;
+    background: #fff;
+    left: 260px;
+}

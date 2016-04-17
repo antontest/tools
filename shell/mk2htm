@@ -1,0 +1,8 @@
+#! /bin/bash
+# Name : mk2htm
+# Func : 
+# Time : 2016-04-17 16:51:26
+
+cp $TOOLS_PATH/markdown/template.html1 `pwd`/$2 -f 
+pandoc -t html -f markdown $1 >> `pwd`/$2
+cat $TOOLS_PATH/markdown/template.html2 >> `pwd`/$2

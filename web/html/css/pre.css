@@ -1,0 +1,23 @@
+pre, pre code
+{
+    font-family:Consolas, "Courier New", Courier, monospace;
+}       
+pre {
+    margin: 10px 0 0 0;
+    padding: 10px;
+    border: 0;
+    border: 1px dotted #785;
+    background: #f5f5f5;
+}
+
+pre code {
+    color:#000000;
+}
+
+pre span {
+    color:#999;
+}
+
+pre span.code_comment {
+    color:green;
+}   

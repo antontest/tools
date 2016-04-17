@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<title>Download</title>
-<head>
-    <META  http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
-    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
-    <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
-    <link rel="stylesheet" type="text/css" href="css/ftp.css">
-    <style>
-    </style>
-    
-    <script language="JavaScript" src="js/mfunc.js"></script>
-    <script type="text/javascript">
-    <!-- Start Script
-	function form_init() {
-		dataToVision();
-		add_event_to_href();
-	}
+    <title>Download</title>
+    <head>
+        <META  http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+        <META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+        <link rel="stylesheet" type="text/css" href="css/ftp.css">
+        <style>
+        </style>
 
-    // End Script -->
-    </script>
-</head>
+        <script language="JavaScript" src="js/mfunc.js"></script>
+        <script type="text/javascript">
+<!-- Start Script
+function form_init() {
+    dataToVision();
+    add_event_to_href();
+}
 
-<div class="container">
-<body onload="form_init();">
-    <div class="header">
-        <div class="logo">download/@ftp_dir#下的索引</div>
+// End Script -->
+        </script>
+    </head>
+
+    <div class="container">
+        <body onload="form_init();">
+            <div class="header">
+                <div class="logo">@ftp_dir#下的索引</div>
+            </div>
+
+            <hr class="line" />
+
+            <FORM ACTION="setup.cgi" method="POST">
+                <div class="content">
+                    <div class="content-href">
+                        @ftp_file_info#
+                    </div>
+                    <!--
+                    <div class="content-href">
+                        <div class="column_name" >File Name</div><br>
+                        @ftp_file_name#
+                    </div>
+                    <div class="content-size">
+                        <div class="column_name" >File Size</div><br>
+                        @ftp_file_size#
+                    </div>
+                    -->
+                </div>
+            </FORM>
+
+
+
+        </body>
     </div>
-	
-	<hr class="line" />
-
-    <FORM ACTION="setup.cgi" method="POST">
-    <div class="content">
-    <div class="content-href">
-        <div class="column_name" >File Name</div><br>
-        @ftp_file_name#
-    </div>
-    <div class="content-size">
-        <div class="column_name" >File Size</div><br>
-        @ftp_file_size#
-    </div>
-    </div>
-    </FORM>
-
-
-
-</body>
-</div>
 </html>

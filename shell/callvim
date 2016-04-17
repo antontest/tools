@@ -1,0 +1,14 @@
+#! /bin/bash
+# Name : callvim
+# Func : 
+# Time : 2016-04-14 21:45:14
+
+# we need a little trick to use vim inside gnome-terminal.
+# Update on Oct. 22, 2013: This trick does not work on gnome-terminal 3.8.4
+#   the "--disable-factory" trick does not make the terminal run in
+# foreground.
+#   You can use `gvim -f` or `xterm` instead.
+gnome-terminal --geometry=80x40 --disable-factory -e "vim $*"
+
+# use xterm
+# xterm -e vim $*
