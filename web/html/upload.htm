@@ -9,6 +9,11 @@
 		html_btn_cgi("upload_form", "save");
 		return true;
     }  
+
+    function testf() {
+		html_btn_cgi("upload_form", "test");
+		return true;
+    }
 </script>   
 	
 </HEAD>  
@@ -17,10 +22,10 @@
     <input type="hidden" name="next_path" value="upload.htm">
 	file<INPUT TYPE="FILE" NAME="FILE1" id="FILE1" class="btn">
 	<INPUT TYPE="button" name="upload" VALUE="upload" class="btn" onclick="upload_file();"><br>  
+	<INPUT TYPE="button" name="test" VALUE="test" class="btn" onclick="testf();"><br>  
 	<input type="hidden" name="todo" id="todo" value="save">
     <input type="hidden" name="next_file" value="upload.htm">
     <input type="hidden" name="this_file" value="upload.htm">
 </FORM>  
-
 </BODY>  
 </HTML>  
