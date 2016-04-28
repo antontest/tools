@@ -9,7 +9,7 @@
     <script type="text/javascript">  
 
 function upload_file() {  
-    html_btn_cgi("upload_form", "save");
+    html_btn_cgi("upload_xls_form", "upload_xls");
     return true;
 }  
 
@@ -25,23 +25,22 @@ document.getElementById("uploadBtn").onchange = function () {
 <body>
     <div class="containor">
         <div class="title">
-            <h1>工程付款统计表</h1>
+            <h1>工程付款统计表上传</h1>
             <hr />
         </div>
 
         <div class="xls_upload">
-            <FORM METHOD="POST" id="upload_form" name="upload_form" ENCTYPE="multipart/form-data" ACTION="upload.cgi" >  
-            <input type="hidden" name="next_path" value="upload.htm">
+            <FORM METHOD="POST" id="upload_xls_form" name="upload_xls_form" ENCTYPE="multipart/form-data" ACTION="upload.cgi" >  
+            <input type="hidden" name="next_path" value="xls_upload.htm">
             <input id="ehdel_upload_btn" type="image" src="http://www.isclassic.net/wp-content/uploads/2010/07/link_popup.gif" value="请选择文件" />
             <input id="uploadFile" placeholder="Choose File" disabled="disabled" />
             <INPUT TYPE="FILE" NAME="FILE1" id="FILE1" class="upload" id="uploadBtn" onchange="uploadFile.value=this.value">
                 <INPUT TYPE="button" name="upload" VALUE="上传" class="btn" onclick="upload_file();"> 
                 <div class="clear"></div>
-                <input type="file" onchange="uploadFile.value=this.value" class="ehdel_upload" />
 
-            <input type="hidden" name="todo" id="todo" value="upload_xls">
-            <input type="hidden" name="next_file" value="upload.htm">
-            <input type="hidden" name="this_file" value="upload.htm">
+            <input type="hidden" name="todo" id="todo" value="save">
+            <input type="hidden" name="next_file" value="xls_upload.htm">
+            <input type="hidden" name="this_file" value="xls_upload.htm">
             </FORM>  
         </div>
     </div>

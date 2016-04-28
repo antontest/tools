@@ -2,7 +2,7 @@
 <HEAD>  
 <TITLE>upload</TITLE>  
 <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="TEXT/HTML;CHARSER=UTF-8">  
-<link rel="stylesheet" type="text/css" href="css/main.css">  
+<link rel="stylesheet" type="text/css" href="css/xls_upload.css.css">  
 <script language="JavaScript" src="js/mfunc.js"></script>
 <script type="text/javascript">  
     function upload_file() {  
@@ -18,6 +18,8 @@
 	
 </HEAD>  
 <BODY BGCOLOR="#FFFFFF">  
+    <div class="containor">
+        <div class="xls_upload">
 <FORM METHOD="POST" id="upload_form" name="upload_form" ENCTYPE="multipart/form-data" ACTION="upload.cgi" >  
     <input type="hidden" name="next_path" value="upload.htm">
 	file<INPUT TYPE="FILE" NAME="FILE1" id="FILE1" class="btn">
@@ -27,5 +29,7 @@
     <input type="hidden" name="next_file" value="upload.htm">
     <input type="hidden" name="this_file" value="upload.htm">
 </FORM>  
+    </div>
+    </div>
 </BODY>  
 </HTML>  
