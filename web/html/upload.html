@@ -20,15 +20,15 @@
 <BODY BGCOLOR="#FFFFFF">  
     <div class="containor">
         <div class="xls_upload">
-<FORM METHOD="POST" id="upload_form" name="upload_form" ENCTYPE="multipart/form-data" ACTION="upload.cgi" >  
     <input type="hidden" name="next_path" value="upload.htm">
+    <input type="hidden" name="next_file" value="upload.html">
+    <input type="hidden" name="this_file" value="upload.html">
+	<input type="hidden" name="todo" id="todo" value="save">
+<FORM METHOD="POST" id="upload_form" name="upload_form" ENCTYPE="multipart/form-data" ACTION="upload.cgi" >  
 	file<INPUT TYPE="FILE" NAME="FILE1" id="FILE1" class="btn">
 	<INPUT TYPE="button" name="upload" VALUE="upload" class="btn" onclick="upload_file();"><br>  
-	<INPUT TYPE="button" name="test" VALUE="test" class="btn" onclick="testf();"><br>  
-	<input type="hidden" name="todo" id="todo" value="save">
-    <input type="hidden" name="next_file" value="upload.htm">
-    <input type="hidden" name="this_file" value="upload.htm">
 </FORM>  
+	<INPUT TYPE="button" name="test" VALUE="test" class="btn" onclick="testf();"><br>  
     </div>
     </div>
 </BODY>  
