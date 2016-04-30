@@ -174,7 +174,7 @@ function href_click(e) {
     tname=targ.tagName;
     var dir_path = targ.href.substring(targ.href.indexOf("download"));
     if (dir_path == '') return false;
-    targ.href = "setup.cgi?next_file=ftp.htm&next_path=" + dir_path;
+    targ.href = "setup.cgi?next_file=ftp.html&next_path=" + dir_path;
     return true;
 }
 

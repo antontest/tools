@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <META  http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" type="text/css" href="css/xls.css">
     <title>工程付款统计</title>
 </head>
 <body>
     <div class="container">
-        <table class="tbl">
+        <table class="tbl" id="tabProduct">
             <tr>
+                <th rowspan="2"></th>
                 <th rowspan="2">序号</th>
                 <th rowspan="2">工程名称</th>
                 <th rowspan="2">工程位置</th>
@@ -42,6 +43,27 @@
             </tr>
             @xls_data#
         </table>
+
+        <form id="xls_form_data" action="setup.cgi" method="POST" enctype="multipart/form-data">
+        <input type="button" name="Submit" value="新增" onclick="AddRow(document.getElementById('tabProduct'),1)" />  
+        <input type="button" name="Submit2" value="删除" onclick="DeleteRow(document.getElementById('tabProduct'),1)" />  
+        <input type="button" name="Submit22" value="重置" onclick="window.location.reload()" />  
+        <input type="submit" name="Submit3" value="提交" onclick="return true;" />  
+        <input type="hidden" name="this_file" value="xls.html">
+        <input type="hidden" name="next_file" value="xls.html">
+        <input type="hidden" name="todo" value="save">
+        <input type="hidden" name="xls_change_data" id="xls_change_data" value="" />
+        
+        </form>
     </div>
+    <script language="javascript" src="js/GridEdit.js"></script> 
+    <script language="javascript" src="js/mydate.js"></script> 
+    <script language="javascript">  
+var tabProduct = document.getElementById("tabProduct");  
+
+// 设置表格可编辑  
+// 可一次设置多个，例如：EditTables(tb1,tb2,tb2,......)  
+EditTables(tabProduct);  
+    </script>  
 </body>
 </html>

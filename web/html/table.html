@@ -50,11 +50,13 @@ body,div,p,ul,li,font,span,td,th{
                     <td width="103" bgcolor="#EFEFEF" Name="Amount" EditType="TextBox">数量</td>  
                     <td width="103" bgcolor="#EFEFEF" Name="Price" EditType="TextBox">单价</td>  
                     <td width="120" bgcolor="#EFEFEF" Name="SumMoney" Expression="Amount*Price" Format="#,###.00">合计</td>  
+                    <td width="103" bgcolor="#EFEFEF" Name="Date" EditType="Date" onfocus="MyCalendar.SetDate(this)">日期</td>  
                 </tr>  
                 <tr>  
                     <td align="center" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox2" value="checkbox" /></td>  
                     <td bgcolor="#FFFFFF">1</td>  
                     <td bgcolor="#FFFFFF" Value="c">C</td>  
+                    <td bgcolor="#FFFFFF">0</td>  
                     <td bgcolor="#FFFFFF">0</td>  
                     <td bgcolor="#FFFFFF">0</td>  
                     <td bgcolor="#FFFFFF">0</td>  
@@ -66,17 +68,31 @@ body,div,p,ul,li,font,span,td,th{
                     <td bgcolor="#FFFFFF">0</td>  
                     <td bgcolor="#FFFFFF">0</td>  
                     <td bgcolor="#FFFFFF">0</td>  
+                    <td bgcolor="#FFFFFF">0</td>  
+                </tr>  
+                <tr>  
+                    <td align="center" bgcolor="#FFFFFF"><input type="checkbox" name="checkbox3" value="checkbox" /></td>  
+                    <td bgcolor="#FFFFFF">3</td>  
+                    <td bgcolor="#FFFFFF" Value="d">D</td>  
+                    <td bgcolor="#FFFFFF">0</td>  
+                    <td bgcolor="#FFFFFF">0</td>  
+                    <td bgcolor="#FFFFFF">0</td>  
+                    <td bgcolor="#FFFFFF">0</td>  
                 </tr>  
             </table>  
 
             <br />  
+
+            <input type="hidden" id="xls_change_data" value="" />
+
             <input type="button" name="Submit" value="新增" onclick="AddRow(document.getElementById('tabProduct'),1)" />  
             <input type="button" name="Submit2" value="删除" onclick="DeleteRow(document.getElementById('tabProduct'),1)" />  
             <input type="button" name="Submit22" value="重置" onclick="window.location.reload()" />  
             <input type="submit" name="Submit3" value="提交" onclick="GetTableData(document.getElementById('tabProduct'));return false;" />  
         </form>  
 
-        <script language="javascript" src="GridEdit.js"></script>  
+        <script language="javascript" src="js/GridEdit.js"></script>  
+        <script language="javascript" src="js/mydate.js"></script>  
         <script language="javascript">  
 var tabProduct = document.getElementById("tabProduct");  
 
