@@ -67,6 +67,17 @@ var tabProduct = document.getElementById("tabProduct");
 // 设置表格可编辑  
 // 可一次设置多个，例如：EditTables(tb1,tb2,tb2,......)  
 EditTables(tabProduct);  
-    </script>  
+
+// 高亮鼠标当前行
+var rows = document.getElementsByTagName('tr');
+for (var i=0;i<rows.length;i++){
+    rows[i].onmouseover = function(){       
+        this.className += 'altrow';//鼠标经过时，显示样式altrow,注意，js中的样式是className而不是class，这个是新手容易犯的错误；
+    }
+    rows[i].onmouseout = function(){        
+        this.className = this.className.replace('altrow','');//鼠标一走的时候，把样式也去掉
+    }
+}
+</script>
 </body>
 </html>
