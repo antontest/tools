@@ -44,6 +44,8 @@
             @xls_data#
         </table>
 
+        <div class="bottom_blank"></div>
+        <div class="btn_container">
         <form id="xls_form_data" action="setup.cgi" method="POST" enctype="multipart/form-data">
         <input type="button" name="Submit" value="新增" onclick="AddRow(document.getElementById('tabProduct'),1)" />  
         <input type="button" name="Submit2" value="删除" onclick="DeleteRow(document.getElementById('tabProduct'),1)" />  
@@ -55,6 +57,7 @@
         <input type="hidden" name="xls_change_data" id="xls_change_data" value="" />
         
         </form>
+        </div>
     </div>
     <script language="javascript" src="js/GridEdit.js"></script> 
     <script language="javascript" src="js/mydate.js"></script> 

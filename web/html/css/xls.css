@@ -11,6 +11,7 @@ body {
     width: 98%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom:20px;
 }
 
 .tbl
@@ -60,4 +61,31 @@ body {
     text-align:center;
     margin-left: auto;
     margin-right: auto;
+}
+
+.btn_container {
+    /*
+    width:420px;
+    margin-left:auto;
+    margin-right:auto;
+    position:fiexd;
+    bottom:0px;
+    left:0px;
+    z-index:9999;
+    border-bottom:0px;
+    overflow:hidden;
+    */
+    width:430px; 
+    height: 20px; 
+    position:fixed;
+    left:40%;
+    bottom:15px;
+}
+
+.btn_container input {
+    width:100px;
+}
+
+.bottom_blank {
+    height:30px;
 }
