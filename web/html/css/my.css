@@ -1,0 +1,111 @@
+body{
+    /*背景图片、位置等设置 url(/img/loginbg.jpeg)*/
+    background:  no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+p.test { 
+    /*设置字体样式、字体大小、字体颜色、水平对齐、字符转换(大小写转换)、字间隔、文本装饰*/
+    font-family: Georgia, serif;
+    font-size: 28px;
+    color: green;
+    text-align: center;
+    text-transform: none;
+    word-spacing: normal;
+    text-decoration: underline;
+    white-space: normal;/*处理空白符*/
+    direction: ltr;/*文本方向*/
+    font-style: normal;/*字体风格(斜体、倾斜、正常)*/
+    font-weight: bolder;/*字体加粗*/
+}
+/*div #class{
+    text-align: right;
+    color: black;
+}*/
+
+table{
+  border-collapse:collapse;
+  width:100%;
+}
+
+table,th, td{
+  border: 1px solid black;
+  height:50px;
+  text-align: center;
+  vertical-align: ;
+}
+
+#customers{
+  font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  width:100%;
+  border-collapse:collapse;
+}
+
+#customers td, #customers th,#customers thead  {
+  font-size:1em;
+  border:1px solid #98bf21;
+  padding:3px 7px 2px 7px;
+}
+
+#customers th,#customers thead {
+  font-size:1.1em;
+  text-align:center;
+  padding-top:5px;
+  padding-bottom:4px;
+  background-color:#A7C942;
+  color:#ffffff;
+}
+
+#customers tr.alt td {
+  color:#000000;
+  background-color:#EAF2D3;/*:#EAF2D3*/
+  font-weight: 150%;
+}
+
+caption{
+    caption-side:top;
+    /*设置字体样式、字体大小、字体颜色、水平对齐、字符转换(大小写转换)、字间隔、文本装饰*/
+    font-family: Georgia, serif;
+    font-size: 28px;
+    color: green;
+    text-align: center;
+    text-transform: none;
+    word-spacing: normal;
+    /*text-decoration: underline;*/
+    white-space: normal;/*处理空白符*/
+    direction: ltr;/*文本方向*/
+    font-style: normal;/*字体风格(斜体、倾斜、正常)*/
+    font-weight: bolder;/*字体加粗*/
+}
+
+.align-center{
+    margin:0 auto;        /* 居中 这个是必须的，，其它的属性非必须 */
+    width:500px;        /* 给个宽度 顶到浏览器的两边就看不出居中效果了 */
+    /*background:red; */       /* 背景色 */
+    text-align:center;     /* 文字等内容居中 */
+}
+
+a:link,a:visited{
+    /*display:block;*/
+    font-weight:bold;
+    font-size:14px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    /*color:#FFFFFF;*/
+    /*background-color:#98bf21;*/
+    width:auto;
+    text-align:center;
+    /*padding:4px;*/
+    text-decoration:none;
+}
+
+a:hover,a:active{
+    /*background-color:#7A991A;*/
+}
+
+a {
+    position:relative;
+    right: 5px;
+}
