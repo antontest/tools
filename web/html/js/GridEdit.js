@@ -97,9 +97,9 @@ function CreateDateSelect(element, value){
             MyCalendar.SetDate(this);
             return false;
         }
-        textBox.onclick = function (){  
+        textBox.ondblclick = function (){  
             element.setAttribute("ChangeState", 0);
-            
+
             if (this.value != orivalue) {
                 element.style.border="2px solid blue"
                 var XlsChangeDataObj = document.getElementById("xls_change_data");
@@ -124,6 +124,7 @@ function CreateDateSelect(element, value){
                 }
             }
             CancelEditCell(this.parentNode, this.value);  
+
             return false;
         }  
         //向当前单元格添加文本框  
