@@ -51,35 +51,41 @@ function user_admin_page()
       // var imgObj = document.getElementsByName( "ax_table_cell" );
 
       // add button listen
-      var addbutton = document.getElementById( "u9004" );
-      addbutton.onmouseover = function( e )
+      var addbutton = document.getElementById( "u54" );
+      if (addbutton)
       {
-         e = e || window.event;
-         var t = e.target || e.srcElement;
-         t.style.cursor = 'pointer';
-         // alert( t.id );
-      }
-      addbutton.onclick = function( e )
-      {
-         // alert( "clk" );
-         window.location.href = "../../../adduser.html";
-         return;
+          addbutton.onmouseover = function( e )
+          {
+              e = e || window.event;
+                  var t = e.target || e.srcElement;
+                  t.style.cursor = 'pointer';
+                  // alert( t.id );
+          }
+          addbutton.onclick = function( e )
+          {
+              // alert( "clk" );
+              window.location.href = "../../../adduser.html";
+                  return;
+          }
       }
 
       // admin_page listen
-      var return_admin_page = document.getElementById( "u9001" );
-      return_admin_page.onmouseover = function( e )
+      var return_admin_page = document.getElementById( "u51" );
+      if (return_admin_page)
       {
-         e = e || window.event;
-         var t = e.target || e.srcElement;
-         t.style.cursor = 'pointer';
-      }
-      return_admin_page.onclick = function( e )
-      {
-         // alert( "clk" );
-         window.location.href = "../../../admin_page.html";
-         //window.history.back();
-         return;
+          return_admin_page.onmouseover = function( e )
+          {
+              e = e || window.event;
+                  var t = e.target || e.srcElement;
+                  t.style.cursor = 'pointer';
+          }
+          return_admin_page.onclick = function( e )
+          {
+              // alert( "clk" );
+              window.location.href = "../../../admin_page.html";
+                  //window.history.back();
+                  return;
+          }
       }
 
       var ax_table_name_spanObj = new Array();
