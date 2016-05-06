@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
   <head>
-    <title>user_detail</title>
+    <title>user_add</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -37,13 +37,15 @@
     <script src="resources/scripts/axure/adaptive.js"></script>
     <script src="resources/scripts/axure/tree.js"></script>
     <script src="resources/scripts/axure/init.temp.js"></script>
-    <script src="files/user_detail/data.js"></script>
+    <script src="files/user_add/data.js"></script>
+    <script src="files/user_add/my.js"></script>
     <script src="resources/scripts/axure/legacy.js"></script>
     <script src="resources/scripts/axure/viewer.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif'; };
       $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
       $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
+      user_add();
     </script>
   </head>
   <body>
@@ -67,7 +69,7 @@
 
       <!-- Unnamed (Text Field) -->
       <div id="u3" class="ax_text_field">
-        <input id="u3_input" type="text" value="@user_name#"/>
+        <input id="u3_input" type="text" value=""/>
       </div>
 
       <!-- Unnamed (Shape) -->
@@ -90,22 +92,37 @@
 
       <!-- Unnamed (Text Field) -->
       <div id="u8" class="ax_text_field">
-        <input id="u8_input" type="text" value="@nick_name#"/>
+        <input id="u8_input" type="text" value=""/>
       </div>
 
       <!-- Unnamed (Droplist) -->
       <div id="u9" class="ax_droplist">
         <select id="u9_input">
-          @role_name_opt#
-          <!--
+            @role_name_opt#
+        </select>
+      </div>
+
+      <div id="u40" class="ax_paragraph">
+        <img id="u40_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u41" class="text">
+          <p><span>状态</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Droplist) -->
+      <div id="u42" class="ax_droplist">
+        <select id="u42_input">
+            @user_status_opt#
+        </select>
+      </div>
+
+            <!--
           <option value="领导">领导</option>
           <option value="项目经理">项目经理</option>
           <option value="系统管理员">系统管理员</option>
           <option value="采购员">采购员</option>
-          -->
-        </select>
-      </div>
-
+            -->
       <!-- Unnamed (Shape) -->
       <div id="u10" class="ax_paragraph">
         <img id="u10_img" class="img " src="resources/images/transparent.gif"/>
@@ -126,29 +143,30 @@
 
       <!-- Unnamed (Text Field) -->
       <div id="u14" class="ax_text_field">
-        <input id="u14_input" type="password" value="@user_pwd#"/>
+        <input id="u14_input" type="password" value=""/>
       </div>
 
       <!-- Unnamed (Text Field) -->
       <div id="u15" class="ax_text_field">
-        <input id="u15_input" type="text" value="@email#"/>
+        <input id="u15_input" type="text" value=""/>
       </div>
 
       <!-- Unnamed (Shape) -->
+      <!--
       <div id="u16" class="ax_shape">
         <img id="u16_img" class="img " src="images/prod_category_page/u12.png"/>
-        <!-- Unnamed () -->
         <div id="u17" class="text">
           <p><span>更新</span></p>
         </div>
       </div>
+      -->
 
       <!-- Unnamed (Shape) -->
       <div id="u18" class="ax_shape">
         <img id="u18_img" class="img " src="images/prod_category_page/u12.png"/>
         <!-- Unnamed () -->
         <div id="u19" class="text">
-          <p><span>删除</span></p>
+          <p><span>提交</span></p>
         </div>
       </div>
 

@@ -3,6 +3,7 @@ function post( URL, PARAMS )
    var temp = document.createElement( "form" );
    temp.action = URL;
    temp.method = "post";
+   temp.enctype = "multipart/form-data";
    temp.style.display = "none";
    for ( var x in PARAMS )
    {
@@ -25,6 +26,10 @@ function user_add()
    {
       // update button
       var updatebutton = document.getElementById( "u18" );
+      if (!updatebutton) {
+          return;
+      }
+
       updatebutton.onmouseover = function( e )
       {
          e = e || window.event;
@@ -66,56 +71,59 @@ function user_add()
             alert( "密码不能为空！" );
             return;
          }
-         if( ! ( email = document.getElementById( "u15_input" ).value ) )
+         if( ( email = document.getElementById( "u15_input" ).value ) )
          {
-            alert( "电子邮件不能为空！" );
-            return;
+            //alert( "电子邮件不能为空！" );
+            //var email = document.form1.text4.value;
+             var sw = email.indexOf( "@", 0 );
+             var sw1 = email.indexOf( ".", 0 );
+             var tt = sw1 - sw;
+             if ( email.length == 0 )
+             {
+                alert( "电子邮件不能位空" );
+                return false;
+             }
+             if ( email.indexOf( "@", 0 ) == - 1 )
+             {
+                 alert( "电子邮件格式不正确，必须包含@符号！" );
+                     return false;
+             }
+             if ( email.indexOf( "com", 0 ) == - 1 )
+             {
+                 alert( "电子邮件格式不正确，邮件地址没有com！" );
+                     return false;
+             }
+             if ( email.indexOf( ".", 0 ) == - 1 )
+             {
+                 alert( "电子邮件格式不正确，必须包含.符号!" );
+                     return false;
+             }
+             if ( tt == 1 )
+             {
+                 alert( "邮件格式不对。@和.不可以挨着！" );
+                     return false;
+             }
+             if ( sw > sw1 )
+             {
+                 alert( "电子邮件格式不正确，@符号必须在.之前" );
+                     return false;
+             }
+         } else {
+             email = " ";
+             alert("email null");
          }
 
-         //var email = document.form1.text4.value;
-         var sw = email.indexOf( "@", 0 );
-         var sw1 = email.indexOf( ".", 0 );
-         var tt = sw1 - sw;
-         if ( email.length == 0 )
-         {
-            alert( "电子邮件不能位空" );
-            return false;
-         }
-         if ( email.indexOf( "@", 0 ) == - 1 )
-         {
-            alert( "电子邮件格式不正确，必须包含@符号！" );
-            return false;
-         }
-         if ( email.indexOf( "com", 0 ) == - 1 )
-         {
-            alert( "电子邮件格式不正确，邮件地址没有com！" );
-            return false;
-         }
-         if ( email.indexOf( ".", 0 ) == - 1 )
-         {
-            alert( "电子邮件格式不正确，必须包含.符号!" );
-            return false;
-         }
-         if ( tt == 1 )
-         {
-            alert( "邮件格式不对。@和.不可以挨着！" );
-            return false;
-         }
-         if ( sw > sw1 )
-         {
-            alert( "电子邮件格式不正确，@符号必须在.之前" );
-            return false;
-         }
 
          // var arrayName = Array( 'name', 'nickname', 'pwd', 'email', 'role' );
          var params = Array();
-         params['name'] = name;
-         params['nickname'] = nickname;
-         params['pwd'] = pwd;
-         params['role'] = document.getElementById( "u9_input" ).value;
+         params['user_name'] = name;
+         params['nick_name'] = nickname;
+         params['user_pwd'] = pwd;
+         params['role_name'] = document.getElementById( "u9_input" ).value;
          params['email'] = email;
-         params['status'] = document.getElementById( "u32_input" ).value;
-         post( "../../../php/adduser.php", params );
+         params['user_status'] = document.getElementById( "u42_input" ).value;
+         params['next_file'] = "user_add.html";
+         post( "user_add.cgi", params );
 
          /* alert( name );
          alert( nickname );

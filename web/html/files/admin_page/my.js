@@ -136,7 +136,7 @@ function admin_page()
             switch( txtIdnum )
             {
                case 0 :
-               window.location.href = rootpath + "/user_admin_page.php";
+               window.location.href = rootpath + "/user_admin.cgi?next_file=user_admin_page.html";
                break;
                case 2 :
                window.location.href = rootpath + "/project_list.php";

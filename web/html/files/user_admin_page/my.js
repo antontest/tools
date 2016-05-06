@@ -51,7 +51,7 @@ function user_admin_page()
       // var imgObj = document.getElementsByName( "ax_table_cell" );
 
       // add button listen
-      var addbutton = document.getElementById( "u54" );
+      var addbutton = document.getElementById( "add_button" );
       if (addbutton)
       {
           addbutton.onmouseover = function( e )
@@ -64,27 +64,28 @@ function user_admin_page()
           addbutton.onclick = function( e )
           {
               // alert( "clk" );
-              window.location.href = "../../../adduser.html";
+              window.location.href = "user_add.cgi?next_file=user_add.html";
                   return;
           }
       }
 
       // admin_page listen
-      var return_admin_page = document.getElementById( "u51" );
+      var return_admin_page = document.getElementById( "uu1_img" );
       if (return_admin_page)
       {
           return_admin_page.onmouseover = function( e )
           {
               e = e || window.event;
-                  var t = e.target || e.srcElement;
-                  t.style.cursor = 'pointer';
+              var t = e.target || e.srcElement;
+              t.style.cursor = 'pointer';
+              alert("over");
           }
           return_admin_page.onclick = function( e )
           {
-              // alert( "clk" );
+              alert( "clk" );
               window.location.href = "../../../admin_page.html";
-                  //window.history.back();
-                  return;
+              //window.history.back();
+              return;
           }
       }
 
@@ -112,7 +113,7 @@ function user_admin_page()
             // window.location.href = "../../../user_detail.php?name=" + t.innerHTML;
             // post( "../../../user_detail.php", pagrams );
             document.cookie = "name=" + t.innerHTML + ";";
-            window.location.href = "../../../user_detail.php";
+            window.location.href = "../../../user_detail.cgi?next_file=user_detail.html&user_name=" + t.innerHTML;
          }
       }
 
