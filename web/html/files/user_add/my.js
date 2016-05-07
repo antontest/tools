@@ -110,7 +110,7 @@ function user_add()
              }
          } else {
              email = " ";
-             alert("email null");
+             //alert("email null");
          }
 
 
@@ -164,7 +164,7 @@ function user_add()
       }
 
       // admin_page listen
-      var return_user_admin_page = document.getElementById( "u24" );
+      var return_user_admin_page = document.getElementById( "u50" );
       return_user_admin_page.onmouseover = function( e )
       {
          e = e || window.event;
@@ -174,8 +174,8 @@ function user_add()
       return_user_admin_page.onclick = function( e )
       {
          // alert( "clk" );
-         // window.location.href = "../../../user_admin_page.php";
-         window.history.back();
+         window.location.href = "user_admin.cgi?next_file=user_admin_page.html";
+         // window.history.back();
          return;
       }
    }

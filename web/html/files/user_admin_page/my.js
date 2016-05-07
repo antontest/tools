@@ -70,7 +70,7 @@ function user_admin_page()
       }
 
       // admin_page listen
-      var return_admin_page = document.getElementById( "uu1_img" );
+      var return_admin_page = document.getElementById( "uu1" );
       if (return_admin_page)
       {
           return_admin_page.onmouseover = function( e )
@@ -78,11 +78,9 @@ function user_admin_page()
               e = e || window.event;
               var t = e.target || e.srcElement;
               t.style.cursor = 'pointer';
-              alert("over");
           }
           return_admin_page.onclick = function( e )
           {
-              alert( "clk" );
               window.location.href = "../../../admin_page.html";
               //window.history.back();
               return;

@@ -38,12 +38,14 @@
     <script src="resources/scripts/axure/tree.js"></script>
     <script src="resources/scripts/axure/init.temp.js"></script>
     <script src="files/user_detail/data.js"></script>
+    <script src="files/user_detail/my.js"></script>
     <script src="resources/scripts/axure/legacy.js"></script>
     <script src="resources/scripts/axure/viewer.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return 'resources/images/transparent.gif'; };
       $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
       $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
+      user_detail();
     </script>
   </head>
   <body>
@@ -67,7 +69,7 @@
 
       <!-- Unnamed (Text Field) -->
       <div id="u3" class="ax_text_field">
-        <input id="u3_input" type="text" value="@user_name#"/>
+        <input id="u3_input" type="text" value="@user_name#" disabled="disabled" />
       </div>
 
       <!-- Unnamed (Shape) -->
@@ -171,6 +173,25 @@
       </div>
 
       <!-- Unnamed (Shape) -->
+      <div id="u50" class="ax_paragraph">
+        <img id="u50_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u51" class="text">
+          <p><span>用户管理</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Shape) -->
+      <div id="u52" class="ax_paragraph">
+        <img id="u52_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u53" class="text">
+          <p><span>&gt;</span></p>
+        </div>
+      </div>
+
+
+      <!-- Unnamed (Shape) -->
       <div id="u24" class="ax_paragraph">
         <img id="u24_img" class="img " src="resources/images/transparent.gif"/>
         <!-- Unnamed () -->
@@ -178,6 +199,22 @@
           <p><span>用户信息编辑</span></p>
         </div>
       </div>
+
+      <div id="u40" class="ax_paragraph">
+        <img id="u40_img" class="img " src="resources/images/transparent.gif"/>
+        <!-- Unnamed () -->
+        <div id="u41" class="text">
+          <p><span>状态</span></p>
+        </div>
+      </div>
+
+      <!-- Unnamed (Droplist) -->
+      <div id="u42" class="ax_droplist">
+        <select id="u42_input">
+            @user_status_opt#
+        </select>
+      </div>
+
     </div>
   </body>
 </html>

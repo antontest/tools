@@ -3,6 +3,7 @@ function post(URL, PARAMS)
    var temp = document.createElement("form");
    temp.action = URL;
    temp.method = "post";
+   temp.enctype = "multipart/form-data";
    temp.style.display = "none";
    for (var x in PARAMS)
    {
@@ -78,18 +79,23 @@ function user_detail()
          }
          if( ! (email = document.getElementById("u15_input").value))
          {
+            /*
             alert("电子邮件不能为空！");
             return;
+            */
+            email = " ";
          }
 
          // var arrayName = Array('name', 'nickname', 'pwd', 'email', 'role');
          var params = Array();
-         params['name'] = name;
-         params['nickname'] = nickname;
-         params['pwd'] = pwd;
-         params['role'] = document.getElementById("u9_input").value;
+         params['user_name'] = name;
+         params['nick_name'] = nickname;
+         params['user_pwd'] = pwd;
+         params['role_name'] = document.getElementById("u9_input").value;
          params['email'] = email;
-         params['status'] = document.getElementById("u32_input").value;;
+         params['user_status'] = document.getElementById("u42_input").value;;
+         post("user_update.cgi?next_file=user_admin_page.html", params);    
+         /*
          var ori_name = getCookie('name');
          var ori_nickname = getCookie('nick_name');
          var ori_user_pwd = getCookie('user_pwd');
@@ -102,7 +108,8 @@ function user_detail()
          {
             window.history.back();
          }
-         else post("../../../php/modify.php", params);    
+         else post("user_update.cgi?next_file=user_admin_page.html", params);    
+         */
       }
 
       // delete button
@@ -117,7 +124,16 @@ function user_detail()
       deletebutton.onclick = function(e)
       {
          if(confirm("确认删除该用户？"))
-         window.location.href = "../../../php/deluser.php";
+         //window.location.href = "user_delete.cgi?next_file=user_admin_page.html";
+
+         if( ! (name = document.getElementById("u3_input").value))
+         {
+            alert("用户名不能为空！");
+            return;
+         }
+         var params = Array();
+         params['user_name'] = name;
+         post("user_delete.cgi?next_file=user_admin_page.html", params);    
          return;
       }
 
@@ -137,7 +153,7 @@ function user_detail()
       }
 
       // admin_page listen
-      var return_user_admin_page = document.getElementById("u24");
+      var return_user_admin_page = document.getElementById("u50");
       return_user_admin_page.onmouseover = function(e)
       {
          e = e || window.event;
@@ -147,8 +163,8 @@ function user_detail()
       return_user_admin_page.onclick = function(e)
       {
          // alert("clk");
-         // window.location.href = "../../../user_admin_page.php";
-         window.history.back();
+         window.location.href = "user_admin.cgi?next_file=user_admin_page.html";
+         // window.history.back();
          return;
       }
    }
