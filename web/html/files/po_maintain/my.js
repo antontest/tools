@@ -25,12 +25,12 @@ function file_upload()
    window.onload = function()
    {
       // update button
-      var updatebutton = document.getElementById( "u16" );
-      if (!updatebutton) {
+      var upload_button = document.getElementById( "u16" );
+      if (!upload_button) {
           return;
       }
 
-      updatebutton.onmouseover = function( e )
+      upload_button.onmouseover = function( e )
       {
          e = e || window.event;
          var t = e.target || e.srcElement;
@@ -38,10 +38,17 @@ function file_upload()
          // alert( t.id );
       }
 
-      updatebutton.onclick = function( e )
+      upload_button.onclick = function( e )
       {
          // alert( "clk" );
-         window.location.href = "../../../admin_page.html";
+         //window.location.href = "../../../admin_page.html";
+         var formObj = document.getElementById("file_upload");
+         if (!formObj) {
+             alert("Form不存在，上传失败!");
+             return;
+         }
+
+         formObj.submit();
          return;
       }
 
