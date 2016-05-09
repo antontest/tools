@@ -142,7 +142,7 @@ function admin_page()
                window.location.href = rootpath + "/project_list.php";
                break;
                case 4 :
-               window.location.href = rootpath + "/po_maintain.php";
+               window.location.href = rootpath + "/po_maintain.html";
                document.cookie = "filepath='';";
                break;
                case 6 :
