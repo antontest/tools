@@ -25,6 +25,26 @@ function file_upload()
    window.onload = function()
    {
       // update button
+      var system_button = document.getElementById( "u5" );
+      if (system_button) {
+          system_button.onmouseover = function( e )
+          {
+              e = e || window.event;
+                  var t = e.target || e.srcElement;
+                  t.style.cursor = 'pointer';
+                  // alert( t.id );
+                  return;
+          }
+
+          system_button.onclick = function( e )
+          {
+             window.location.href="../../admin_page.html";
+             return;
+          }
+      }
+
+
+      // update button
       var upload_button = document.getElementById( "u16" );
       if (!upload_button) {
           return;
@@ -38,6 +58,11 @@ function file_upload()
          // alert( t.id );
       }
 
+      /*
+      var formObj = document.getElementById("h_submit");
+      upload_button.onclick = formObj.onclick;
+      return ;
+      */
       upload_button.onclick = function( e )
       {
          // alert( "clk" );
@@ -49,6 +74,7 @@ function file_upload()
          }
 
          formObj.submit();
+         //formObj.click();
          return;
       }
 

@@ -90,12 +90,12 @@
         </div>
       </div>
 
-      <form id="file_upload" name="file_upload" action="file_upload.cgi" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
-          
+      <FORM METHOD="POST" id="file_upload" name="upload_xls" ENCTYPE="multipart/form-data" ACTION="xls_upload.cgi" >
       <!-- Unnamed (Text Field) -->
       <div id="u15" class="ax_text_field">
-        <input id="u15_input" type="file" value=""/>
+        <input id="u15_input" type="file" name="xls_file" value=""/>
       </div>
+      </FORM>
 
       <!-- Unnamed (Shape) -->
       <div id="u16" class="ax_shape">
@@ -103,9 +103,9 @@
         <!-- Unnamed () -->
         <div id="u17" class="text">
           <p><span>上传</span></p>
+          <INPUT TYPE="submit" name="upload" VALUE="上传" class="btn" onclick="alert('click');return true;"  style="display:none;" id="h_submit" />
         </div>
       </div>
-      </form>
     </div>
   </body>
 </html>
