@@ -1,0 +1,18 @@
+#! /bin/bash
+# Name : autojump.install
+# Func : install autojump 
+# Time : 2016-07-05 16:55:37
+
+# check autojump command
+cmd_name=autojump
+type $cmd_name > /dev/null && echo "autojump has been installed!" && exit 0
+
+# clone autojump
+tmp_dir=~/autojump_tmp
+git clone git://github.com/joelthelion/autojump.git $tmp_dir
+
+# install
+cd $tmp_dir && ./install.py
+
+# fix autojump loading problem
+compaudit | xargs chmod g-w
