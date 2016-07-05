@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/anton/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -51,13 +51,13 @@ ZSH_THEME="muse"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi svn zsh-syntax-highlighting zsh-completions authojump)
-plugins+=(man)
+plugins=(git vi svn zsh-syntax-highlighting zsh-completions autojump)
+plugins+=(man vim)
 # plugins+=(incr)
 
 # User configuration
 
-  export PATH="/home/anton/.autojump/bin:/home/anton/.autojump/bin:/home/anton/bin:/usr/local/bin:/home/anton/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$HOME/.autojump/bin:$HOME/.autojump/bin:$HOME/bin:/usr/local/bin:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -88,8 +88,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # tools path
-export TOOLS_PATH=/home/anton/tools
-export USR_TOOLS_PATH=/home/anton/usr
+export TOOLS_PATH=$HOME/tools
+export USR_TOOLS_PATH=$HOME/usr
 export CMAKE_PATH=$TOOLS_PATH/cmake
 export EXEC_PATH=$TOOLS_PATH/exec
 export LIB_PATH=$TOOLS_PATH/lib
@@ -105,7 +105,7 @@ export TAGS_PATH=$USR_TOOLS_PATH/include
 export CSCOPE_PATH=$USR_TOOLS_PATH/include
 export EXEC_LD_PATH=$SHELL_PATH:$EXEC_PATH
 
-export CLASS_PATH=/home/anton/program/c/class
+export CLASS_PATH=$HOME/program/c/class
 export UTILS_INCLUDE=$CLASS_PATH/utils/src/include
 export THREAD_INCLUDE=$CLASS_PATH/thread/src/include
 
@@ -113,9 +113,9 @@ export USR_LIB_PATH=$HOME/usr/lib
 export USR_INC_PATH=$HOME/usr/include
 export USR_BIN_PATH=$HOME/usr/bin
 
-export PATH=/home/anton/tools/shell:$PATH
-export PATH=/home/anton/tools/shell/git:$PATH
-export PATH=/home/anton/tools/exec:$PATH
+export PATH=$HOME/tools/shell:$PATH
+export PATH=$HOME/tools/shell/git:$PATH
+export PATH=$HOME/tools/exec:$PATH
 export PATH=~/etc/clang/bin:$PATH
 export PATH=~/usr/bin:$PATH
 
