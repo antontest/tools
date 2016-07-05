@@ -1,0 +1,15 @@
+#! /bin/bash
+# Name : apt_cyg.install
+# Func : install apt_cyg for cygwin 
+# Time : 2016-07-05 17:04:36
+
+# check apt-cyg
+app_name=apt-cyg
+bin_path=/bin/$app_name
+type $app_name > /dev/null && echo "apt-cgy has been installed!" && exit 0
+
+# install
+lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > $bin_path
+chmod +x $bin_path
+echo "apt-cgy install successfully!"
+
