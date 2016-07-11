@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <META  http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="css/xls.css">
+    <title>工程付款统计</title>
+</head>
+<body>
+    <div class="container">
+        <table class="tbl" id="tabProduct">
+            <tr>
+                <th rowspan="2"></th>
+                <th rowspan="2">序号</th>
+                <th rowspan="2">工程名称</th>
+                <th rowspan="2">工程位置</th>
+                <th rowspan="2">业主单位</th>
+                <th rowspan="2">标底价(万元)</th>
+                <th rowspan="2">中标价(万元)</th>
+                <th rowspan="2">工期(历时天数)</th>
+                <th rowspan="2">开标日期</th>
+                <th rowspan="2">中标单位</th>
+                <th rowspan="2">项目经理</th>
+                <th rowspan="2">项目经理证号</th>
+                <th rowspan="2">监理单位及监理工程师</th>
+                <th rowspan="2">开竣工日期</th>
+                <th colspan="2">结算情况</th>
+                <th colspan="3">审计情况</th>
+                <th rowspan="2">付款方式</th>
+                <th colspan="6">工程款支付(万元)</th>
+            </tr>
+            <tr>
+                <th>结算送达日期</th>
+                <th>结算价(万元)</th>
+                <th>送审日期</th>
+                <th>接受审计报告日期</th>
+                <th>审计价(万元)</th>
+                <th>累计付款</th>
+                <th>2015付</th>
+                <th>2016付</th>
+                <th>2017付</th>
+                <th>2018付</th>
+                <th>未付款</th>
+            </tr>
+            @xls_data#
+        </table>
+
+        <div class="bottom_blank"></div>
+        <div class="btn_container">
+        <form id="xls_form_data" action="proc_maintain.cgi" method="POST" enctype="multipart/form-data">
+        <input type="button" name="Submit" value="新增" onclick="AddRow(document.getElementById('tabProduct'),1)" />  
+        <input type="button" name="Submit2" value="删除" onclick="DeleteRow(document.getElementById('tabProduct'),1)" />  
+        <input type="button" name="Submit22" value="重置" onclick="window.location.reload()" />  
+        <input type="submit" name="Submit3" value="提交" onclick="return true;" />  
+        <input type="hidden" name="this_file" value="xls.html">
+        <input type="hidden" name="next_file" value="xls.html">
+        <input type="hidden" name="todo" value="save">
+        <input type="hidden" name="xls_change_data" id="xls_change_data" value="" />
+        
+        </form>
+        </div>
+    </div>
+    <script language="javascript" src="js/GridEdit.js"></script> 
+    <script language="javascript" src="js/mydate.js"></script> 
+    <script language="javascript">  
+var tabProduct = document.getElementById("tabProduct");  
+
+// 设置表格可编辑  
+// 可一次设置多个，例如：EditTables(tb1,tb2,tb2,......)  
+EditTables(tabProduct);  
+
+// 高亮鼠标当前行
+var rows = document.getElementsByTagName('tr');
+for (var i=0;i<rows.length;i++){
+    rows[i].onmouseover = function(){       
+        this.className += 'altrow';//鼠标经过时，显示样式altrow,注意，js中的样式是className而不是class，这个是新手容易犯的错误；
+    }
+    rows[i].onmouseout = function(){        
+        this.className = this.className.replace('altrow','');//鼠标一走的时候，把样式也去掉
+    }
+}
+</script>
+</body>
+</html>

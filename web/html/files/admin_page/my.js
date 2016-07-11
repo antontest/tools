@@ -130,7 +130,7 @@ function admin_page()
             var t = e.target || e.srcElement;
             var id_tmp = t.id;
             var txtIdnum = parseInt( id_tmp[1], 10 );
-            // alert( "id=" + id_tmp );
+            alert( "id=" + id_tmp );
             // var role = getCookie( "role" );
             // alert( role );
             switch( txtIdnum )
@@ -139,14 +139,15 @@ function admin_page()
                window.location.href = rootpath + "/user_admin.cgi?next_file=user_admin_page.html";
                break;
                case 2 :
-               window.location.href = rootpath + "/project_list.php";
+               alert("该功能尚未开放!");
+               // window.location.href = rootpath + "/project_list.html";
                break;
                case 4 :
                window.location.href = rootpath + "/po_maintain.html";
                document.cookie = "filepath='';";
                break;
                case 6 :
-               window.location.href = rootpath + "/prod_category_page.php";
+               window.location.href = rootpath + "/proc_maintain.html";
                break;
                default :
                break;
