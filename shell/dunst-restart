@@ -1,0 +1,7 @@
+#! /bin/bash
+# Name : dunst-restart
+# Func : 
+# Time : 2016-08-03 23:31:19
+
+killall dunst
+dunst -config ~/.i3/dunst/dunst.rc & 2>&/dev/null

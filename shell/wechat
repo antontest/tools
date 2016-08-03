@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : wechat
+# Func : 
+# Time : 2016-07-28 08:57:42
+
+cd /home/antonio/program/opensource/electronic-wechat && npm start
