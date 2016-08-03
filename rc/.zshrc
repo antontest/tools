@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="myzsh"
-ZSH_THEME="muse"
+ZSH_THEME="candy-kingdom"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -52,7 +52,7 @@ ZSH_THEME="muse"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git vi svn zsh-syntax-highlighting zsh-completions autojump)
-plugins+=(man vim)
+plugins+=(man vim colored-man-pages)
 # plugins+=(incr)
 
 # User configuration
