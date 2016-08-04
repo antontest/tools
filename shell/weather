@@ -1,0 +1,13 @@
+#! /bin/bash
+# Name : weather
+# Func : view weather from command line.
+# Time : 2016-08-04 10:26:54
+
+if [ $# -lt 1 ]; then
+    pos=Suzhou
+else
+    pos=$1
+fi
+
+# download weather information
+curl wttr.in/$pos
