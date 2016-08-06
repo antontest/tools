@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : bluetooth-start
+# Func : start bluetooth
+# Time : 2016-08-06 11:28:03
+
+sudo blueman-manager && pavucontrol
