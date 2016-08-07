@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : vpn-start
+# Func : start xxnet
+# Time : 2016-08-07 13:41:42
+
+cd ~/program/opensource/XX-Net/ && ./start

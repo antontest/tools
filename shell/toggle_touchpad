@@ -1,0 +1,10 @@
+#! /bin/bash
+# Name : toggletouchpad
+# Func : toggle touchpad
+# Time : 2016-08-07 13:48:13
+
+if synclient -l | grep "TouchpadOff .*=.*0" ; then
+    synclient TouchpadOff=1 ;
+else
+    synclient TouchpadOff=0 ;
+fi
