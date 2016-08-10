@@ -1,0 +1,89 @@
+#! /bin/bash
+# Name : install-ubuntu-system
+# Func : install ubuntu system
+# Time : 2016-08-10 20:36:00
+
+# install ssh and git
+sudo apt-get install git git-core
+sudo apt-get install openssh-server
+
+# install tools
+mkdir -p ~/program
+if test ! -d ~/tools ; then
+    git clone https://antonlee2013@github.com/antontest/tools ~/tools
+    # git clone https://antonlee2013@github.com/antontest/c ~/program/c
+fi
+test ! -f ~/.bashrc.bak && mv ~/.bashrc ~/.bashrc.bak
+test ! -f ~/.zshrc.bak && mv ~/.zshrc ~/.zshrc.bak 
+cd ~/tools/rc/ && . ~/tools/rc/install.sh
+
+# install zsh
+sudo apt-get install zsh
+type zsh && sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+source ~/.zshrc
+
+# sudo apt-get install luajit libluajit-5.1 libncurses5-dev 
+# sudo apt-get install  libgnome2-dev libgnomeui-dev libgtk2.0-dev libatk1.0-dev libbonoboui2-dev libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev ruby-dev mercurial 
+
+# install vim
+sudo apt-get install python3 python3-dev
+sudo apt-get install build-essential cmake
+sudo apt-get install python-dev python3.1-dev
+sudo apt-get install lua5.1 liblua5.1-dev 
+sudo apt-get install libluajit-5.1-2
+sudo apt-get install libluajit-5.1-dev 
+sudo apt-get install libperl-dev
+sudo apt-get install ruby ruby-dev
+sudo ln -s /usr/include/lua5.1 /usr/include/lua
+sudo ln -s /usr/lib/liblua5.1.so /usr/lib/liblua.so 
+mkdir -p ~/program/opensource/ && cd ~/program/opensource/ && git clone https://github.com/vim/vim
+cd ~/program/opensource/vim 
+./configure --with-features=huge \
+    --enable-rubyinterp=yes \
+    --enable-perlinterp=yes \
+    --enable-cscope \
+    --with-x \
+    --enable-pythoninterp=yes \
+    --with-python-config-dir=/usr/lib/python2.7/config-i386-linux-gnu/  \
+    --enable-luainterp=dynamic --enable-xim --enable-fontset --enable-sniff --prefix=/usr  \
+    --enable-fail-if-missing \
+    --with-lua-prefix=/usr
+sudo make install
+
+# install tmux
+sudo apt-get install tmux
+if test ! -f ~/.tmux/install.sh ; then
+    git clone https://github.com/antontest/tmux-conf ~/.tmux
+    cd ~/.tmux/ && . ~/.tmux/install.sh
+fi
+
+# install ctags and cscope
+sudo apt-get install ctags cscope
+
+# install i3wm
+sudo apt-get install i3 i3blocks i3lock i3status i3-wm conky feh xfce4 xfce4-goodies xfce4-panel xfce4-terminal dunst compton
+if test ! -f ~/.i3/install.sh ; then
+    git clone https://github.com/antontest/i3config ~/.i3 
+    cd ~/.i3 && . ~/.i3/install.sh
+
+    git clone https://github.com/DaveDavenport/rofi ~/program/opensource/rofi
+    ./configure --prefix=/usr/ && make && sudo make install
+
+    sudo apt-get install python-pip
+    pip install i3-py 
+    pip install quickswitch-i3 
+#     git clone https://github.com/proxypoke/quickswitch-for-i3 ~/program/opensource/quickswitch-for-i3
+#     cd ~/program/opensource/quickswitch-for-i3 && sudo python setup.py install 
+fi
+
+# install guake
+sudo apt-get install guake
+
+# install ranger
+# git clone https://github.com/ranger/ranger ~/program/opensource/ranger
+# cd ~/program/opensource/ranger && make && sudo make install
+sudo apt-get install ranger
+if test ! -d ~/.config/ranger.bak ; then
+    mv ~/.config/ranger ~/.config/ranger.bak 
+    git clone https://github.com/antontest/ranger-config ~/.config/ranger/
+fi
