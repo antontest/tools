@@ -12,6 +12,9 @@ TARGET=
 # include
 INCLUDE_PATH = .
 
+# output dir
+OUTDIR = .
+
 # Make command to use for dependencies
 MAKE = make
 RM = rm
@@ -23,15 +26,17 @@ XX = g++
 SRC_PATH = .
 CSRC = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
 CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH)))
-COBJ = $(CSRC:.c=.o)
-CPPOBJ = $(CPPSRC:.cpp=.o)
+COBJ = $(patsubst %.c,${OUTDIR}/%.o,$(notdir $(CSRC)))
+CPPOBJ = $(patsubst %.cpp,${OUTDIR}/%.o,$(notdir $(CPPSRC)))
+
+# deal with cpp
 ifneq "$(CPPOBJ)" ""
 CFLAGS += -lstdc++
 endif
 
 # dependent files .d
-CDEF = $(CSRC:.c=.d)
-CPPDEF = $(CPPSRC:.cpp=.d)
+CDEF = $(patsubst %.c,${OUTDIR}/%.d,$(notdir $(CSRC)))
+CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(notdir $(CPPSRC)))
 
 # Warning
 WARNING = -Wall -Wno-unused -Wno-format
@@ -56,31 +61,31 @@ LN_TO_INC=../../../incs/$(CUR_DIR)
 LN_TO_TARGET=../../../libs/$(TARGET)
 
 all:$(TARGET)
-$(CDEF) : %.d : %.c
+$(OUTDIR) :  
+	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CDEF) : $(OUTDIR)/%.d : $(SRC_PATH)/%.c
+	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 	$(MAKEDEPEND) $(<:.c=.o) $< > $@
-$(CPPDEF) : %.d : %.cpp
+$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp
+	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 	$(MAKEDEPEND) $(<:.cpp=.o) $< > $@
-
 depend :
 	-rm -f $(CDEF)
 	-rm -f $(CPPDEF)
 	$(MAKE) $(CDEF)
 	$(MAKE) $(CPPDEF)
-
-$(COBJ) : %.o : %.c
+$(COBJ) : $(OUTDIR)/%.o : $(SRC_PATH)/%.c
 	$(CC) $(COMPILE)
-$(CPPOBJ) : %.o : %.cpp
+$(CPPOBJ) : $(OUTDIR)/%.o : $(SRC_PATH)/%.cpp
 	$(XX) $(COMPILE)
-$(OUTDIR) :  
-	if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
 	$(LINK)
 	# -test ! -L $(LN_TO_INC) && ln -sf $(LN_FROM_INC) $(LN_TO_INC)
 	# -test ! -L $(LN_TO_TARGET) && ln -sf $(LN_FROM_TARGET) $(LN_TO_TARGET)
 	-$(shell test ! -L $(LN_TO_INC) && ln -sf $(LN_FROM_INC) $(LN_TO_INC))
 	-$(shell test ! -L $(LN_TO_TARGET) && ln -sf $(LN_FROM_TARGET) $(LN_TO_TARGET))
-include $(CDEF)
-include $(CPPDEF)
+-include $(CDEF)
+-include $(CPPDEF)
 
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)
@@ -91,8 +96,8 @@ rebuild : cleanall all
 clean :
 	-$(RM) -f $(COBJ) $(CPPOBJ)
 	-$(RM) -f $(TARGET)
-	-$(RM) $(LN_TO_INC)
-	-$(RM) $(LN_TO_TARGET)	
+	-$(RM) -f $(LN_TO_INC)
+	-$(RM) -f $(LN_TO_TARGET)	
 
 # Clean this project and all dependencies
 cleanall : clean

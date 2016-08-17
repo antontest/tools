@@ -12,8 +12,11 @@ TARGET=
 # include
 INCLUDE_PATH = .
 
+# output dir
+OUTDIR = 
+
 # search the lib which complied by myself
-LIB_PATH = 
+LIB_PATH = . 
 LIB_NAME = 
 # other librarys
 OTH_LIB =
@@ -29,18 +32,20 @@ XX = g++
 SRC_PATH = .
 CSRC = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
 CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH)))
-COBJ = $(CSRC:.c=.o)
-CPPOBJ = $(CPPSRC:.cpp=.o)
+COBJ = $(patsubst %.c,${OUTDIR}/%.o,$(notdir $(CSRC)))
+CPPOBJ = $(patsubst %.cpp,${OUTDIR}/%.o,$(notdir $(CPPSRC)))
+
+# deal with cpp
 ifneq "$(CPPOBJ)" ""
 CFLAGS += -lstdc++
 endif
 
 # dependent files .d
-CDEF = $(CSRC:.c=.d)
-CPPDEF = $(CPPSRC:.cpp=.d)
+CDEF = $(patsubst %.c,${OUTDIR}/%.d,$(notdir $(CSRC)))
+CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(notdir $(CPPSRC)))
 
 # Warning
-WARNING = -Wall#-Wno-unused -Wno-format
+WARNING = -Wall -Wno-unused -Wno-format
 CFLAGS += $(WARNING) -O2 -Werror -g
 
 # complie
@@ -59,27 +64,27 @@ LINK = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB) #$(OUTDIR)/*.o
 MAKEDEPEND = gcc -MM -MT
 
 all:$(TARGET)
-$(CDEF) : %.d : %.c
+$(OUTDIR) :  
+	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CDEF) : $(OUTDIR)/%.d : $(SRC_PATH)/%.c
+	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 	$(MAKEDEPEND) $(<:.c=.o) $< > $@
-$(CPPDEF) : %.d : %.cpp
+$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp
+	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 	$(MAKEDEPEND) $(<:.cpp=.o) $< > $@
-
-depend :
+depend : $(OUTDIR)
 	-rm -f $(CDEF)
 	-rm -f $(CPPDEF)
 	$(MAKE) $(CDEF)
 	$(MAKE) $(CPPDEF)
-
-$(COBJ) : %.o : %.c
+$(COBJ) : $(OUTDIR)/%.o : %.c
 	$(CC) $(COMPILE)
-$(CPPOBJ) : %.o : %.cpp
+$(CPPOBJ) : $(OUTDIR)/%.o : %.cpp
 	$(XX) $(COMPILE)
-$(OUTDIR) :  
-	if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
 	$(LINK)
-include $(CDEF)
-include $(CPPDEF)
+-include $(CDEF)
+-include $(CPPDEF)
 
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)
@@ -93,7 +98,7 @@ clean :
 
 # Clean this project and all dependencies
 cleanall : clean
-	-$(RM) $(CDEF) $(CPPDEF)
+	-$(RM) -f $(CDEF) $(CPPDEF)
 
 # Install lib or share
 install:
