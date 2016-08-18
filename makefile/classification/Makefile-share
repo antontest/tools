@@ -76,11 +76,9 @@ LN_TO_TARGET=../../../libs/$(TARGET)
 all:$(TARGET)
 $(OUTDIR) :  
 	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
-$(CDEF) : $(OUTDIR)/%.d : %.c
-	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CDEF) : $(OUTDIR)/%.d : %.c $(OUTDIR)
 	$(MAKEDEPEND) $(<:.c=.o) $< > $@
-$(CPPDEF) : $(OUTDIR)/%.d : %.cpp
-	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CPPDEF) : $(OUTDIR)/%.d : %.cpp $(OUTDIR)
 	$(MAKEDEPEND) $(<:.cpp=.o) $< > $@
 
 depend :

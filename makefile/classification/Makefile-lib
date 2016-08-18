@@ -63,11 +63,9 @@ LN_TO_TARGET=../../../libs/$(TARGET)
 all:$(TARGET)
 $(OUTDIR) :  
 	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
-$(CDEF) : $(OUTDIR)/%.d : $(SRC_PATH)/%.c
-	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CDEF) : $(OUTDIR)/%.d : $(SRC_PATH)/%.c $(OUTDIR)
 	$(MAKEDEPEND) $(<:.c=.o) $< > $@
-$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp
-	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp $(OUTDIR)
 	$(MAKEDEPEND) $(<:.cpp=.o) $< > $@
 depend :
 	-rm -f $(CDEF)

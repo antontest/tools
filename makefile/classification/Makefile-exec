@@ -66,10 +66,9 @@ MAKEDEPEND = gcc -MM -MT
 all:$(TARGET)
 $(OUTDIR) :  
 	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
-$(CDEF) : $(OUTDIR)/%.d : $(SRC_PATH)/%.c
-	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CDEF) : $(OUTDIR)/%.d : $(SRC_PATH)/%.c $(OUTDIR)
 	$(MAKEDEPEND) $(<:.c=.o) $< > $@
-$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp
+$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp $(OUTDIR)
 	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 	$(MAKEDEPEND) $(<:.cpp=.o) $< > $@
 depend : $(OUTDIR)
