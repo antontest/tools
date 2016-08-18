@@ -76,9 +76,9 @@ depend : $(OUTDIR)
 	-rm -f $(CPPDEF)
 	$(MAKE) $(CDEF)
 	$(MAKE) $(CPPDEF)
-$(COBJ) : $(OUTDIR)/%.o : %.c
+$(COBJ) : $(OUTDIR)/%.o : $(SRC_PATH)/%.c
 	$(CC) $(COMPILE)
-$(CPPOBJ) : $(OUTDIR)/%.o : %.cpp
+$(CPPOBJ) : $(OUTDIR)/%.o : $(SRC_PATH)/%.cpp
 	$(XX) $(COMPILE)
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
 	$(LINK)
