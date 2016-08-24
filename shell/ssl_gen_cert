@@ -21,6 +21,22 @@ openssl genrsa -out ${user_key} ${size}
 openssl req -new -key ${user_key} -out ${user_req} -subj ${user_dn}
 openssl x509 -req -days 730 -in ${user_req} -CA ${ca_cert} -CAkey ${ca_key} -set_serial 01 -out ${user_cert}
 
+second_ca_key=second_ca_key.pem
+second_ca_cert=second_ca_cert.pem
+second_ca_req=second_ca_req.pem
+second_ca_dn="/C=CN/O=Sercomm/CN=SecondCA"
+openssl genrsa -out ${second_ca_key} ${size}
+openssl req -new -key ${second_ca_key} -out ${second_ca_req} -subj ${second_ca_dn}
+openssl ca -in ${second_ca_req} -days ${days} -out ${second_ca_cert} -cert ${ca_cert} -keyfile ${ca_key}
+
+test_key=test_key.pem
+test_cert=test_cert.pem
+test_req=test_req.pem
+test_dn="/C=CN/O=Sercomm/CN=test"
+openssl genrsa -out ${test_key} ${size}
+openssl req -new -key ${test_key} -out ${test_req} -subj ${test_dn}
+openssl x509 -req -days 730 -in ${test_req} -CA ${second_ca_cert} -CAkey ${second_ca_key} -set_serial 01 -out ${test_cert}
+
 # openssl x509 -inform pem -noout -test -in user_cert.pem
 # openssl req -inform pem -noout -test -in user_cert.pem
 # openssl rsa -noout -text -in privkey.pem
