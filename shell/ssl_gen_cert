@@ -27,7 +27,7 @@ second_ca_req=second_ca_req.pem
 second_ca_dn="/C=CN/O=Sercomm/CN=SecondCA"
 openssl genrsa -out ${second_ca_key} ${size}
 openssl req -new -key ${second_ca_key} -out ${second_ca_req} -subj ${second_ca_dn}
-openssl ca -in ${second_ca_req} -days ${days} -out ${second_ca_cert} -cert ${ca_cert} -keyfile ${ca_key}
+openssl ca -batch -in ${second_ca_req} -days ${days} -out ${second_ca_cert} -cert ${ca_cert} -keyfile ${ca_key}
 
 test_key=test_key.pem
 test_cert=test_cert.pem
