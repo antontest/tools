@@ -1,0 +1,27 @@
+#! /bin/bash
+# Name : ssl_gen_cert
+# Func : gen ca cert with openssl
+# Time : 2016-08-24 20:09:41
+
+size=1024
+days=365
+ca_key=ca_key.pem
+ca_cert=ca_cert.pem
+ca_dn="/C=CN/O=Sercomm/CN=RootCA"
+
+# openssl req -x509 -newkey rsa -out cacert.pem -outform PEM -days 356
+openssl genrsa -out ${ca_key} ${size}
+openssl req -new -x509 -days ${days} -key ${ca_key} -out ${ca_cert} -subj ${ca_dn}
+
+user_key=user_key.pem
+user_cert=user_cert.pem
+user_req=user_req.pem
+user_dn="/C=CN/O=Sercomm/CN=test"
+openssl genrsa -out ${user_key} ${size}
+openssl req -new -key ${user_key} -out ${user_req} -subj ${user_dn}
+openssl x509 -req -days 730 -in ${user_req} -CA ${ca_cert} -CAkey ${ca_key} -set_serial 01 -out ${user_cert}
+
+# openssl x509 -inform pem -noout -test -in user_cert.pem
+# openssl req -inform pem -noout -test -in user_cert.pem
+# openssl rsa -noout -text -in privkey.pem
+# openssl ca -in second_ca_req.pem -days 3650 -out second_ca_cert.pem -cert  ca_cert.pem -keyfile ca_key.pem
