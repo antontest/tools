@@ -7,13 +7,18 @@
 #Descp    : Linux下makefile模板       
 #*************************************************************/     
 # target
-TARGET= 
+TARGET_NAME=
+TARGET_PATH= .
+TARGET=$(TARGET_PATH)/$(TARGET_NAME)
 
 # include
 INCLUDE_PATH = .
 
 # output dir
 OUTDIR = .
+
+#install path 
+USR_LIB_PATH= .
 
 # Make command to use for dependencies
 MAKE = make

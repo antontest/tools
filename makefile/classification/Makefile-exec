@@ -7,13 +7,18 @@
 #Descp    : Linux下makefile模板       
 #*************************************************************/     
 # target
-TARGET= 
-
-# include
-INCLUDE_PATH = .
+TARGET_NAME= 
+TARGET_PATH= .
+TARGET= ${TARGET_PATH}/${TARGET_NAME}
 
 # output dir
 OUTDIR = 
+
+# install path 
+USR_BIN_PATH = .
+
+# include
+INCLUDE_PATH = .
 
 # search the lib which complied by myself
 LIB_PATH = . 
@@ -45,7 +50,7 @@ CDEF = $(patsubst %.c,${OUTDIR}/%.d,$(notdir $(CSRC)))
 CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(notdir $(CPPSRC)))
 
 # Warning
-WARNING = -Wall -Wno-unused -Wno-format
+WARNING = -Wall #-Wno-unused -Wno-format
 CFLAGS += $(WARNING) -O2 -Werror -g
 
 # complie
@@ -65,25 +70,26 @@ MAKEDEPEND = gcc -MM -MT
 
 all:$(TARGET)
 $(OUTDIR) :  
-	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+	-if test -n $(OUTDIR) ; then $(MKDIR) -p $(OUTDIR) ; fi
 $(CDEF) : $(OUTDIR)/%.d : $(SRC_PATH)/%.c $(OUTDIR)
 	$(MAKEDEPEND) $(<:.c=.o) $< > $@
-$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp $(OUTDIR)
-	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
+$(CPPDEF) : $(OUTDIR)/%.d : ${SRC_PATH}/%.cpp
 	$(MAKEDEPEND) $(<:.cpp=.o) $< > $@
 depend : $(OUTDIR)
 	-rm -f $(CDEF)
 	-rm -f $(CPPDEF)
 	$(MAKE) $(CDEF)
 	$(MAKE) $(CPPDEF)
-$(COBJ) : $(OUTDIR)/%.o : $(SRC_PATH)/%.c
+$(COBJ) : $(OUTDIR)/%.o : %.c
 	$(CC) $(COMPILE)
-$(CPPOBJ) : $(OUTDIR)/%.o : $(SRC_PATH)/%.cpp
+$(CPPOBJ) : $(OUTDIR)/%.o : %.cpp
 	$(XX) $(COMPILE)
-$(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
+$(TARGET_PATH):
+	-if test -n $@ ; then $(MKDIR) -p $@ ; fi
+$(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH)
 	$(LINK)
--include $(CDEF)
--include $(CPPDEF)
+# -include $(CDEF)
+# -include $(CPPDEF)
 
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)

@@ -111,6 +111,8 @@ LIB := $(LIB_PATH) $(CFG_LIB) $(OTH_LIB)
 MAKEDEPEND = gcc -MM -MT
 
 all:$(TARGET)
+$(OUTDIR) :  
+	-if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 $(CDEF) : %.d : %.c
 	$(MAKEDEPEND) $(<:.c=.o) $< > $@
 $(CPPDEF) : %.d : %.cpp
@@ -126,8 +128,6 @@ $(COBJ) : %.o : %.c
 	$(CC) $(COMPILE)
 $(CPPOBJ) : %.o : %.cpp
 	$(XX) $(COMPILE)
-$(OUTDIR) :  
-	if test -n "$(OUTDIR)" ; then $(MKDIR) -p $(OUTDIR) ; fi
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
 	$(LINK)
 	-mktg
