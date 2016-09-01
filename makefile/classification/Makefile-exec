@@ -12,7 +12,7 @@ TARGET_PATH= .
 TARGET= ${TARGET_PATH}/${TARGET_NAME}
 
 # output dir
-OUTDIR = 
+OUTDIR = .
 
 # install path 
 USR_BIN_PATH = .
