@@ -50,8 +50,12 @@ CDEF = $(patsubst %.c,${OUTDIR}/%.d,$(notdir $(CSRC)))
 CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(notdir $(CPPSRC)))
 
 # Warning
-WARNING = -Wall #-Wno-unused -Wno-format
-CFLAGS += $(WARNING) -O2 -Werror -g
+OPTM = -O2
+DEBUG = -g
+ERROR = -Werror
+OTHER = -Wno-unused -Wno-format
+WARNING = -Wall $(ERROR)
+CFLAGS += $(WARNING) $(DEBUG)
 
 # complie
 INC = $(addprefix -I ,$(INCLUDE_PATH))
@@ -88,8 +92,8 @@ $(TARGET_PATH):
 	-if test -n $@ ; then $(MKDIR) -p $@ ; fi
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH)
 	$(LINK)
-# -include $(CDEF)
-# -include $(CPPDEF)
+-include $(CDEF)
+-include $(CPPDEF)
 
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)
