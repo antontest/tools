@@ -52,7 +52,7 @@ ZSH_THEME="candy-kingdom"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git vi svn zsh-syntax-highlighting zsh-completions autojump)
-plugins+=(man vim colored-man-pages)
+plugins+=(man vim colored-man-pages tmux)
 # plugins+=(incr)
 
 # User configuration
@@ -118,6 +118,9 @@ export PATH=$HOME/tools/shell/git:$PATH
 export PATH=$HOME/tools/exec:$PATH
 export PATH=~/etc/clang/bin:$PATH
 export PATH=~/usr/bin:$PATH
+export PATH=$HOME/etc/jdk1.7.0_79/bin:$PATH
+export CLASSPATH=$HOME/etc/jdk1.7.0_79/lib:.:$CLASSPATH
+export JAVA_HOME=$HOME/etc/jdk1.7.0_79
 
 # add default search path
 # 增加.a搜索路径

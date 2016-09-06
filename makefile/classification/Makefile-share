@@ -15,7 +15,7 @@ TARGET=$(TARGET_PATH)/$(TARGET_NAME)
 INCLUDE_PATH = .
 
 # output dir
-OUTDIR = .
+OUTDIR = build
 
 # search the lib which complied by myself
 LIB_PATH = .
@@ -114,8 +114,8 @@ $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
 	$(LINK)
 	-@ln -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME)
 	-@ln -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/$(CUR_DIR) 
--include $(CDEF)
--include $(CPPDEF)
+# -include $(CDEF)
+# -include $(CPPDEF)
 
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)

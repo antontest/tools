@@ -12,7 +12,7 @@ TARGET_PATH= .
 TARGET= ${TARGET_PATH}/${TARGET_NAME}
 
 # output dir
-OUTDIR = .
+OUTDIR = build
 
 # install path 
 USR_BIN_PATH = .
@@ -51,7 +51,9 @@ CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(notdir $(CPPSRC)))
 
 # Warning
 OPTM = -O2
+ifneq ($(ver), release)
 DEBUG = -g
+endif
 ERROR = -Werror
 OTHER = -Wno-unused -Wno-format
 WARNING = -Wall $(ERROR)
@@ -92,8 +94,8 @@ $(TARGET_PATH):
 	-if test -n $@ ; then $(MKDIR) -p $@ ; fi
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH)
 	$(LINK)
--include $(CDEF)
--include $(CPPDEF)
+# -include $(CDEF)
+# -include $(CPPDEF)
 
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)
