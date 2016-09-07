@@ -113,7 +113,7 @@ $(CPPOBJ) : $(OUTDIR)/%.o : $(SRC_PATH)/%.cpp
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ)
 	$(LINK)
 	-@ln -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME)
-	-@ln -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/$(CUR_DIR) 
+	-@ln -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/
 # -include $(CDEF)
 # -include $(CPPDEF)
 
