@@ -5,7 +5,7 @@
 	#2014-11-06 12:41:33
 
 #查找当前目录中所有代码源文件和头文件
-find . -type f \( -iname '*.c' -o -iname '*.h' -o -iname '*.cpp' -o -iname '*.hpp' -o -iname '*.x' \) > cscope.file
+find `pwd` -type f \( -iname '*.c' -o -iname '*.h' -o -iname '*.cpp' -o -iname '*.hpp' -o -iname '*.x' \) > cscope.file
 cscope -Rbkq -i cscope.file
 #echo $findret
 
