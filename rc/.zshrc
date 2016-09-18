@@ -121,6 +121,8 @@ export PATH=~/usr/bin:$PATH
 export PATH=$HOME/etc/jdk1.7.0_79/bin:$PATH
 export CLASSPATH=$HOME/etc/jdk1.7.0_79/lib:.:$CLASSPATH
 export JAVA_HOME=$HOME/etc/jdk1.7.0_79
+export TERM=screen-256color
+# export TERM=xterm-256color
 
 # add default search path
 # 增加.a搜索路径
@@ -160,3 +162,4 @@ alias ...='cd ../..'
 alias cp='cp -r'
 alias pdfviewer='evince -f '
 alias filebrower='ranger'
+alias tmux="tmux -2"
