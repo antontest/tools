@@ -42,7 +42,7 @@ $(TARGET) : $(TARGET_PATH) $(TARGET_INCS)
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)
 # Rebuild this project
-rebuild : cleanall all
+rebuild : clean all
 #
 # Clean this project
 clean :

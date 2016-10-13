@@ -109,7 +109,7 @@ $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH)
 PHONY = rebuild clean cleanall install
 .PHONY : $(PHONY)
 # Rebuild this project
-rebuild : cleanall all
+rebuild : clean all
 
 # Clean this project
 clean :
