@@ -7,9 +7,13 @@
 #Descp    : Linux下makefile模板       
 #*************************************************************/     
 # target
-TARGET_NAME= 
-TARGET_PATH= .
-TARGET= ${TARGET_PATH}/${TARGET_NAME}
+TARGET_NAME = 
+ifeq ("$(BUILD_FOR_WIN)", "1")
+EXT = exe
+TARGET_NAME := $(TARGET_NAME).$(EXT)
+endif
+TARGET_PATH = .
+TARGET = ${TARGET_PATH}/${TARGET_NAME}
 
 # temp file output dir
 OUTDIR = build
@@ -23,6 +27,9 @@ SRC_PATH = .
 # search the lib which complied by myself
 LIB_PATH = . 
 LIB_NAME = 
+ifeq ("$(BUILD_FOR_WIN)", "1")
+WIN_LIB_NAME := 
+endif
 # other librarys
 OTH_LIB =
 
@@ -69,7 +76,7 @@ COMPILE = $(CFLAGS) $(INC) -c $< -o $@ #$(OUTDIR)/$(*F).o
 LIB_PATH += .
 LIBS_PATH = $(addprefix -L ,$(LIB_PATH))
 # set lib
-LIB = $(addprefix -l,$(LIB_NAME))
+LIB = $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
 LIB := $(LIBS_PATH) $(LIB) $(OTH_LIB)
 LINK = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB) #$(OUTDIR)/*.o
 

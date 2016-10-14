@@ -7,9 +7,13 @@
 #Descp    : Linux下makefile模板       
 #*************************************************************/     
 # target
-TARGET_NAME= 
-TARGET_PATH= .
-TARGET=$(TARGET_PATH)/$(TARGET_NAME)
+TARGET_NAME = 
+ifeq ("$(BUILD_FOR_WIN)", "1")
+EXT = dll
+TARGET_NAME := $(shell echo $(TARGET_NAME) | sed "s/so/$(EXT)/g")
+endif
+TARGET_PATH = .
+TARGET = $(TARGET_PATH)/$(TARGET_NAME)
 
 # output dir
 OUTDIR = build
@@ -23,6 +27,9 @@ SRC_PATH = .
 # search the lib which complied by myself
 LIB_PATH = .
 LIB_NAME = 
+ifeq ("$(BUILD_FOR_WIN)", "1")
+WIN_LIB_NAME := 
+endif
 # other librarys
 OTH_LIB =
 
@@ -58,7 +65,7 @@ INC = $(addprefix -I ,$(INCLUDE_PATH))
 COMPILE = $(CFLAGS) $(INC) -c $< -o $@  #$(OUTDIR)/$(*F).o
 
 #compile share
-LIB= $(addprefix -l,$(LIB_NAME))
+LIB= $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
 LINK=$(CC) -shared -fpic $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB)
 
 # Library of compling

@@ -7,9 +7,9 @@
 #Descp    : Linux下makefile模板       
 #*************************************************************/     
 # target
-TARGET_NAME= 
-TARGET_PATH= .
-TARGET=$(TARGET_PATH)/$(TARGET_NAME)
+TARGET_NAME = 
+TARGET_PATH = .
+TARGET = $(TARGET_PATH)/$(TARGET_NAME)
 
 # output dir
 OUTDIR = build
@@ -21,7 +21,7 @@ INCLUDE_PATH = .
 SRC_PATH = . 
 
 #install path 
-USR_LIB_PATH= .
+USR_LIB_PATH = .
 
 # Make command to use for dependencies
 MAKE = make
@@ -29,6 +29,7 @@ RM = rm
 MKDIR = mkdir
 CC = gcc
 XX = g++
+AR = ar
 
 # source of .c and .o
 CSRC = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
@@ -56,7 +57,7 @@ INC = $(addprefix -I ,$(INCLUDE_PATH))
 COMPILE = $(CFLAGS) $(INC) -c $< -o $@ #$(OUTDIR)/$(*F).o
 
 # compile library
-LINK = ar -rs $@ $(COBJ) $(CPPOBJ)
+LINK = $(AR) -rs $@ $(COBJ) $(CPPOBJ)
 
 # make depend
 MAKEDEPEND = gcc -MM -MT
