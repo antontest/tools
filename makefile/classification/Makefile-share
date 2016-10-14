@@ -10,7 +10,7 @@
 TARGET_NAME = 
 ifeq ("$(BUILD_FOR_WIN)", "1")
 EXT = dll
-TARGET_NAME := $(shell echo $(TARGET_NAME) | sed "s/\.so$/.$(EXT)/g")
+TARGET_NAME := $(shell echo $(TARGET_NAME) | sed "s/\.so/.$(EXT)/g")
 endif
 TARGET_PATH = .
 TARGET = $(TARGET_PATH)/$(TARGET_NAME)
