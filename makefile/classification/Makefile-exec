@@ -29,6 +29,8 @@ LIB_PATH = .
 LIB_NAME = 
 ifeq ("$(BUILD_FOR_WIN)", "1")
 WIN_LIB_NAME := 
+else
+UNIX_LIB_NAME := 
 endif
 # other librarys
 OTH_LIB =
@@ -76,7 +78,7 @@ COMPILE = $(CFLAGS) $(INC) -c $< -o $@ #$(OUTDIR)/$(*F).o
 LIB_PATH += .
 LIBS_PATH = $(addprefix -L ,$(LIB_PATH))
 # set lib
-LIB = $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
+LIB = $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME) $(UNIX_LIB_NAME))
 LIB := $(LIBS_PATH) $(LIB) $(OTH_LIB)
 LINK = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB) #$(OUTDIR)/*.o
 
