@@ -34,9 +34,20 @@ UNIX_LIB_NAME :=
 endif
 # other librarys
 OTH_LIB =
+ifeq ("$(INSTALL_ROOT_PATH)", "")
+INSTALL_ROOT_PATH = share
+endif
+ifeq ("$(INSTALL_INCLUDE_PATH)", "")
+INSTALL_INCLUDE_PATH = include
+endif
+ifeq ("$(INSTALL_LIBRARY_PATH)", "")
+INSTALL_LIBRARY_PATH = lib
+endif
+ifeq ("$(INSTALL_BIN_PATH)", "")
+INSTALL_BIN_PATH = bin
+endif
 
 # install path 
-USR_BIN_PATH = .
 
 # make command to use for dependencies
 MAKE = make
@@ -50,6 +61,9 @@ CSRC = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
 CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH)))
 COBJ = $(addprefix $(OUTDIR)/,$(subst .c,.o,$(CSRC)))
 CPPOBJ = $(addprefix $(OUTDIR)/,$(subst .cpp,.o,$(CPPSRC)))
+HSRC = $(wildcard $(addsuffix /*.h,$(SRC_PATH)))
+INSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC))
+UNINSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC))
 
 # deal with cpp
 ifneq "$(CPPOBJ)" ""
@@ -128,9 +142,9 @@ cleanall : clean
 
 # Install lib or share
 install:
-	-install -s $(TARGET) -p -D $(USR_BIN_PATH)/$(TARGET)
+	-install -s $(TARGET) -p -D $(INSTALL_ROOT_PATH)/$(INSTALL_BIN_PATH)/$(TARGET)
 uninstall:
-	-$(RM) -f $(USR_BIN_PATH)/$(TARGET)
+	-$(RM) -f $(INSTALL_ROOT_PATH)/$(INSTALL_BIN_PATH)/$(TARGET)
 
 # make directory
 define make_dir

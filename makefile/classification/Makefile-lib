@@ -21,7 +21,15 @@ INCLUDE_PATH = .
 SRC_PATH = . 
 
 #install path 
-USR_LIB_PATH = .
+ifeq ("$(INSTALL_ROOT_PATH)", "")
+INSTALL_ROOT_PATH = share
+endif
+ifeq ("$(INSTALL_INCLUDE_PATH)", "")
+INSTALL_INCLUDE_PATH = include
+endif
+ifeq ("$(INSTALL_LIBRARY_PATH)", "")
+INSTALL_LIBRARY_PATH = lib
+endif
 
 # Make command to use for dependencies
 MAKE = make
@@ -36,6 +44,9 @@ CSRC = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
 CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH)))
 COBJ = $(addprefix $(OUTDIR)/,$(subst .c,.o,$(CSRC)))
 CPPOBJ = $(addprefix $(OUTDIR)/,$(subst .cpp,.o,$(CPPSRC)))
+HSRC = $(wildcard $(addsuffix /*.h,$(SRC_PATH)))
+INSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC))
+UNINSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC))
 
 # deal with cpp
 ifneq "$(CPPOBJ)" ""
@@ -116,10 +127,13 @@ cleanall : clean
 	$(call remove_dir,$(TARGET_PATH))
 
 # Install lib or share
-install:
-	-install -p -D -m 0444 $(TARGET) $(USR_LIB_PATH)/$(TARGET)
+$(INSTALL_INC_HEADER):
+	-install -p -D -m 0444 $(subst $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,,$@) $@
+install: $(INSTALL_INC_HEADER) 
+	-install -p -D -m 0444 $(TARGET) $(INSTALL_ROOT_PATH)/$(INSTALL_LIBRARY_PATH)/$(TARGET)
 uninstall:
-	-$(RM) -f $(USR_LIB_PATH)/$(TARGET)
+	-$(RM) -f $(INSTALL_INC_HEADER) 
+	-$(RM) -f $(INSTALL_ROOT_PATH)/$(INSTALL_LIBRARY_PATH)/$(TARGET)
 
 # make directory
 define make_dir

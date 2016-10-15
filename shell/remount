@@ -3,5 +3,5 @@
 # Func : remount device
 # Time : 2016-09-05 21:37:04
 
-sudo umount /media/usb
+sudo umount /media/usb0
 sudo mount -t vfat /dev/sdb4 /mnt/usb -o codepage=936,iocharset=cp936 -o umask=000

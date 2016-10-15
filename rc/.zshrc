@@ -51,7 +51,7 @@ ZSH_THEME="candy-kingdom"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi svn zsh-syntax-highlighting zsh-completions autojump)
+plugins=(git vim svn zsh-syntax-highlighting zsh-completions autojump)
 plugins+=(man vim colored-man-pages tmux)
 # plugins+=(incr)
 
@@ -121,8 +121,8 @@ export PATH=~/usr/bin:$PATH
 export PATH=$HOME/etc/jdk1.7.0_79/bin:$PATH
 export CLASSPATH=$HOME/etc/jdk1.7.0_79/lib:.:$CLASSPATH
 export JAVA_HOME=$HOME/etc/jdk1.7.0_79
-export TERM=screen-256color
-# export TERM=xterm-256color
+# export TERM=screen-256color
+export TERM=xterm-256color
 
 # add default search path
 # 增加.a搜索路径
@@ -132,11 +132,11 @@ export LIBRARY_PATH=$LIBRARY_PATH:~/etc/clang/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/usr/lib/
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/etc/clang/lib
 #增加GCC的include文件搜索路径
-export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/usr/include:$UTILS_INCLUDE:$THREAD_INCLUDE
+# export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/usr/include:$UTILS_INCLUDE:$THREAD_INCLUDE
 export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/etc/clang/include
-export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/ 
-export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/usr/incs 
-export SSLKEYLOGFILE=/home/anton/.sslkeylog.txt
+# export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/ 
+# export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/usr/incs 
+#export SSLKEYLOGFILE=/home/anton/.sslkeylog.txt
 
 #[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && . ~/.autojump/etc/profile.d/autojump.zsh
 [[ -s ~/.autojump/share/autojump/autojump.zsh ]] && . ~/.autojump/share/autojump/autojump.zsh
@@ -163,3 +163,4 @@ alias cp='cp -r'
 alias pdfviewer='evince -f '
 alias filebrower='ranger'
 alias tmux="tmux -2"
+alias wmake='make CC=i686-w64-mingw32-gcc AR=i686-w64-mingw32-ar BUILD_FOR_WIN=1'
