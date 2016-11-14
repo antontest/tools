@@ -158,17 +158,11 @@ endef
 define find_dir
 	$(shell \
 		find_path=`pwd`; \
-		r=`find $$find_path -maxdepth 1 -iname "$(1)"`; \
-		test -n "$$r" && echo $$r && exit 0; \
-		find_path=`dirname $$find_path`;\
-		r=`find $$find_path -maxdepth 1 -iname "$(1)"`; \
-		test -n "$$r" && echo $$r && exit 0; \
-		find_path=`dirname $$find_path`;\
-		r=`find $$find_path -maxdepth 1 -iname "$(1)"`; \
-		test -n "$$r" && echo $$r && exit 0; \
-		find_path=`dirname $$find_path`;\
-		r=`find $$find_path -maxdepth 1 -iname "$(1)"`; \
-		test -n "$$r" && echo $$r && exit 0; \
+		while [ "$$find_path" != $$HOME ]; do \
+    		r=`find $$find_path -maxdepth 1 -iname "$(1)"` ; \
+    		test -n "$$r" && echo $$r && exit 0; \
+    		find_path=`dirname $$find_path`; \
+		done; \
 	)
 endef
 
