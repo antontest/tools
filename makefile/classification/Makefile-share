@@ -28,9 +28,9 @@ CPP_FILE  =
 HEAD_FILE = 
 
 # library names
-LIB_NAME = 
-WIN_LIB_NAME  :=
-UNIX_LIB_NAME :=
+LIB_NAME       = 
+WIN_LIB_NAME  := 
+UNIX_LIB_NAME := 
 
 # other librarys
 OTH_LIB =
@@ -131,9 +131,9 @@ define gen_name
 endef
 
 # gen target name and target 
-NAME    = $(call gen_name,$(TARGET_NAME),1,$(BUILD_FOR_WIN))
-NAME   := $(strip $(NAME))
-TARGET  = $(TARGET_PATH)/$(NAME)
+NAME         = $(call gen_name,$(TARGET_NAME),1,$(BUILD_FOR_WIN))
+TARGET_NAME := $(strip $(NAME))
+TARGET       = $(TARGET_PATH)/$(TARGET_NAME)
 
 all:$(TARGET)
 $(OUTDIR) :  
