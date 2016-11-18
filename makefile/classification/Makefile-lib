@@ -9,7 +9,6 @@
 # target
 TARGET_NAME = 
 TARGET_PATH = .
-TARGET = $(TARGET_PATH)/$(TARGET_NAME)
 
 # output dir
 OUTDIR = build
@@ -18,11 +17,16 @@ OUTDIR = build
 INCLUDE_PATH = . 
 
 # source files
-SRC_PATH = . 
+SRC_PATH  = .
+
+# other c ,cpp and header files
+C_FILE    = 
+CPP_FILE  = 
+HEAD_FILE = 
 
 #install path 
 ifeq ("$(INSTALL_ROOT_PATH)", "")
-INSTALL_ROOT_PATH = share
+INSTALL_ROOT_PATH    = share
 endif
 ifeq ("$(INSTALL_INCLUDE_PATH)", "")
 INSTALL_INCLUDE_PATH = include
@@ -32,36 +36,38 @@ INSTALL_LIBRARY_PATH = lib
 endif
 
 # Make command to use for dependencies
-MAKE = make
-RM = rm
-MKDIR = mkdir
-CC = gcc
-XX = g++
-AR = ar
+MAKE    = make
+RM      = rm
+MKDIR   = mkdir
+CC      = gcc
+XX      = g++
+AR      = ar
+LN      = ln
+INSTALL = install
+
+# Warning
+OPTM     = -O2
+OTHER    = -Wno-unused -Wno-format
+WARNING  = -Wall -Werror
+CFLAGS  += $(WARNING)
 
 # source of .c and .o
-CSRC = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
+CSRC   = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
 CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH)))
-COBJ = $(addprefix $(OUTDIR)/,$(subst .c,.o,$(CSRC)))
-CPPOBJ = $(addprefix $(OUTDIR)/,$(subst .cpp,.o,$(CPPSRC)))
-HSRC = $(wildcard $(addsuffix /*.h,$(SRC_PATH)))
-INSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC))
-UNINSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC))
+COBJ   = $(addprefix $(OUTDIR)/,$(subst .c,.o,$(CSRC) $(C_FILE)))
+CPPOBJ = $(addprefix $(OUTDIR)/,$(subst .cpp,.o,$(CPPSRC) $(CPP_FILE)))
+HSRC   = $(wildcard $(addsuffix /*.h,$(SRC_PATH)))
+INSTALL_INC_HEADER   = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC) $(HEAD_FILE))
+UNINSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC) $(HEAD_FILE))
+
+# dependent files .d
+CDEF   = $(patsubst %.c,${OUTDIR}/%.d,$(CSRC) $(C_FILE))
+CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(CPPSRC) $(CPP_FILE))
 
 # deal with cpp
 ifneq "$(CPPOBJ)" ""
 CFLAGS += -lstdc++
 endif
-
-# dependent files .d
-CDEF = $(patsubst %.c,${OUTDIR}/%.d,$(CSRC))
-CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(CPPSRC))
-
-# Warning
-OPTM = -O2
-OTHER = -Wno-unused -Wno-format
-WARNING = -Wall -Werror
-CFLAGS += $(WARNING)
 
 # complie
 INC = $(addprefix -I ,$(INCLUDE_PATH))
@@ -74,12 +80,39 @@ LINK = $(AR) -rs $@ $(COBJ) $(CPPOBJ)
 MAKEDEPEND = gcc -MM -MT
 
 # header and target LINK
-CUR_DIR_PATH=$(shell pwd)
-CUR_DIR=$(shell basename `pwd`)
-TARGET_LIB_PATH=$(call find_dir,"libs")
-TARGET_INC_PATH=$(call find_dir,"incs")
-FINAL_LIB_TARGET=$(TARGET_LIB_PATH)/$(TARGET_NAME)
-FINAL_INC_TARGET=$(TARGET_INC_PATH)/$(CUR_DIR)
+CUR_DIR_PATH     = $(shell pwd)
+CUR_DIR          = $(shell basename `pwd`)
+TARGET_LIB_PATH  = $(call find_dir,"libs")
+TARGET_INC_PATH  = $(call find_dir,"incs")
+FINAL_LIB_TARGET = $(TARGET_LIB_PATH)/$(TARGET_NAME)
+FINAL_INC_TARGET = $(TARGET_INC_PATH)/$(CUR_DIR)
+
+# generate target name
+# $1 Library name
+# $2 0 -- for static, 1 -- for shared, 2 -- for execute
+# $3 build for win, 0 -- for unix, 1 -- for windows
+define gen_name 
+	$(shell \
+		win=1 ; \
+		name=$(1) ; \
+		test -z "$(3)" && test $(2) -eq 0 && win=0 && ext=a ; \
+		test -z "$(3)" && test $(2) -eq 1 && win=0 && ext=so ; \
+		test -z "$(3)" && test $(2) -eq 2 && win=0 && ext= ; \
+		test -n "$(3)" && test $(2) -eq 0 && win=1 && ext=a ; \
+		test -n "$(3)" && test $(2) -eq 1 && win=1 && ext=dll ; \
+		test -n "$(3)" && test $(2) -eq 2 && win=1 && ext=exe ; \
+		prefix_lib=`echo $(1) | grep "lib"` ; \
+		test -z "$$prefix_lib" && test $$win -eq 0 && test $(2) -ne 2 && name="lib"$(1) ; \
+		test -n "$$ext" && suffix_ext=`echo $(1) | grep ".$$ext"` ; \
+		test -n "$$ext" && test -z "$$suffix_ext" && name=$$name"."$$ext ; \
+		echo $$name ; \
+	)
+endef
+
+# gen target name and target 
+NAME   = $(call gen_name,$(TARGET_NAME),0,$(BUILD_FOR_WIN))
+NAME  := $(strip $(NAME))
+TARGET = $(TARGET_PATH)/$(NAME)
 
 all:$(TARGET)
 $(OUTDIR) :  
@@ -103,8 +136,8 @@ $(TARGET_PATH):
 	-@$(call make_dir,$@)
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH) 
 	$(LINK)
-	-@ln -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME)
-	-@ln -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/
+	-@$(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME)
+	-@$(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/
 -include $(CDEF)
 -include $(CPPDEF)
 
@@ -128,9 +161,9 @@ cleanall : clean
 
 # Install lib or share
 $(INSTALL_INC_HEADER):
-	-install -p -D -m 0444 $(subst $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,,$@) $@
+	-$(INSTALL) -p -D -m 0444 $(subst $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,,$@) $@
 install: $(INSTALL_INC_HEADER) 
-	-install -p -D -m 0444 $(TARGET) $(INSTALL_ROOT_PATH)/$(INSTALL_LIBRARY_PATH)/$(TARGET)
+	-$(INSTALL) -p -D -m 0444 $(TARGET) $(INSTALL_ROOT_PATH)/$(INSTALL_LIBRARY_PATH)/$(TARGET)
 uninstall:
 	-$(RM) -f $(INSTALL_INC_HEADER) 
 	-$(RM) -f $(INSTALL_ROOT_PATH)/$(INSTALL_LIBRARY_PATH)/$(TARGET)
