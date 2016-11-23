@@ -10,6 +10,9 @@
 TARGET_NAME = 
 TARGET_PATH = .
 
+# program type, 0 -- for static library, 1 -- for shared library, 2 -- for execute
+PROGRAM_TYPE = 0
+
 # output dir
 OUTDIR = build
 
@@ -19,10 +22,21 @@ SRC_PATH  = .
 # include
 INCLUDE_PATH = . 
 
-# other c ,cpp and header files
+# search the lib which complied by myself
+LIB_PATH = .
+
+# library names
+LIB_NAME       =
+WIN_LIB_NAME  :=
+UNIX_LIB_NAME :=
+
+# other c, cpp and header files
 C_FILE    = 
 CPP_FILE  = 
 HEAD_FILE = 
+
+# other librarys
+OTH_LIB =
 
 # control whether link library and include, 1 -- for yes, 0 -- for no
 LINK_LIB = 1
@@ -38,6 +52,10 @@ endif
 ifeq ("$(INSTALL_LIBRARY_PATH)", "")
 INSTALL_LIBRARY_PATH = lib
 endif
+ifeq ("$(INSTALL_BIN_PATH)", "")
+INSTALL_BIN_PATH     = bin
+endif
+
 
 # Make command to use for dependencies
 MAKE    = make
@@ -61,8 +79,6 @@ CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH)))
 COBJ   = $(addprefix $(OUTDIR)/,$(subst .c,.o,$(CSRC) $(C_FILE)))
 CPPOBJ = $(addprefix $(OUTDIR)/,$(subst .cpp,.o,$(CPPSRC) $(CPP_FILE)))
 HSRC   = $(wildcard $(addsuffix /*.h,$(SRC_PATH)))
-INSTALL_INC_HEADER   = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC) $(HEAD_FILE))
-UNINSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC) $(HEAD_FILE))
 
 # dependent files .d
 CDEF   = $(patsubst %.c,${OUTDIR}/%.d,$(CSRC) $(C_FILE))
@@ -74,11 +90,15 @@ CFLAGS += -lstdc++
 endif
 
 # complie
-INC = $(addprefix -I ,$(INCLUDE_PATH))
+INC     = $(addprefix -I ,$(INCLUDE_PATH))
 COMPILE = $(CFLAGS) $(INC) -c $< -o $@ #$(OUTDIR)/$(*F).o
 
-# compile library
-LINK = $(AR) -rs $@ $(COBJ) $(CPPOBJ)
+#compile share
+ifeq ("$(BUILD_FOR_WIN)", "1")
+LIB= $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
+else 
+LIB= $(addprefix -l,$(LIB_NAME) $(UNIX_LIB_NAME))
+endif
 
 # make depend
 MAKEDEPEND = gcc -MM -MT
@@ -116,9 +136,36 @@ define gen_name
 endef
 
 # gen target name and target 
-NAME         = $(call gen_name,$(TARGET_NAME),0,$(BUILD_FOR_WIN))
+NAME         = $(call gen_name,$(TARGET_NAME),$(PROGRAM_TYPE),$(BUILD_FOR_WIN))
 TARGET_NAME := $(strip $(NAME))
 TARGET       = $(TARGET_PATH)/$(TARGET_NAME)
+
+# install include
+INSTALL_INC_HEADER   = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC) $(HEAD_FILE))
+UNINSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,$(HSRC) $(HEAD_FILE))
+
+# compile library
+ifeq ($(PROGRAM_TYPE), 0)
+LINK = $(AR) -rs $@ $(COBJ) $(CPPOBJ)
+INC_INSTALL_PERMISSION  = 0444
+LIB_INSTALL_PERMISSION  = 0444
+TARGET_INSTALL_PATH     = $(INSTALL_LIBRARY_PATH)
+TARGET_INSTALL_FROM     = -p -D -m $(LIB_INSTALL_PERMISSION) $(TARGET)
+else ifeq ($(PROGRAM_TYPE), 1)
+LINK = $(CC) -shared -fpic $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB)
+INC_INSTALL_PERMISSION  = 0444
+LIB_INSTALL_PERMISSION  = 0555
+TARGET_INSTALL_PATH     = $(INSTALL_LIBRARY_PATH)
+TARGET_INSTALL_FROM     = -p -D -m $(LIB_INSTALL_PERMISSION) $(TARGET)
+else 
+LINK = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB)
+LIB_INSTALL_PERMISSION  = 0555
+TARGET_INSTALL_PATH     = $(INSTALL_BIN_PATH)
+TARGET_INSTALL_FROM     = -s $(TARGET) -p -D 
+INSTALL_INC_HEADER     :=
+UNINSTALL_INC_HEADER   :=
+endif
+TARGET_INSTALL_TO = $(INSTALL_ROOT_PATH)/$(TARGET_INSTALL_PATH)/$(TARGET)
 
 all:$(TARGET)
 $(OUTDIR) :  
@@ -142,8 +189,8 @@ $(TARGET_PATH):
 	-@$(call make_dir,$@)
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH) 
 	$(LINK)
-	-@$(shell test -n "$(LINK_LIB)" && test $(LINK_LIB) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME))
-	-@$(shell test -n "$(LINK_INC)" && test $(LINK_INC) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/)
+	-@$(shell test $(PROGRAM_TYPE) -ne 2 && test -n "$(LINK_LIB)" && test $(LINK_LIB) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME))
+	-@$(shell test $(PROGRAM_TYPE) -ne 2 && test -n "$(LINK_INC)" && test $(LINK_INC) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/)
 -include $(CDEF)
 -include $(CPPDEF)
 
@@ -166,13 +213,13 @@ cleanall : clean
 	$(call remove_dir,$(TARGET_PATH))
 
 # Install lib or share
-$(INSTALL_INC_HEADER):
-	-$(INSTALL) -p -D -m 0444 $(subst $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,,$@) $@
 install: $(INSTALL_INC_HEADER) 
-	-$(INSTALL) -p -D -m 0444 $(TARGET) $(INSTALL_ROOT_PATH)/$(INSTALL_LIBRARY_PATH)/$(TARGET)
-uninstall:
-	-$(RM) -f $(INSTALL_INC_HEADER) 
-	-$(RM) -f $(INSTALL_ROOT_PATH)/$(INSTALL_LIBRARY_PATH)/$(TARGET)
+	-$(INSTALL) $(TARGET_INSTALL_FROM)  $(TARGET_INSTALL_TO)
+$(INSTALL_INC_HEADER):
+	-$(INSTALL) -p -D -m $(INC_INSTALL_PERMISSION) $(subst $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,,$@) $@
+uninstall: 
+	-$(RM) -f $(UNINSTALL_INC_HEADER)
+	-$(RM) -f $(INSTALL_ROOT_PATH)/$(TARGET_INSTALL_PATH)/$(TARGET)
 
 # make directory
 define make_dir

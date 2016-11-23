@@ -13,27 +13,31 @@ TARGET_PATH = .
 # output dir
 OUTDIR = build
 
+# source files
+SRC_PATH  = .
+
 # include
 INCLUDE_PATH = . 
 
 # search the lib which complied by myself
 LIB_PATH = .
 
-# source files
-SRC_PATH  = .
+# library names
+LIB_NAME       =
+WIN_LIB_NAME  :=
+UNIX_LIB_NAME :=
 
 # other c, cpp and header files
 C_FILE    = 
 CPP_FILE  = 
 HEAD_FILE = 
 
-# library names
-LIB_NAME       = 
-WIN_LIB_NAME  := 
-UNIX_LIB_NAME := 
-
 # other librarys
 OTH_LIB =
+
+# control whether link library and include, 1 -- for yes, 0 -- for no
+LINK_LIB = 1
+LINK_INC = 1
 
 #install path 
 ifeq ("$(INSTALL_ROOT_PATH)", "")
@@ -122,9 +126,11 @@ define gen_name
 		test -n "$(3)" && test $(2) -eq 0 && win=1 && ext=a ; \
 		test -n "$(3)" && test $(2) -eq 1 && win=1 && ext=dll ; \
 		test -n "$(3)" && test $(2) -eq 2 && win=1 && ext=exe ; \
-		prefix_lib=`echo $(1) | grep "lib"` ; \
-		test -z "$$prefix_lib" && test $$win -eq 0 && test $(2) -ne 2 && name="lib"$(1) ; \
-		test -n "$$ext" && suffix_ext=`echo $(1) | grep ".$$ext"` ; \
+		prefix_lib=`echo $(1) | grep "^lib"` ; \
+		test -z "$$prefix_lib" && test $(2) -ne 2 && name="lib"$(1) ; \
+		test $(2) -eq 1 && test $$win -eq 0 && name=`echo $$name | sed "s/\.dll$$/\.so/g"` ; \
+		test $(2) -eq 1 && test $$win -eq 1 && name=`echo $$name | sed "s/\.so$$/\.dll/g"` ; \
+		test -n "$$ext" && suffix_ext=`echo $$name | grep "\.$$ext$$"` ; \
 		test -n "$$ext" && test -z "$$suffix_ext" && name=$$name"."$$ext ; \
 		echo $$name ; \
 	)
@@ -157,8 +163,8 @@ $(TARGET_PATH):
 	-@$(call make_dir,$@)
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH)
 	$(LINK)
-	-@$(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME)
-	-@$(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/
+	-@$(shell test -n "$(LINK_LIB)" && test $(LINK_LIB) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME))
+	-@$(shell test -n "$(LINK_INC)" && test $(LINK_INC) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/)
 -include $(CDEF)
 -include $(CPPDEF)
 

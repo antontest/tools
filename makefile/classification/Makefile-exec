@@ -13,24 +13,24 @@ TARGET_PATH = .
 # temp file output dir
 OUTDIR = build
 
+# path of source file 
+SRC_PATH  = .
+
 # include
 INCLUDE_PATH = . 
 
 # search the lib which complied by myself
 LIB_PATH  = .
 
-# path of source file 
-SRC_PATH  = .
+# library names
+LIB_NAME       = 
+WIN_LIB_NAME  := 
+UNIX_LIB_NAME := 
 
 # other c, cpp and header files
 C_FILE    = 
 CPP_FILE  = 
 HEAD_FILE = 
-
-# library names
-LIB_NAME       = 
-WIN_LIB_NAME  := 
-UNIX_LIB_NAME := 
 
 # other librarys
 OTH_LIB = 
@@ -119,9 +119,11 @@ define gen_name
 		test -n "$(3)" && test $(2) -eq 0 && win=1 && ext=a ; \
 		test -n "$(3)" && test $(2) -eq 1 && win=1 && ext=dll ; \
 		test -n "$(3)" && test $(2) -eq 2 && win=1 && ext=exe ; \
-		prefix_lib=`echo $(1) | grep "lib"` ; \
-		test -z "$$prefix_lib" && test $$win -eq 0 && test $(2) -ne 2 && name="lib"$(1) ; \
-		test -n "$$ext" && suffix_ext=`echo $(1) | grep ".$$ext"` ; \
+		prefix_lib=`echo $(1) | grep "^lib"` ; \
+		test -z "$$prefix_lib" && test $(2) -ne 2 && name="lib"$(1) ; \
+		test $(2) -eq 1 && test $$win -eq 0 && name=`echo $$name | sed "s/\.dll$$/\.so/g"` ; \
+		test $(2) -eq 1 && test $$win -eq 1 && name=`echo $$name | sed "s/\.so$$/\.dll/g"` ; \
+		test -n "$$ext" && suffix_ext=`echo $$name | grep "\.$$ext$$"` ; \
 		test -n "$$ext" && test -z "$$suffix_ext" && name=$$name"."$$ext ; \
 		echo $$name ; \
 	)
@@ -142,8 +144,8 @@ $(CPPDEF) :
 	-@$(call make_dir,$(dir $@))
 	$(MAKEDEPEND) $(subst .d,.o,$@) $(subst $(OUTDIR)/,,$(@:.d=.cpp)) > $@
 depend : $(OUTDIR)
-	-rm -f $(CDEF)
-	-rm -f $(CPPDEF)
+	-$(RM) -f $(CDEF)
+	-$(RM) -f $(CPPDEF)
 	$(MAKE) $(CDEF)
 	$(MAKE) $(CPPDEF)
 $(COBJ) :
