@@ -121,6 +121,14 @@ export PATH=~/usr/bin:$PATH
 export PATH=$HOME/etc/jdk1.7.0_79/bin:$PATH
 export CLASSPATH=$HOME/etc/jdk1.7.0_79/lib:.:$CLASSPATH
 export JAVA_HOME=$HOME/etc/jdk1.7.0_79
+export ANDRROID_SDK=$HOME/etc/android-sdk-linux
+export ANDRROID_NDK=$HOME/etc/android-ndk-r6
+# export PATH=$ANDRROID_SDK/android-7.1.1:$PATH
+# export PATH=$ANDRROID_SDK/platform-tools:$PATH
+# export PATH=$ANDRROID_SDK/tools:$PATH
+export PATH=$ANDRROID_NDK:$PATH
+# export PATH=$HOME/etc/android-ndk-r12b/toolchains/x86-4.9/prebuilt/linux-x86/bin/:$PATH
+export PATH=$ANDRROID_NDK/toolchains/x86-4.4.3/prebuilt/linux-x86/bin/:$PATH
 # export TERM=screen-256color
 export TERM=xterm-256color
 
