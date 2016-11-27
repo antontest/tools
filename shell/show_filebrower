@@ -1,0 +1,6 @@
+#! /bin/bash
+# Name : show_filebrower
+# Func : 
+# Time : 2016-08-14 23:21:18
+
+echo "anton.0804" | sudo -S nautilus --no-desktop &

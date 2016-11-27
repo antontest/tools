@@ -1,0 +1,122 @@
+#! /bin/bash
+# Name : pkg-win-install
+# Func : package windows files for install with makensis
+# Time : 2016-10-15 17:10:43
+
+# \brief get paramters from cmd line
+# \param $@ [in] paramters from cmd line
+# \return 0, if succ
+#        -1, if fail
+function parser_args()
+{
+    for ((i = 1; i <= $#; i++)); do
+        case "${!i}" in
+            -h|--help) echo $@; shift ;;
+            -b|--bin) 
+                ((i=i+1))
+                bin_name=${!i};;
+            -p|--path)
+                ((i=i+1))
+                bin_path=${!i};;
+            -s|--search-path)
+                ((i=i+1))
+                search_path=${!i};;
+            --) break ;;
+            *) echo "${!i} Internal error!" ; exit 1 ;;
+        esac
+    done
+
+    return 0
+}
+
+conf_path=install.conf
+function get_value()
+{
+    echo `sed -n "s/$1\ *=\ *\(.*\)/\1/gp" ${conf_path}`
+}
+
+function get_conf()
+{
+    pro_path=`get_value PRO_PATH`
+    [ -z "${pro_path}" ] && echo "Please set right product path!" && exit 1
+    pro_name=`get_value PRO_NAME`
+    [ -z "${pro_name}" ] && echo "Please set right product name!" && exit 1
+    search_path=`get_value LIB_SEARCH_PATH`
+    [ -z "${search_path}" ] && echo "Please set right library search path!" && exit 1
+    extra_lib_name=`get_value EXTRA_LIB_NAME`
+    extra_file=`get_value EXTRA_FILE`
+    run_param=`get_value RUN_PARAM`
+}
+
+function vmkdir()
+{
+    if [ ! -e "${1}" ] ; then
+        mkdir -p ${1}
+    fi
+}
+
+# get config information for install.conf
+get_conf
+
+# find Makefile
+bin_path=.
+makefile_path=`find ${bin_path} -name Makefile -type f`
+[ -z "${makefile_path}" ] && echo -e "Can't find Makefile!" && exit 1
+
+# parser target name
+bin_name=`sed -n "/TARGET_NAME\ *=\ */s/^TARGET_NAME\ *=\ *\(.*\)$/\1/gp" ${makefile_path}`
+[ -z "${bin_name}" ] && echo -e "Parer bin name failed!" && exit 1
+
+# parser library names
+lib_name=`sed -n "/LIB_NAME/s/^.*LIB_NAME[\ :]*=\ *\(.*\)$/\1/gp" ${makefile_path}`
+[ -z "${lib_name}" ] && echo -e "Parer lib name failed!" && exit 1
+
+# find library and copy to tmp directroy
+tmp_dir=win-nsis
+target_bin_path=bin
+lib_name+=" "$extra_lib_name
+vmkdir ${tmp_dir}
+vmkdir ${tmp_dir}/${target_bin_path}
+
+# find binary file
+ret=`find ${pro_path} -name ${bin_name}.exe -type f`
+[ -z "${ret}" ] && echo "Can't find binary file!" && exit
+cp -f ${ret} ${tmp_dir}/${target_bin_path}
+
+# copy library files and extra_file
+if [ -n "${extra_file}" ] ; then
+    for file in ${extra_file} ; do
+        ret=`find ${search_path} -name ${file} -type f`
+        if [ -n "${ret}" ] ; then
+            set -x
+            files+=${target_bin_path}/${file}" "
+            cp -f ${ret} ${tmp_dir}/${target_bin_path}
+            set +x
+        fi
+    done
+fi
+
+files=${target_bin_path}/${bin_name}.exe" "${files}" "
+for lib in ${lib_name} ; do 
+    libs=lib${lib}.dll
+    ret=`find ${search_path} -name ${libs} -type f`
+    if [ -n "${ret}" ] ; then
+        files+=${target_bin_path}/${libs}" "
+        cp -f ${ret} ${tmp_dir}/${target_bin_path}
+    fi
+done
+
+# generate nsis script
+tmp_nsi_name=nsis.nsi
+cd $tmp_dir
+nsi_script_path=${TOOLS_PATH}/nsis/nsis.nsi
+[ $? -ne 0 ] && echo "copy nsis.nsi failed!" && exit 1
+cp ${nsi_script_path} ${tmp_nsi_name}
+
+files=${files//\//\\\/}
+sed -i "s/__BIN_NAME__/${pro_name}/g"   ${tmp_nsi_name}
+sed -i "s/__RUN_PARAM__/${run_param}/g" ${tmp_nsi_name}
+sed -i "s/__FILE_NAME__/${files}/g"     ${tmp_nsi_name}
+
+# generate installer
+makensis ${tmp_nsi_name}

@@ -1,0 +1,17 @@
+#! /bin/bash
+# Name : gen_nsis
+# Func : 
+# Time : 2016-10-15 19:15:47
+
+# copy
+conf_name=install.conf
+conf_path=${TOOLS_PATH}/nsis/${conf_name}
+cp -f ${conf_path} ${conf_name}
+
+# find makefile
+makefile_path=`find . -maxdepth 1 -name Makefile -type f`
+[ -z "${makefile_path}" ] && exit 1
+
+# binary name
+bin_name=`sed -n "s/^TARGET_NAME\ *=\ *\(.*\)/\1/gp" ${makefile_path}`
+[ -n "${bin_name}" ] && sed -i "/^PRO_NAME/s/$/${bin_name}/g" ${conf_name}
