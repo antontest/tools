@@ -1,0 +1,8 @@
+#! /bin/bash
+# Name : nmake
+# Func : make command for ndk
+# Time : 2016-12-01 22:01:51
+
+ndk_path=$HOME/etc/android-ndk-r9d
+ndk_build=ndk-build
+$ndk_path/$ndk_build NDK_OUT=./build/android_objs
