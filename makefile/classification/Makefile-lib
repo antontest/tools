@@ -142,8 +142,8 @@ $(TARGET_PATH):
 	-@$(call make_dir,$@)
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH) 
 	$(LINK)
-	-@$(shell test -n "$(LINK_LIB)" && test $(LINK_LIB) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME))
-	-@$(shell test -n "$(LINK_INC)" && test $(LINK_INC) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/)
+	-@$(shell test "$(TARGET_LIB_PATH)" != "null" && test $(LINK_LIB) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME))
+	-@$(shell test "$(TARGET_INC_PATH)" != "null" && test $(LINK_INC) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/)
 -include $(CDEF)
 -include $(CPPDEF)
 
@@ -202,6 +202,7 @@ define find_dir
     		test -n "$$r" && echo $$r && exit 0; \
     		find_path=`dirname $$find_path`; \
 		done; \
+		echo "null" ;\
 	)
 endef
 

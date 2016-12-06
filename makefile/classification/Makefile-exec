@@ -17,15 +17,19 @@ OUTDIR = build
 SRC_PATH  = .
 
 # include
-INCLUDE_PATH = . 
+INCLUDE_PATH      = . 
+UNIX_INCLUDE_PATH = 
+WIN_INCLUDE_PATH  = 
 
 # search the lib which complied by myself
-LIB_PATH  = .
+LIB_PATH      = . 
+UNIX_LIB_PATH = 
+WIN_LIB_PATH  = 
 
 # library names
 LIB_NAME       = 
-WIN_LIB_NAME  := 
 UNIX_LIB_NAME := 
+WIN_LIB_NAME  := 
 
 # other c, cpp and header files
 C_FILE    = 
@@ -87,17 +91,19 @@ CFLAGS += -lstdc++
 endif
 
 # complie
-INC = $(addprefix -I ,$(INCLUDE_PATH))
 COMPILE = $(CFLAGS) $(INC) -c $< -o $@ #$(OUTDIR)/$(*F).o
 
 # library of compling
 LIB_PATH += .
-LIBS_PATH = $(addprefix -L ,$(LIB_PATH))
 # set lib
 ifeq ("$(BUILD_FOR_WIN)", "1")
+INC = $(addprefix -I ,$(INCLUDE_PATH) $(WIN_INCLUDE_PATH))
 LIB= $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
+LIBS_PATH = $(addprefix -L ,$(LIB_PATH) $(WIN_LIB_PATH))
 else 
+INC = $(addprefix -I ,$(INCLUDE_PATH) $(UNIX_INCLUDE_PATH))
 LIB= $(addprefix -l,$(LIB_NAME) $(UNIX_LIB_NAME))
+LIBS_PATH = $(addprefix -L ,$(LIB_PATH) $(UNIX_LIB_PATH))
 endif
 LIB := $(LIBS_PATH) $(LIB) $(OTH_LIB)
 LINK = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB) #$(OUTDIR)/*.o

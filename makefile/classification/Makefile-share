@@ -17,10 +17,14 @@ OUTDIR = build
 SRC_PATH  = .
 
 # include
-INCLUDE_PATH = . 
+INCLUDE_PATH       = . 
+LINUX_INCLUDE_PATH = 
+WIN_INCLUDE_PATH   = 
 
 # search the lib which complied by myself
-LIB_PATH = .
+LIB_PATH       = .
+LINUX_LIB_PATH = 
+WIN_LIB_PATH   = 
 
 # library names
 LIB_NAME       =
@@ -83,19 +87,21 @@ CFLAGS += -lstdc++
 endif
 
 # complie
-INC = $(addprefix -I ,$(INCLUDE_PATH))
 COMPILE = $(CFLAGS) $(INC) -c $< -o $@  #$(OUTDIR)/$(*F).o
 
 #compile share
 ifeq ("$(BUILD_FOR_WIN)", "1")
 LIB= $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
+INC = $(addprefix -I ,$(INCLUDE_PATH) $(WIN_INCLUDE_PATH))
+LIBS_PATH = $(addprefix -L ,$(LIB_PATH) $(WIN_LIB_PATH))
 else 
 LIB= $(addprefix -l,$(LIB_NAME) $(UNIX_LIB_NAME))
+INC = $(addprefix -I ,$(INCLUDE_PATH) $(LINUX_INCLUDE_PATH))
+LIBS_PATH = $(addprefix -L ,$(LIB_PATH) $(LINUX_LIB_PATH))
 endif
 LINK=$(CC) -shared -fpic $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB)
 
 # Library of compling
-LIBS_PATH = $(addprefix -L ,$(LIB_PATH))
 # set lib
 #CFG_LIB = $(wildcard $(addsuffix /*.a,$(CFG_LIB_PATH)))
 #CFG_LIB += $(wildcard $(addsuffix /*.so,$(CFG_LIB_PATH)))
