@@ -121,8 +121,9 @@ export PATH=~/usr/bin:$PATH
 export PATH=$HOME/etc/jdk1.7.0_79/bin:$PATH
 export CLASSPATH=$HOME/etc/jdk1.7.0_79/lib:.:$CLASSPATH
 export JAVA_HOME=$HOME/etc/jdk1.7.0_79
-export ANDRROID_SDK=$HOME/etc/android-sdk-linux
-export ANDRROID_NDK=$HOME/etc/android-ndk-r6
+# export ANDRROID_SDK=$HOME/etc/android-sdk-linux
+# export ANDRROID_NDK=$HOME/etc/android-ndk-r6
+export ANDRROID_NDK=$HOME/etc/android-ndk-r9d
 # export PATH=$ANDRROID_SDK/android-7.1.1:$PATH
 # export PATH=$ANDRROID_SDK/platform-tools:$PATH
 # export PATH=$ANDRROID_SDK/tools:$PATH
@@ -146,9 +147,13 @@ export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/etc/clang/include
 # export C_INCLUDE_PATH=$C_INCLUDE_PATH:~/usr/incs 
 #export SSLKEYLOGFILE=/home/anton/.sslkeylog.txt
 
+# man path
+export MANPATH=$HOME/tools/man/:$MANPATH
+
 #[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && . ~/.autojump/etc/profile.d/autojump.zsh
 [[ -s ~/.autojump/share/autojump/autojump.zsh ]] && . ~/.autojump/share/autojump/autojump.zsh
 autoload -U compinit && compinit
+
 
 # go
 export GOROOT=$HOME/.go
@@ -158,6 +163,10 @@ export GOOS=linux
 export PATH=$GOROOT/bin:$PATH
 export GOPATH=$GOBIN
 export PATH=$PATH:$GOPATH/bin
+
+# python completion
+# export VIRTUAL_ENV=$HOME/project/python/core/library/
+export VIRTUAL_ENV=$HOME/program/project/python/core/ # library #[:$HOME/program/project/python/core/
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -172,3 +181,4 @@ alias pdfviewer='evince -f '
 alias filebrower='ranger'
 alias tmux="tmux -2"
 alias wmake='make CC=i686-w64-mingw32-gcc AR=i686-w64-mingw32-ar BUILD_FOR_WIN=1'
+# alias nmake='ndk-build NDK_OUT=./build/android_objs'

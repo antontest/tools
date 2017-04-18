@@ -2,7 +2,7 @@
 #FileName : makefile   
 #FileFunc : Linux编译链接源程序,生成目标文件,库或者可执行代码      
 #Version  : V0.1        
-#Author   : Sunrier        
+#Author   : Antonio
 #Date     : 2012-06-14   
 #Descp    : Linux下makefile模板       
 #*************************************************************/     
