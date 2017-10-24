@@ -68,6 +68,9 @@ OPTM     = -O2
 OTHER    = -Wno-unused -Wno-format
 WARNING  = -Wall -Werror
 CFLAGS  += $(WARNING)
+ifeq ("$(BUILD_FOR_WIN)", "")
+CFLAGS  += -fpic
+endif
 
 # source of .c and .o
 CSRC   = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
@@ -108,7 +111,7 @@ LINK=$(CC) -shared -fpic $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB)
 LIB := $(LIBS_PATH) $(LIB) $(OTH_LIB)
 
 # make depend
-MAKEDEPEND = gcc -MM -MT
+MAKEDEPEND = gcc -MM -MT $(INC)
 
 # header and target LINK
 CUR_DIR_PATH     = $(shell pwd)

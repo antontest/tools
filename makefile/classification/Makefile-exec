@@ -71,6 +71,9 @@ ERROR    = -Werror
 OTHER    = -Wno-unused -Wno-format
 WARNING  = -Wall $(ERROR)
 CFLAGS  += $(WARNING) $(DEBUG)
+ifeq ("$(BUILD_FOR_WIN)", "")
+CFLAGS  += -fpic
+endif
 
 # source of .c and .o
 CSRC   = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
@@ -109,7 +112,7 @@ LIB := $(LIBS_PATH) $(LIB) $(OTH_LIB)
 LINK = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB) #$(OUTDIR)/*.o
 
 # make depend
-MAKEDEPEND = gcc -MM -MT
+MAKEDEPEND = gcc -MM -MT $(INC)
 
 # generate target name
 # $1 Library name
