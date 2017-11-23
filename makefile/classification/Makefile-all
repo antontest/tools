@@ -1,34 +1,41 @@
 #/*************************************************************        
 #FileName : makefile   
-#FileFunc : Linux编译链接源程序,生成库
+#FileFunc : Linux static, shared and execute binary generate
 #Version  : V0.1        
 #Author   : Antonio
-#Date     : 2016-03-24   
-#Descp    : Linux下makefile模板       
+#Date     : 2017-11-22   
+#Descp    : Linux makefile template
 #*************************************************************/     
 # target
-TARGET_NAME = 
-TARGET_PATH = .
+PROGRAM_NAME = 
+TARGET_NAME  = $(PROGRAM_NAME)
+TARGET_PATH  = .
 
 # program type, 0 -- for static library, 1 -- for shared library, 2 -- for execute
-PROGRAM_TYPE = 0
+PROGRAM_TYPE = 1
 
 # output dir
 OUTDIR = build
 
 # source files
-SRC_PATH  = .
+SRC_PATH      = .
+UNIX_SRC_PATH =
+WIN_SRC_PATH  =
 
 # include
-INCLUDE_PATH = . 
+INC_PATH      = .
+UNIX_INC_PATH =
+WIN_INC_PATH  =
 
 # search the lib which complied by myself
-LIB_PATH = .
+LIB_PATH      = .
+UNIX_LIB_PATH = 
+WIN_LIB_PATH  = 
 
 # library names
-LIB_NAME       =
-WIN_LIB_NAME  :=
-UNIX_LIB_NAME :=
+LIB_NAME      =
+UNIX_LIB_NAME =
+WIN_LIB_NAME  = 
 
 # other c, cpp and header files
 C_FILE    = 
@@ -39,12 +46,13 @@ HEAD_FILE =
 OTH_LIB =
 
 # control whether link library and include, 1 -- for yes, 0 -- for no
+LINK_TAR = 1
 LINK_LIB = 1
 LINK_INC = 1
 
 #install path 
 ifeq ("$(INSTALL_ROOT_PATH)", "")
-INSTALL_ROOT_PATH    = share
+INSTALL_ROOT_PATH = $(PROGRAM_NAME)_install
 endif
 ifeq ("$(INSTALL_INCLUDE_PATH)", "")
 INSTALL_INCLUDE_PATH = include
@@ -53,9 +61,16 @@ ifeq ("$(INSTALL_LIBRARY_PATH)", "")
 INSTALL_LIBRARY_PATH = lib
 endif
 ifeq ("$(INSTALL_BIN_PATH)", "")
-INSTALL_BIN_PATH     = bin
+INSTALL_BIN_PATH = bin
 endif
 
+# system info
+CUR_DIR  = $(shell basename `pwd`)
+CUR_PATH = $(shell pwd)
+MACHINE  = $(shell uname -m)
+PLATFORM = $(strip $(call get_tool_chain_name,"$(CC)"))
+DATE     = $(shell date +"%y_%m_%d")
+VERSION  = 
 
 # Make command to use for dependencies
 MAKE    = make
@@ -66,16 +81,24 @@ XX      = g++
 AR      = ar
 LN      = ln
 INSTALL = install
+DEPCMPL = $(CC)
 
 # Warning
 OPTM     = -O2
 OTHER    = -Wno-unused -Wno-format
 WARNING  = -Wall -Werror
 CFLAGS  += $(WARNING)
+OTHFLAGS = 
+
+# support array sort
+ifneq "$(HAVE_THREAD_VALUE)" "0"
+CFLAGS   += -DHAVE_THREAD_VALUE
+LIB_NAME += # threading
+endif
 
 # source of .c and .o
-CSRC   = $(wildcard $(addsuffix /*.c,$(SRC_PATH)))
-CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH)))
+CSRC   = $(wildcard $(addsuffix /*.c,$(SRC_PATH))) $(UNIX_CSRC) $(WIN_CSRC)
+CPPSRC = $(wildcard $(addsuffix /*.cpp,$(SRC_PATH))) $(UNIX_CPPSRC) $(WIN_CPPSRC)
 COBJ   = $(addprefix $(OUTDIR)/,$(subst .c,.o,$(CSRC) $(C_FILE)))
 CPPOBJ = $(addprefix $(OUTDIR)/,$(subst .cpp,.o,$(CPPSRC) $(CPP_FILE)))
 HSRC   = $(wildcard $(addsuffix /*.h,$(SRC_PATH)))
@@ -84,30 +107,45 @@ HSRC   = $(wildcard $(addsuffix /*.h,$(SRC_PATH)))
 CDEF   = $(patsubst %.c,${OUTDIR}/%.d,$(CSRC) $(C_FILE))
 CPPDEF = $(patsubst %.cpp,${OUTDIR}/%.d,$(CPPSRC) $(CPP_FILE))
 
+# -fpic for linux 64, WIN_LINK for windows
+ifeq ("$(BUILD_FOR_WIN)", "")
+OTHFLAGS   += -fpic
+UNIX_CSRC   = $(wildcard $(addsuffix /*.c,$(UNIX_SRC_PATH)))
+UNIX_CPPSRC = $(wildcard $(addsuffix /*.cpp,$(UNIX_SRC_PATH)))
+LIBS_PATH  = $(addprefix -L ,$(LIB_PATH) $(UNIX_LIB_PATH))
+INC         = $(addprefix -I ,$(INC_PATH) $(UNIX_INC_PATH))
+LIB         = $(addprefix -l,$(LIB_NAME) $(UNIX_LIB_NAME))
+else
+WIN_CSRC   = $(wildcard $(addsuffix /*.c,$(WIN_SRC_PATH)))
+WIN_CPPSRC = $(wildcard $(addsuffix /*.cpp,$(WIN_SRC_PATH)))
+WIN_LINK   = -Wl,--export-all-symbols,--out-implib,$(WIN_IMPORT_LIB),--output-def,$(WIN_IMPORT_DEF)
+LIBS_PATH  = $(addprefix -L ,$(LIB_PATH) $(WIN_LIB_PATH))
+INC        = $(addprefix -I ,$(INC_PATH) $(WIN_INC_PATH))
+LIB        = $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
+endif
+LIB_FLAGS := $(LIBS_PATH) $(LIB) $(OTH_LIB)
+
 # deal with cpp
 ifneq "$(CPPOBJ)" ""
 CFLAGS += -lstdc++
+
+# make depend
+DEPCMPL = $(XX)
+
+else
+
+# make depend
+DEPCMPL = $(CC)
+
 endif
 
 # complie
-INC     = $(addprefix -I ,$(INCLUDE_PATH))
-COMPILE = $(CFLAGS) $(INC) -c $< -o $@ #$(OUTDIR)/$(*F).o
-
-#compile share
-ifeq ("$(BUILD_FOR_WIN)", "1")
-LIB= $(addprefix -l,$(LIB_NAME) $(WIN_LIB_NAME))
-else 
-LIB= $(addprefix -l,$(LIB_NAME) $(UNIX_LIB_NAME))
-endif
-
-# make depend
-MAKEDEPEND = gcc -MM -MT
+# INC     = $(addprefix -I ,$(INC_PATH))
+COMPILE = $(CFLAGS) $(OTHFLAGS) $(INC) -c $< -o $@ #$(OUTDIR)/$(*F).o
 
 # header and target LINK
-CUR_DIR_PATH     = $(shell pwd)
-CUR_DIR          = $(shell basename `pwd`)
-TARGET_LIB_PATH  = $(call find_dir,"libs")
-TARGET_INC_PATH  = $(call find_dir,"incs")
+TARGET_LIB_PATH  = $(strip $(call find_dir,"libs"))
+TARGET_INC_PATH  = $(strip $(call find_dir,"incs"))
 FINAL_LIB_TARGET = $(TARGET_LIB_PATH)/$(TARGET_NAME)
 FINAL_INC_TARGET = $(TARGET_INC_PATH)/$(CUR_DIR)
 
@@ -136,8 +174,8 @@ define gen_name
 endef
 
 # gen target name and target 
-NAME         = $(call gen_name,$(TARGET_NAME),$(PROGRAM_TYPE),$(BUILD_FOR_WIN))
-TARGET_NAME := $(strip $(NAME))
+TMP_NAME     = $(strip $(call gen_name,$(TARGET_NAME),$(PROGRAM_TYPE),$(BUILD_FOR_WIN)))
+TARGET_NAME := $(strip $(TMP_NAME))
 TARGET       = $(TARGET_PATH)/$(TARGET_NAME)
 
 # install include
@@ -146,26 +184,31 @@ UNINSTALL_INC_HEADER = $(addprefix $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/
 
 # compile library
 ifeq ($(PROGRAM_TYPE), 0)
-LINK = $(AR) -rs $@ $(COBJ) $(CPPOBJ)
-INC_INSTALL_PERMISSION  = 0444
-LIB_INSTALL_PERMISSION  = 0444
-TARGET_INSTALL_PATH     = $(INSTALL_LIBRARY_PATH)
-TARGET_INSTALL_FROM     = -p -D -m $(LIB_INSTALL_PERMISSION) $(TARGET)
+LINK                   = $(AR) -rcs $@ $(COBJ) $(CPPOBJ)
+DEFFLAGS               = $(CFLAGS)
+INC_INSTALL_PERMISSION = 0444
+LIB_INSTALL_PERMISSION = 0444
+TARGET_INSTALL_PATH    = $(INSTALL_LIBRARY_PATH)
+TARGET_INSTALL_FROM    = -p -D -m $(LIB_INSTALL_PERMISSION) $(TARGET)
 else ifeq ($(PROGRAM_TYPE), 1)
-LINK = $(CC) -shared -fpic $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB)
-INC_INSTALL_PERMISSION  = 0444
-LIB_INSTALL_PERMISSION  = 0555
-TARGET_INSTALL_PATH     = $(INSTALL_LIBRARY_PATH)
-TARGET_INSTALL_FROM     = -p -D -m $(LIB_INSTALL_PERMISSION) $(TARGET)
+LINK                   = $(CC) -shared -fpic $(WIN_LINK) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB_FLAGS)
+DEFFLAGS               = $(CFLAGS)
+INC_INSTALL_PERMISSION = 0444
+LIB_INSTALL_PERMISSION = 0555
+TARGET_INSTALL_PATH    = $(INSTALL_LIBRARY_PATH)
+TARGET_INSTALL_FROM    = -p -D -m $(LIB_INSTALL_PERMISSION) $(TARGET)
+WIN_IMPORT_LIB         = lib$(PROGRAM_NAME).lib
+WIN_IMPORT_DEF         = lib$(PROGRAM_NAME).def
 else 
-LINK = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB)
+LINK                    = $(CC) $(CFLAGS) -o $@ $(COBJ) $(CPPOBJ) $(LIB_FLAGS)
 LIB_INSTALL_PERMISSION  = 0555
 TARGET_INSTALL_PATH     = $(INSTALL_BIN_PATH)
-TARGET_INSTALL_FROM     = -s $(TARGET) -p -D 
+TARGET_INSTALL_FROM     = -s $(TARGET) -p -D
 INSTALL_INC_HEADER     :=
 UNINSTALL_INC_HEADER   :=
 endif
-TARGET_INSTALL_TO = $(INSTALL_ROOT_PATH)/$(TARGET_INSTALL_PATH)/$(TARGET)
+TARGET_INSTALL_TO = $(INSTALL_ROOT_PATH)/$(TARGET_INSTALL_PATH)/$(PLATFORM)/$(TARGET)
+MAKEDEPEND = $(DEPCMPL) $(DEFFLAGS) -MM -MT
 
 all:$(TARGET)
 $(OUTDIR) :  
@@ -189,8 +232,8 @@ $(TARGET_PATH):
 	-@$(call make_dir,$@)
 $(TARGET) : $(OUTDIR) $(COBJ) $(CPPOBJ) $(TARGET_PATH) 
 	$(LINK)
-	-@$(shell test $(PROGRAM_TYPE) -ne 2 && test -n "$(LINK_LIB)" && test $(LINK_LIB) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME))
-	-@$(shell test $(PROGRAM_TYPE) -ne 2 && test -n "$(LINK_INC)" && test $(LINK_INC) -eq 1 && $(LN) -sf $(CUR_DIR_PATH)/ $(TARGET_INC_PATH)/)
+	-$(call link_lib,$(PROGRAM_TYPE),$(LINK_TAR),$(LINK_LIB),$(CUR_PATH)/$(TARGET_NAME),$(TARGET_LIB_PATH),$(TARGET_NAME))
+	-$(call link_inc_dir,$(PROGRAM_TYPE),$(LINK_TAR),$(LINK_INC),$(CUR_PATH),$(TARGET_INC_PATH))
 -include $(CDEF)
 -include $(CPPDEF)
 
@@ -209,6 +252,7 @@ clean :
 # Clean this project and all dependencies
 cleanall : clean
 	-$(RM) -f $(CDEF) $(CPPDEF)
+	-$(RM) -f $(WIN_IMPORT_LIB) $(WIN_IMPORT_DEF)
 	$(call remove_dir,$(OUTDIR))
 	$(call remove_dir,$(TARGET_PATH))
 
@@ -219,7 +263,7 @@ $(INSTALL_INC_HEADER):
 	-$(INSTALL) -p -D -m $(INC_INSTALL_PERMISSION) $(subst $(INSTALL_ROOT_PATH)/$(INSTALL_INCLUDE_PATH)/,,$@) $@
 uninstall: 
 	-$(RM) -f $(UNINSTALL_INC_HEADER)
-	-$(RM) -f $(INSTALL_ROOT_PATH)/$(TARGET_INSTALL_PATH)/$(TARGET)
+	-$(RM) -f $(TARGET_INSTALL_TO)
 
 # make directory
 define make_dir
@@ -251,4 +295,81 @@ define find_dir
 		done; \
 	)
 endef
+
+# get compile tool chain name
+define get_tool_chain_name
+	$(shell \
+		set +x; \
+		tool_chain=$(1); \
+		name=""; \
+		if [ "$$tool_chain" = "i686-w64-mingw32-gcc" ] ; then \
+			name="mingw32"; \
+		else \
+			name=`$(1) --version | sed -n "/gcc/s/.*gcc\ *(\(.*\))/\1/p" | awk -F ' ' '{print $$1}'`; \
+		fi ; \
+		if [ -z "$$name" ] ; then \
+			name="unkown"; \
+		fi ; \
+		echo "$$name"; \
+	)
+endef
+
+# link library
+# 1 -- param type
+# 2 -- link target flag
+# 3 -- link library flag
+# 4 -- from path
+# 5 -- target path
+# 6 -- target name
+define link_lib
+	$(shell \
+		set +x; \
+		type=$(1);\
+		link_tar=$(2);\
+		link_lib=$(3);\
+		from_path=$(4);\
+		target_path=$(5);\
+		target_name=$(6);\
+		if [ $$type -gt 1 -o $$link_tar -ne 1 -o $$link_lib -ne 1 -o -z $$from_path ] ; then \
+			exit 0; \
+		fi ;\
+		if [ -z "$$target_path" ] ; then \
+			exit 0; \
+		fi ;\
+		if [ ! -e $$target_path ] ; then \
+			exit 0; \
+		fi ;\
+		ln -sf $$from_path $$target_path/$$target_name; \
+	)
+endef
+
+# link include directory
+# 1 -- param type
+# 2 -- link target flag
+# 3 -- link include flag
+# 4 -- from path
+# 5 -- target path
+define link_inc_dir
+	$(shell \
+		set +x; \
+		type=$(1);\
+		link_tar=$(2);\
+		link_lib=$(3);\
+		from_path=$(4);\
+		target_path=$(5);\
+		if [ $$type -gt 1 -o $$link_tar -ne 1 -o $$link_lib -ne 1 -o -z $$from_path ] ; then \
+			exit 0; \
+		fi ;\
+		if [ -z "$$target_path" ] ; then \
+			exit 0; \
+		fi ;\
+		if [ ! -e $$target_path ] ; then \
+			exit 0; \
+		fi ;\
+		ln -sf $$from_path $$target_path/; \
+	)
+endef
+
+# $(shell test $(PROGRAM_TYPE) -ne 2 && test $(#TARGET_LIB_PATH) -gt 0 && test $(LINK_TAR) -eq 1 && test $(LINK_LIB) -eq 1 && $(LN) -sf $(CUR_PATH)/$(TARGET_NAME) $(TARGET_LIB_PATH)/$(TARGET_NAME))
+# $(shell test $(PROGRAM_TYPE) -ne 2 && test -n "$(TARGET_INC_PATH)" && test $(LINK_TAR) -eq 1 && test $(LINK_INC) -eq 1 && $(LN) -sf $(CUR_PATH)/ $(TARGET_INC_PATH)/)
 
