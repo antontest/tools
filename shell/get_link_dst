@@ -1,0 +1,84 @@
+#! /bin/bash
+# Name : test
+# Func : 
+# Time : 2018-01-30 09:15:55
+
+# check parameters
+if [ $# -ne 2 ]; then
+    exit 0
+fi
+
+# variable define
+index=0
+src_t=$1
+dst_t=$2
+declare -A src
+declare -A dst
+declare -A src_path
+declare -A dst_path
+
+# gen array src
+i=0
+for v in $src_t; do
+    src[$i]=$v
+    let i=i+1
+done
+
+# gen array dst
+i=0
+for v in $dst_t; do
+    dst[$i]=$v
+    let i=i+1
+done
+
+# link file
+# echo ${src[@]}
+# echo ${dst[@]}
+# src=("./" "./jni" "./log.h")
+# dst=("../../../incs/" "../../../libs/" "../../../incs/")
+for vd in ${dst[@]}; do
+    vs=${src[$index]}
+    dirn=`dirname $vs`
+    if [ -f $vs ]; then
+        name=`basename $vs`
+        cd `dirname $vs`
+        cur_p=`pwd`
+        cd - > /dev/null
+        src_p=$cur_p/$name
+    elif [ -d $vs ] ; then
+        cd $vs
+        cur_p=`pwd`
+        name=`basename $cur_p`
+        src_p=$cur_p
+        cd - > /dev/null
+    else
+        if [ -d $dirn ]; then
+            cd $dirn
+            cur_p=`pwd`
+            name=`basename $vs`
+            src_p=$cur_p/$name
+            cd - > /dev/null
+        else
+            let index=index+1
+            continue
+        fi
+    fi
+
+    if [ ! -d $vd ]; then
+        mkdir -p $vd
+    fi
+
+    cd $vd
+    p=`pwd`
+    cd - > /dev/null
+    dst_path[$index]=$p/$name
+    src_path[$p/$name]=$src_p
+    let index=index+1
+done
+
+for v in ${dst_path[@]}; do
+    echo $v
+    #s=${src_path[$v]}
+    # echo $s $d
+    # ln -sf $s $d
+done

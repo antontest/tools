@@ -1,0 +1,88 @@
+#! /bin/bash
+# Name : configure_makefile
+# Func : configure makefile
+# Time : 2018-02-06 09:19:42
+
+# parameters list:
+#  1. choices
+#  2. list tips
+#  3. choose tips
+
+# color
+TTY_RESET="\033[0m"
+TTY_BOLD="\033[1m"
+TTY_UNDERLINE="\033[4m"
+TTY_FG_BLACK="\033[30m"
+TTY_FG_RED="\033[31m"
+TTY_FG_GREEN="\033[32m"
+TTY_FG_YELLOW="\033[33m"
+TTY_FG_BLUE="\033[34m"
+TTY_FG_MAGENTA="\033[35m"
+TTY_FG_CYAN="\033[36m"
+TTY_FG_WHITE="\033[36m"
+TTY_FG_DEF="\033[39m"
+TTY_BG_BLACK="\033[40m"
+TTY_BG_RED="\033[41m"
+TTY_BG_GREEN="\033[42m"
+TTY_BG_YELLOW="\033[43m"
+TTY_BG_BLUE="\033[44m"
+TTY_BG_MAGENTA="\033[45m"
+TTY_BG_CYAN="\033[46m"
+TTY_BG_WHITE="\033[47m"
+TTY_BG_DEF="\033[49m"
+
+# color style
+type_color=${TTY_BOLD}${TTY_FG_MAGENTA}
+default_color=${TTY_BOLD}${TTY_FG_CYAN}
+select_color=${TTY_BOLD}${TTY_UNDERLINE}${TTY_FG_RED}
+
+# declare variables
+config_file=.config
+declare -A choices
+input_choices=$1
+type_tips=$2
+
+# echo list tips
+echo -e "build ${type_color}$2${TTY_RESET} type choices are: "
+
+# get choices
+i=0
+for v in ${input_choices}; do
+	echo -e "    $i. ${TTY_BOLD}${TTY_UNDERLINE}$v${TTY_RESET}"
+	choices[$i]=$v
+	let i=i+1
+done
+i=0
+for v in "$@"; do
+	cmd_params[$i]="$v"
+	let i=i+1
+	# echo $v
+done
+
+# echo choose tips
+echo -en "whice ${type_color}${type_tips}${TTY_RESET} would you like? [${default_color}${choices[0]}${TTY_RESET}] "
+
+# get choose input
+read choose
+if [ -z "${choose}" ]; then
+	choose=0
+fi
+input_choice=${choices[${choose}]}
+if [ -z "${input_choice}" ]; then
+	input_choice=${choices[0]}
+	choose=0
+fi
+echo -e "choices ${type_color}${type_tips}${TTY_RESET} ${TTY_BOLD}you select${TTY_RESET}: ${select_color}${choices[${choose}]}${TTY_RESET}\n"
+
+# get choices
+let cmd_param_choice=choose+2
+cmd_param=${cmd_params[${cmd_param_choice}]}
+
+# set parameters
+if [ -n "${cmd_param}" ]; then
+	for p in ${cmd_param}; do
+		# echo p.$p
+		echo $p >> ${config_file}
+	done
+fi
+
